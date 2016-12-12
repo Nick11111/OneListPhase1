@@ -6,39 +6,34 @@
 
 
 <div class="container">
-    <div class="card card-container">
+    <ul class="nav nav-pills col-lg-4 col-lg-offset-4">
+        <li class="active"><a href="#register" aria-controls="register" data-toggle="tab">Register</a></li>
+        <li><a href="#login" aria-controls="login" data-toggle="tab">Login</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="register">
         <form class="form-signin col-lg-4 col-lg-offset-4">
-            <h2>Login</h2>
-            <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-            <input type="email" class="form-control" placeholder="Email address" required autofocus>
+                <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                <input type="text" class="form-control" placeholder="Your name" required autofocus><br>
+                <input type="email" class="form-control" placeholder="Email address" required ><br>
+                <input type="password" class="form-control" placeholder="Create Password" required><br>
+                <input type="password" class="form-control" placeholder="Comfirm Password" required><br>
+                <button class="btn btn-lg btn-info btn-signin" type="submit">Register</button><br />
+            </form>
+        </div>
+        <div class="tab-pane" id="login">
+        <form class="form-signin col-lg-4 col-lg-offset-4">
+            <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /><br>
+            <input type="email" class="form-control" placeholder="Email address" required autofocus><br>
             <input type="password" class="form-control" placeholder="Password" required>
             <div id="remember" class="checkbox">
                 <label>
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            <button class="btn btn-lg btn-info btn-signin" type="submit">Sign in</button><br/>
+            <button class="btn btn-lg btn-info btn-signin" type="submit">Sign in</button><br />
             <a href="#" class="forgot-password">Forgot the password?</a>
         </form>
+        </div>
     </div>
-</div>
-
-<div>
-
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
-        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Profile</a></li>
-        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>
-        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div role="tabpanel" class="tab-pane active" id="home">...</div>
-        <div role="tabpanel" class="tab-pane" id="profile">ddd</div>
-        <div role="tabpanel" class="tab-pane" id="messages">fff</div>
-        <div role="tabpanel" class="tab-pane" id="settings">ttt</div>
-    </div>
-
 </div>
