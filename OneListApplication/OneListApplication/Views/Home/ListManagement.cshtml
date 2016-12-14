@@ -9,9 +9,9 @@
 <h2>List Management</h2>
 
 <ul class="nav nav-pills nav-justified">
-    <li>@Html.ActionLink("List management", "ListManagement", "Home")</li>
-    <li>@Html.ActionLink("Create List", "CreateList", "Home")</li>
-    <li role="presentation"><a href="#">Activity Log</a></li>
+    <li class="nav-item">@Html.ActionLink("List management", "ListManagement", "Home", new { @class = "nav-link active" })</li>
+    <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "Home", new { @class = "nav-link" })</li>
+    <li class="nav-item"><a href="#">Activity Log</a></li>
 </ul>
 
 <table class="table table-inverse">
