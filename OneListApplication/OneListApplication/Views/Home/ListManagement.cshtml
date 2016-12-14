@@ -9,9 +9,10 @@
 <h2>List Management</h2>
 
 <ul class="nav nav-pills nav-justified">
-    <li class="nav-item">@Html.ActionLink("List management", "ListManagement", "Home", new { @class = "nav-link active" })</li>
-    <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "Home", new { @class = "nav-link" })</li>
-    <li class="nav-item"><a href="#">Activity Log</a></li>
+    <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "List", new { @class = "nav-link active" })</li>
+    <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "List", new { @class = "nav-link" })</li>
+    <li class="nav-item"><a href="#">Completed Lists</a></li>
+    <li class="nav-item"><a href="#">Subscribed Lists</a></li>
 </ul>
 
 <table class="table table-inverse">
@@ -34,10 +35,9 @@
             <td>June 24, 2016</td>
             <td>Grocery</td>
             <td>Greg, Alan ...</td>
-            <td><button type="button" class="btn btn-primary">Delete</button></td>
-            <td><button type="button" class="btn btn-primary">Edit</button></td>
-            <td><button type="button" class="btn btn-primary">Details</button></td>
-
+            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
         </tr>
         <tr>
             <td>2</td>
@@ -45,9 +45,9 @@
             <td>Sep 24, 2016</td>
             <td>To Do</td>
             <td>Alice, Alan ...</td>
-            <td><button type="button" class="btn btn-primary">Delete</button></td>
-            <td><button type="button" class="btn btn-primary">Edit</button></td>
-            <td><button type="button" class="btn btn-primary">Details</button></td>
+            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
         </tr>
         <tr>
             <td>3</td>
@@ -55,9 +55,9 @@
             <td>Dec 24, 2016</td>
             <td>Task</td>
             <td>Greg, Alan ...</td>
-            <td><button type="button" class="btn btn-primary">Delete</button></td>
-            <td><button type="button" class="btn btn-primary">Edit</button></td>
-            <td><button type="button" class="btn btn-primary">Details</button></td>
+            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
         </tr>
     </tbody>
 </table>
