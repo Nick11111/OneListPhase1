@@ -5,13 +5,14 @@
 }
 
 @Html.Partial("~/Views/Home/Sidebar.cshtml");
-<div class="col-sm-offset-2">
+<div id="wrapper">
 <h2>List Management</h2>
 
 <ul class="nav nav-pills nav-justified">
-    <li>@Html.ActionLink("List management", "ListManagement", "Home")</li>
-    <li>@Html.ActionLink("Create List", "CreateList", "Home")</li>
-    <li role="presentation"><a href="#">Activity Log</a></li>
+    <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "List", new { @class = "nav-link active" })</li>
+    <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "List", new { @class = "nav-link" })</li>
+    <li class="nav-item"><a href="#">Completed Lists</a></li>
+    <li class="nav-item"><a href="#">Subscribed Lists</a></li>
 </ul>
 
 <table class="table table-inverse">
@@ -22,6 +23,9 @@
             <th>Date</th>
             <th>List Type</th>
             <th>Subscribers</th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -31,6 +35,9 @@
             <td>June 24, 2016</td>
             <td>Grocery</td>
             <td>Greg, Alan ...</td>
+            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
         </tr>
         <tr>
             <td>2</td>
@@ -38,6 +45,9 @@
             <td>Sep 24, 2016</td>
             <td>To Do</td>
             <td>Alice, Alan ...</td>
+            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
         </tr>
         <tr>
             <td>3</td>
@@ -45,6 +55,9 @@
             <td>Dec 24, 2016</td>
             <td>Task</td>
             <td>Greg, Alan ...</td>
+            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
         </tr>
     </tbody>
 </table>
