@@ -28,6 +28,11 @@ namespace OneListApplication.Controllers
             return View();
         }
 
+        public ActionResult CreateList()
+        {
+            return View();
+        }
+
         public ActionResult Sidebar()
         {
             return View();
