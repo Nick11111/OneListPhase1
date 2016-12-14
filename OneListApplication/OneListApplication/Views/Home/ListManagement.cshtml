@@ -9,7 +9,7 @@
 <h2>List Management</h2>
 
 <ul class="nav nav-pills nav-justified">
-    <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "List", new { @class = "nav-link active" })</li>
+    <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "Home", new { @class = "nav-link active" })</li>
     <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "List", new { @class = "nav-link" })</li>
     <li class="nav-item"><a href="#">Completed Lists</a></li>
     <li class="nav-item"><a href="#">Subscribed Lists</a></li>
@@ -37,7 +37,7 @@
             <td>Greg, Alan ...</td>
             <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
             <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
-            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" })</td>
         </tr>
         <tr>
             <td>2</td>
@@ -47,7 +47,7 @@
             <td>Alice, Alan ...</td>
             <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
             <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
-            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" })</td>
         </tr>
         <tr>
             <td>3</td>
@@ -57,7 +57,7 @@
             <td>Greg, Alan ...</td>
             <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
             <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
-            <td>@Html.ActionLink("Details", "ShowListDetails", "Home", new { @class = "btn btn-primary" })</td>
+            <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" })</td>
         </tr>
     </tbody>
 </table>

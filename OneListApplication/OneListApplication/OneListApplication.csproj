@@ -183,8 +183,8 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Views\Home\ListManagement.cshtml" />
     <Content Include="Views\Home\Sidebar.cshtml" />
-    <Content Include="Views\Home\CreateList.cshtml" />
-    <Content Include="Views\Home\ShowListDetails.cshtml" />
+    <Content Include="Views\List\CreateList.cshtml" />
+    <Content Include="Views\List\ShowListDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -195,7 +195,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\List\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

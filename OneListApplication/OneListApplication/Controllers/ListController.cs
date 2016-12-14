@@ -9,10 +9,6 @@ namespace OneListApplication.Controllers
     public class ListController : Controller
     {
         // GET: List
-        public ActionResult ListManagement()
-        {
-            return View();
-        }
 
         public ActionResult CreateList()
         {
