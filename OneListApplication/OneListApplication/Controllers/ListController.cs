@@ -6,27 +6,23 @@ using System.Web.Mvc;
 
 namespace OneListApplication.Controllers
 {
-    public class HomeController : Controller
+    public class ListController : Controller
     {
-        // GET: Home
-        public ActionResult Index()
+        // GET: List
+        public ActionResult ListManagement()
         {
             return View();
         }
 
-        public ActionResult Login()
+        public ActionResult CreateList()
         {
             return View();
         }
 
-        public ActionResult Home()
+        public ActionResult ShowListDetails()
         {
             return View();
         }
 
-        public ActionResult Sidebar()
-        {
-            return View();
-        }
     }
 }
