@@ -182,6 +182,7 @@
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="Views\Home\ListManagement.cshtml" />
     <Content Include="Views\Home\Sidebar.cshtml" />
+    <Content Include="Views\Home\CreateList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
