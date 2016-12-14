@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("~/Views/Home/Sidebar.cshtml");
+
+
+<div class="col-sm-offset-2">
+    <h2>Profile Information</h2>
+    <h3 for="selectItemGroup" style="float:left; width:100%; text-align:center">Information Details</h3>
+    <img src="https://www.bcitfsa.ca/wp-content/uploads/2016/03/paul_mills.jpg" style="float:left ; width:50%; width:200px; height:200px;"/>
+    <table class="table table-inverse" style="float:left ; width:50%">
+        <thead>
+            <tr>
+                <th>Information</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>FirstName</b></td>
+                <td>Paul</td>
+            </tr>
+            <tr>
+                <td><b>LastName</b></td>
+                <td>Mills</td>
+            </tr>
+            <tr>
+                <td><b>BirthDate</b></td>
+                <td>1966/09/23</td>
+            </tr>
+            <tr>
+                <td><b>email</b></td>
+                <td>paul.mills@bcit.ca</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><button type="submit" class="btn btn-primary">Edit Information</button><button type="submit" class="btn btn-primary">Change Password</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

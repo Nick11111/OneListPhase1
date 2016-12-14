@@ -3,11 +3,12 @@
     ViewBag.Title = "ShowListDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @Html.Partial("~/Views/Home/Sidebar.cshtml");
 <div class="col-sm-offset-2">
     <h2>List Details</h2>
     <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "List", new { @class = "nav-link active" })</li>
+        <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "Home", new { @class = "nav-link active" })</li>
         <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "List", new { @class = "nav-link" })</li>
         <li class="nav-item"><a href="#">Completed Lists</a></li>
         <li class="nav-item"><a href="#">Subscribed Lists</a></li>
@@ -60,6 +61,6 @@
             </tr>
         </tbody>
     </table>
-    @Html.ActionLink("Back to Lists", "ListManagement", "List", new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to Lists", "ListManagement", "Home", new { @class = "btn btn-primary" })
 
 </div>

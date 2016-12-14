@@ -6,19 +6,12 @@ using System.Web.Mvc;
 
 namespace OneListApplication.Controllers
 {
-    public class ListController : Controller
+    public class ProfileController : Controller
     {
-        // GET: List
-
-        public ActionResult CreateList()
+        // GET: Profile
+        public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult ShowListDetails()
-        {
-            return View();
-        }
-
     }
 }
