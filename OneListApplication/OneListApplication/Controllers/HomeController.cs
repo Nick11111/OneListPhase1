@@ -27,5 +27,10 @@ namespace OneListApplication.Controllers
         {
             return View();
         }
+
+        public ActionResult Sidebar()
+        {
+            return View();
+        }
     }
 }
