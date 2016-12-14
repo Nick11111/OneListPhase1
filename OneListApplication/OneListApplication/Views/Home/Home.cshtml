@@ -4,20 +4,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <!-- Custom CSS -->
-<link href="~/Css/sb-admin.css" rel="stylesheet" />
-<!-- Morris Charts CSS -->
-<link href="~/Css/morris.css" rel="stylesheet" />
+
 <div id="wrapper">
     <!-- Navigation -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
                 <li class="active">
-                    <a href="index.html"><i class="fa fa-fw fa-home"></i>Home</a>
+                    <a href="#"><i class="fa fa-fw fa-home"></i>Home</a>
                 </li>
                 <li>
-                    @Html.ActionLink("List","ListManagement","Home" )
+                    @Html.ActionLink("List", "ListManagement", "Home")
                 </li>
                 <li>
                     <a href="tables.html"><i class="fa fa-fw fa-table"></i>Items</a>
@@ -301,6 +298,3 @@
     </div>
     <!-- /#page-wrapper -->
 </div>
-<script src="~/Scripts/plugins/morris/raphael.min.js"></script>
-<script src="~/Scripts/plugins/morris/morris.min.js"></script>
-<script src="~/Scripts/plugins/morris/morris-data.js"></script>

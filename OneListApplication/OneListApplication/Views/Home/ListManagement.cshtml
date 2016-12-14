@@ -4,6 +4,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav side-nav">
+        <li class="active">
+            @Html.ActionLink("Home", "Home", "Home")
+        </li>
+        <li>
+            <a href="#"><i class="fa fa-fw fa-list-ol"></i>List</a>
+        </li>
+        <li>
+            <a href="tables.html"><i class="fa fa-fw fa-table"></i>Items</a>
+        </li>
+        <li>
+            <a href="forms.html"><i class="fa fa-fw fa-users"></i>Subscriber</a>
+        </li>
+        <li>
+            <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i>Profile</a>
+        </li>
+    </ul>
+</div>
+
+<div class="col-sm-offset-2">
 <h2>List Management</h2>
 
 <ul class="nav nav-pills nav-justified">
@@ -47,3 +68,4 @@
     </tbody>
 </table>
 
+</div>
