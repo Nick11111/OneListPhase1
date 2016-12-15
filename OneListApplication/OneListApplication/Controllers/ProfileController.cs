@@ -13,5 +13,13 @@ namespace OneListApplication.Controllers
         {
             return View();
         }
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        public ActionResult Edit()
+        {
+            return View();
+        }
     }
 }

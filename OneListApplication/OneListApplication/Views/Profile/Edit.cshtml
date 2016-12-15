@@ -8,8 +8,8 @@
 
 <div class="col-sm-offset-2">
     <h2>Profile Information</h2>
-    <h3 for="selectItemGroup" style="float:left; width:100%; text-align:center">Information Details</h3>
-    <img src="https://www.bcitfsa.ca/wp-content/uploads/2016/03/paul_mills.jpg" style="float:left ; width:50%; width:200px; height:200px;"/>
+    <h3 for="selectItemGroup" style="float:left; width:100%; text-align:center">Edit Information</h3>
+    <img src="https://kenanfellows.org/wp-content/uploads/2016/02/blank-profile-picture-973460_960_720.png" style="float:left ; width:50%; width:200px; height:200px;" />
     <table class="table table-inverse" style="float:left ; width:50%">
         <thead>
             <tr>
@@ -20,27 +20,24 @@
         <tbody>
             <tr>
                 <td><b>FirstName</b></td>
-                <td>Paul</td>
+                <td><input type="text" value="Paul" /></td>
             </tr>
             <tr>
                 <td><b>LastName</b></td>
-                <td>Mills</td>
+                <td><input type="text" value="Mills" /></td>
             </tr>
             <tr>
                 <td><b>BirthDate</b></td>
-                <td>1966/09/23</td>
+                <td><input type="text" value="1966/09/23" /></td>
             </tr>
             <tr>
                 <td><b>email</b></td>
-                <td>paul.mills@bcit.ca</td>
+                <td><input type="text" value="paul.mills@bcit.ca" /></td>
             </tr>
             <tr>
                 <td></td>
-                <td><button  class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Profile")';return false;">Edit Information</button><button  class="btn btn-primary" onclick="location.href='@Url.Action("ChangePassword", "Profile")';return false;">Change Password</button></td>
+                <td><button class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Profile")';return false;">Save Changes</button></td>
             </tr>
         </tbody>
     </table>
-    <div style="clear:both">
-    @Html.ActionLink("Return to Profile Information", "Index", "Profile")
-    </div>
 </div>
