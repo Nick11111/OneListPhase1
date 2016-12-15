@@ -15,6 +15,11 @@ namespace OneListApplication.Controllers
             return View();
         }
 
+        public ActionResult EditList()
+        {
+            return View();
+        }
+
         public ActionResult ShowListDetails()
         {
             return View();
