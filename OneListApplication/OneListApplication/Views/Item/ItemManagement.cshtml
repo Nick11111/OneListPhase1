@@ -6,7 +6,7 @@
 @Html.Partial("~/Views/Home/Sidebar.cshtml");
 
 <div id="wrapper">
-<h2>Item</h2>
+<h2>Avaliable Items</h2>
     <div>
     <ul class="nav nav-pills nav-justified">
         <li class="nav-item">@Html.ActionLink("Avaliable Items", "ItemManagement", "Item", new { @class = "nav-link active" }, null)</li>
@@ -17,22 +17,22 @@
     </div>
     <div>
         <ul id="avaItems" ondragstart="">
-            <li draggable="true"><a href="#">Flower</a></li>
-            <li draggable="true"><a href="#">Cucumber</a></li>
-            <li draggable="true"><a href="#">Beef</a></li>
-            <li draggable="true"><a href="#">Pork</a></li>
-            <li draggable="true"><a href="#">Chicken Breast</a></li>
-            <li draggable="true"><a href="#">Chicken Wing</a></li>
-            <li draggable="true"><a href="#">Lamb Chop</a></li>
-            <li draggable="true"><a href="#">Tomato</a></li>
-            <li draggable="true"><a href="#">Photato</a></li>
-            <li draggable="true"><a href="#">Rice</a></li>
-            <li draggable="true"><a href="#">Paper</a></li>
-            <li draggable="true"><a href="#">Printer</a></li>
-            <li draggable="true"><a href="#">Notebook</a></li>
-            <li draggable="true"><a href="#">USB</a></li>
-            <li draggable="true"><a href="#">Christmas Lights</a></li>
+            <li draggable="true">@Html.ActionLink("Flower", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Cucumber", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Beef", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Pork", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Chicken Breast", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Chicken Wing", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Lamb Chop", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Tomato", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Photato", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Rice", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Paper", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Printer", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Notebook", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("USB", "ItemDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Christmas Lights", "ItemDetail", "Item")</li>
         </ul>
-        <button type="button" class="btn btn-info col-lg-2 col-lg-offset-4">Add New</button>
+        <button type="button" class="btn btn-primary col-lg-2 col-lg-offset-4">Add New</button>
     </div>
 </div>
