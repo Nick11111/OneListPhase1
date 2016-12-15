@@ -197,6 +197,10 @@
     <Content Include="Views\List\ShowListDetails.cshtml" />
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
     <Content Include="Views\Home\_SidebarAdmin.cshtml" />
+    <Content Include="Views\Subscriber\AddSubscriber.cshtml" />
+    <Content Include="Views\Subscriber\EditSubGroup.cshtml" />
+    <Content Include="Views\Subscriber\SubGroupDetails.cshtml" />
+    <Content Include="Views\Subscriber\SubscriberTab.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
