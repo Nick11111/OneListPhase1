@@ -1,19 +1,19 @@
 ﻿<div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
         <li class="active">
-            @Html.ActionLink("Home", "Home", "Home")
+            @Html.ActionLink(" Home", "Home", "Home", new { @class = "glyphicon glyphicon-home" })
         </li>
         <li>
-            @Html.ActionLink("List", "ListManagement", "Home")
+            @Html.ActionLink(" List", "ListManagement", "Home", new { @class = "glyphicon glyphicon-list" })
         </li>
         <li>
             <a href="tables.html"><i class="fa fa-fw fa-table"></i>Items</a>
         </li>
         <li>
-            <a href="forms.html"><i class="fa fa-fw fa-users"></i>Subscriber</a>
+            @Html.ActionLink(" Subscriber", "SubscriberManagement", "Home", new {@class= "glyphicon glyphicon-user" })
         </li>
         <li>
-            @Html.ActionLink("Profile", "Index", "Profile")
+            @Html.ActionLink(" Profile", "Index", "Profile", new {@class= "glyphicon glyphicon-cog" })
         </li>
     </ul>
 </div>
