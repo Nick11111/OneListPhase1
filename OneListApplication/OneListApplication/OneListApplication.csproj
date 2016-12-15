@@ -127,6 +127,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Css\font-awesome.css" />
     <Content Include="Css\index.css" />
+    <Content Include="Css\item.css" />
     <Content Include="Css\morris.css" />
     <Content Include="Css\sb-admin.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -151,6 +152,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
@@ -189,6 +191,14 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\ChangePassword.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
+    <Content Include="Views\List\CreateList.cshtml" />
+    <Content Include="Views\List\ShowCompleteList.cshtml" />
+    <Content Include="Views\List\ShowListDetails.cshtml" />
+    <Content Include="Views\List\ShowSubscribedList.cshtml" />
+    <Content Include="Views\Item\ItemManagement.cshtml" />
+    <Content Include="Views\Item\CreateItem.cshtml" />
+    <Content Include="Views\Item\CreateItemGroup.cshtml" />
+    <Content Include="Views\Item\ItemGroupManagement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -199,7 +209,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\List\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

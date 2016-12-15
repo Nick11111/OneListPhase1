@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "ItemManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("~/Views/Home/Sidebar.cshtml");
+
+<div id="wrapper">
+<h2>Item</h2>
+    <div>
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">@Html.ActionLink("Avaliable Items", "ItemManagement", "Item", new { @class = "nav-link active" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Create Item", "CreateItem", "Item", new { @class = "nav-link" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Avaliable Item Group", "ItemGroupManagement", "Item", new { @class = "nav-link" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Create Item Group", "CreateItemGroup", "Item", new { @class = "nav-link" }, null)</li>
+    </ul>
+    </div>
+    <div>
+        <ul id="avaItems" ondragstart="">
+            <li draggable="true"><a href="#">Flower</a></li>
+            <li draggable="true"><a href="#">Cucumber</a></li>
+            <li draggable="true"><a href="#">Beef</a></li>
+            <li draggable="true"><a href="#">Pork</a></li>
+            <li draggable="true"><a href="#">Chicken Breast</a></li>
+            <li draggable="true"><a href="#">Chicken Wing</a></li>
+            <li draggable="true"><a href="#">Lamb Chop</a></li>
+            <li draggable="true"><a href="#">Tomato</a></li>
+            <li draggable="true"><a href="#">Photato</a></li>
+            <li draggable="true"><a href="#">Rice</a></li>
+            <li draggable="true"><a href="#">Paper</a></li>
+            <li draggable="true"><a href="#">Printer</a></li>
+            <li draggable="true"><a href="#">Notebook</a></li>
+            <li draggable="true"><a href="#">USB</a></li>
+            <li draggable="true"><a href="#">Christmas Lights</a></li>
+        </ul>
+        <button type="button" class="btn btn-info col-lg-2 col-lg-offset-4">Add New</button>
+    </div>
+</div>

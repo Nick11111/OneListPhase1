@@ -1,0 +1,8 @@
+﻿#avaItems {
+    list-style:none;
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+    margin-top:30px;
+    font-size:1.3em;
+}
