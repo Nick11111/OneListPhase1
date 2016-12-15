@@ -185,6 +185,8 @@
     <Content Include="Views\Home\Sidebar.cshtml" />
     <Content Include="Views\List\CreateList.cshtml" />
     <Content Include="Views\List\ShowListDetails.cshtml" />
+    <Content Include="Views\List\ShowSubscribedList.cshtml" />
+    <Content Include="Views\List\ShowCompleteList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

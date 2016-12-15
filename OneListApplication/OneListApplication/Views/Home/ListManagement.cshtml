@@ -5,61 +5,61 @@
 }
 
 @Html.Partial("~/Views/Home/Sidebar.cshtml");
-<div id="wrapper">
-<h2>List Management</h2>
+<div class="col-sm-offset-2">
+    <h2>List Management</h2>
 
-<ul class="nav nav-pills nav-justified">
-    <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "Home", new { @class = "nav-link active"}, null)</li>
-    <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "List", new { @class = "nav-link"}, null)</li>
-    <li class="nav-item"><a href="#">Completed Lists</a></li>
-    <li class="nav-item"><a href="#">Subscribed Lists</a></li>
-</ul>
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "Home", new { @class = "nav-link active" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "List", new { @class = "nav-link" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Completed Lists", "ShowCompleteList", "List", new { @class = "nav-link" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Subscribed Lists", "ShowSubscribedList", "List", new { @class = "nav-link" }, null)</li>
+    </ul>
 
-<table class="table table-inverse">
-    <thead>
-        <tr>
-            <th>List ID</th>
-            <th>List Name</th>
-            <th>Date</th>
-            <th>List Type</th>
-            <th>Subscribers</th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td>My Grocery</td>
-            <td>June 24, 2016</td>
-            <td>Grocery</td>
-            <td>Greg, Alan ...</td>
-            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
-            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
-            <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" }, null)</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>House Repair</td>
-            <td>Sep 24, 2016</td>
-            <td>To Do</td>
-            <td>Alice, Alan ...</td>
-            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
-            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
-            <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" }, null)</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Science Project</td>
-            <td>Dec 24, 2016</td>
-            <td>Task</td>
-            <td>Greg, Alan ...</td>
-            <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
-            <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
-            <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" }, null)</td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table table-inverse">
+        <thead>
+            <tr>
+                <th>List ID</th>
+                <th>List Name</th>
+                <th>Date</th>
+                <th>List Type</th>
+                <th>Subscribers</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>My Grocery</td>
+                <td>June 24, 2016</td>
+                <td>Grocery</td>
+                <td>Greg, Alan ...</td>
+                <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+                <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+                <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" }, null)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>House Repair</td>
+                <td>Sep 24, 2016</td>
+                <td>To Do</td>
+                <td>Alice, Alan ...</td>
+                <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+                <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+                <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" }, null)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Science Project</td>
+                <td>Dec 24, 2016</td>
+                <td>Task</td>
+                <td>Greg, Alan ...</td>
+                <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
+                <td><a class="btn btn-primary" href="#" role="button">Edit</a></td>
+                <td>@Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" }, null)</td>
+            </tr>
+        </tbody>
+    </table>
 
 </div>

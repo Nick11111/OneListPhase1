@@ -20,5 +20,15 @@ namespace OneListApplication.Controllers
             return View();
         }
 
+        public ActionResult ShowSubscribedList()
+        {
+            return View();
+        }
+
+        public ActionResult ShowCompleteList()
+        {
+            return View();
+        }
+
     }
 }
