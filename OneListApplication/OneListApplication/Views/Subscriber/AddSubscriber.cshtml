@@ -9,7 +9,31 @@
 <div class="col-sm-offset-2">
     <h2>Add New Subscriber</h2>
     @Html.Partial("~/Views/Subscriber/SubscriberTab.cshtml");
+    <form>
+        <div class="form-group">
+            <label for="group-title" class="col-xs-2 col-form-label">Group Title</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="group-title" placeholder="Enter title">
+                <small id="titleHelp" class="form-text text-muted">You may change the title later.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="subscriberTextarea" class="col-xs-2 col-form-label">Subscribers</label>
+            <div class="col-xs-10">
+                <textarea class="form-control" id="subscriberTextarea" rows="4"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="notesTextarea" class="col-xs-2 col-form-label">Notes</label>
+            <div class="col-xs-10">
+                <textarea class="form-control" id="notesTextarea" rows="4"></textarea>
+            </div>
+        </div>
+        <label for="itemTextarea" class="col-xs-2 col-form-label"></label>
+        <div class="col-xs-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
 
-
+    </form>
 
 </div>
