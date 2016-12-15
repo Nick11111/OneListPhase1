@@ -3,5 +3,49 @@
 }
 
 body {
+    /*
     background-image: url('../Content/image/bg1.jpg');
+    */
+    background-color: #e3e3d3 !important;
+}
+
+#page-wrapper {
+    box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.2);
+}
+
+li.nav-item {
+    background-color: #222222;
+}
+
+li.nav-item a{
+    color: white;
+    border-radius: 0;
+}
+
+li.nav-item a:hover{
+    color: black;
+}
+
+.breadcrumb {
+    background-color: transparent;
+}
+
+.navbar {
+    height: 60px;
+}
+
+.navbar-brand {
+    background-image:url('../images/logo.png');
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 40px;
+}
+
+a.navbar-brand {
+    color: transparent !important;
+    margin-top: 10px;
+}
+
+.navbar-nav li a {
+    line-height: 40px;
 }
