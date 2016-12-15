@@ -1,11 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "CreateItemGroup";
+    ViewBag.Title = "ItemGroupDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @Html.Partial("~/Views/Home/Sidebar.cshtml");
 <div id="wrapper">
-    <h2>Create Item Group</h2>
+    <h2>Edit Item Group</h2>
     <ul class="nav nav-pills nav-justified">
         <li class="nav-item">@Html.ActionLink("Avaliable Items", "ItemManagement", "Item", new { @class = "nav-link active" }, null)</li>
         <li class="nav-item">@Html.ActionLink("Create Item", "CreateItem", "Item", new { @class = "nav-link" }, null)</li>
@@ -16,19 +17,17 @@
         <div class="form-group">
             <label for="list-title" class="col-xs-2 col-form-label">Group Name</label>
             <div class="col-xs-10">
-                <input type="text" class="form-control" id="list-title" aria-describedby="emailHelp" placeholder="Enter group name" required>
+                <input type="text" class="form-control" id="list-title" aria-describedby="emailHelp" placeholder="Grocery Items" required>
             </div>
         </div><br />
         <div class="form-group">
             <label for="subscriberTextarea" class="col-xs-2 col-form-label">Description</label>
             <div class="col-xs-10">
-                <textarea class="form-control" id="subscriberTextarea" rows="4"></textarea>
+                <textarea class="form-control" id="subscriberTextarea" rows="4">List of weekly grocery items for shopping </textarea>
             </div>
-        </div><br />
-        <label for="itemTextarea" class="col-xs-2 col-form-label"></label>
-        <div class="col-xs-10">
+        </div>
+        <div class="col-xs-10 col-xs-offset-2">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
     </form>
 </div>
-

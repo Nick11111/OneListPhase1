@@ -25,6 +25,14 @@ namespace OneListApplication.Controllers
         {
             return View();
         }
-        
+
+        public ActionResult ItemDetail()
+        {
+            return View();
+        }
+        public ActionResult ItemGroupDetail()
+        {
+            return View();
+        }
     }
 }
