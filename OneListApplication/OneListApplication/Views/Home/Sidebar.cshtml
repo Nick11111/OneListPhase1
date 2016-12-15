@@ -1,19 +1,19 @@
 ﻿<div class="collapse navbar-collapse navbar-ex1-collapse">
     <ul class="nav navbar-nav side-nav">
         <li class="active">
-            @Html.ActionLink(" Home", "Home", "Home", null, new { @class = "glyphicon glyphicon-home" })
+            <a href="@Url.Action("Home", "Home")" class="btn btn-primary"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
         </li>
         <li>
-            @Html.ActionLink(" List", "ListManagement", "Home", null, new { @class = "glyphicon glyphicon-list" })
+            <a href="@Url.Action("ListManagement", "Home")" class="btn btn-primary"><i class="fa fa-list-ul" aria-hidden="true"></i>List</a>
         </li>
         <li>
-            @Html.ActionLink(" Items", "ItemManagement", "Item", null, new { @class = "glyphicon glyphicon-th" })
+            <a href="@Url.Action("ItemManagement", "Item")" class="btn btn-primary"><i class="fa fa-th" aria-hidden="true"></i>Items</a>
         </li>
         <li>
-            @Html.ActionLink(" Subscriber", "SubscriberManagement", "Home", null, new {@class= "glyphicon glyphicon-user" })
+            <a href="@Url.Action("SubscriberManagement", "Home")" class="btn btn-primary"><i class="fa fa-users" aria-hidden="true"></i>Subscriber</a>
         </li>
         <li>
-            @Html.ActionLink(" Profile", "Index", "Profile", null, new {@class= "glyphicon glyphicon-cog" })
+            <a href="@Url.Action("Index","Profile")" class="btn btn-primary"><i class="fa fa-address-card-o" aria-hidden="true"></i>Profile</a>
         </li>
     </ul>
 </div>

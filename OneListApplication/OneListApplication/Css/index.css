@@ -1,4 +1,8 @@
-﻿
+﻿/*
+    font-family: 'Rubik', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+*/
+
 body {
     /*
     background-image: url('../Content/image/bg1.jpg');
@@ -47,6 +51,21 @@ a.navbar-brand {
 
 .navbar-nav li a {
     line-height: 40px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.1em;
+    border-radius: 0;
+}
+
+.side-nav li a {
+    text-align: left;
+    background-color: slategrey;
+}
+
+.side-nav li .btn-primary {
+    border-color: #222;
+}
+.navbar-nav li a i {
+    margin-right: 15px;
 }
 
 table {
@@ -60,3 +79,4 @@ td {
 .table>thead>tr>th {
     border-bottom: 1px solid #222;
 }
+
