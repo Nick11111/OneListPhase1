@@ -49,3 +49,15 @@ a.navbar-brand {
 .navbar-nav li a {
     line-height: 40px;
 }
+
+table {
+    margin-top: 20px;
+}
+
+td {
+    border: 1px solid #222;
+}
+
+.table>thead>tr>th {
+    border-bottom: 1px solid #222;
+}
