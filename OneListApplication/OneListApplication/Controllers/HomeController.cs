@@ -29,6 +29,11 @@ namespace OneListApplication.Controllers
             return View();
         }
 
+        public ActionResult SubscriberManagement()
+        {
+            return View();
+        }
+
         public ActionResult Sidebar()
         {
             return View();
