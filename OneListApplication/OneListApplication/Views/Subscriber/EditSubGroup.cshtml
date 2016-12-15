@@ -56,12 +56,9 @@
 
         <div class="form-group">
             <label for="inviteTextarea" class="col-xs-2 col-form-label">Invite Subscriber</label>
-            <div class="col-xs-5">
+            <div class="col-xs-10">
                 <textarea class="form-control" id="inviteTextarea" rows="1" placeholder="Enter name or email address..."></textarea>
                 
-            </div>
-            <div class="col-xs-5">
-                @Html.ActionLink("Send Invitation", "SubGroupDetails", "Subscriber", null, new { @class = "btn btn-primary" })
             </div>
         </div>
         <div class="form-group">
@@ -69,8 +66,12 @@
             <div class="col-xs-10">
                 <textarea class="form-control" id="note-detail" rows="2"></textarea>
             </div>
+            <label for="note-detail" class="col-xs-2 col-form-label">&nbsp;</label>
+            <div class="col-xs-10">
+                @Html.ActionLink("Send Invitation", "SubGroupDetails", "Subscriber", null, new { @class = "btn btn-primary" })
+            </div>
         </div>
-        <div class="col-xs-10">
+        <div class="col-xs-12">
             @Html.ActionLink("Save Changes", "SubGroupDetails", "Subscriber", null, new { @class = "btn btn-success" })
         </div>
 </form>

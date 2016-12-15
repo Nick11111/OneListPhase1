@@ -113,6 +113,23 @@
                 </tbody>
             </table>
         </div>
+        <div class="form-group">
+            <label for="inviteTextarea" class="col-xs-2 col-form-label">Invite Subscriber</label>
+            <div class="col-xs-10">
+                <textarea class="form-control" id="inviteTextarea" rows="1" placeholder="Enter name or email address..."></textarea>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="note-detail" class="col-xs-2 col-form-label">Invitation Message</label>
+            <div class="col-xs-10">
+                <textarea class="form-control" id="note-detail" rows="2"></textarea>
+            </div>
+            <label for="note-detail" class="col-xs-2 col-form-label">&nbsp;</label>
+            <div class="col-xs-10">
+                @Html.ActionLink("Send Invitation", "SubGroupDetails", "Subscriber", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
         <label for="itemTextarea" class="col-xs-2 col-form-label"></label>
         <div class="col-xs-12">
             <button type="submit" class="btn btn-success">Save Changes</button>
