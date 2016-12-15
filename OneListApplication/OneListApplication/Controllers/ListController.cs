@@ -9,10 +9,6 @@ namespace OneListApplication.Controllers
     public class ListController : Controller
     {
         // GET: List
-        public ActionResult ListManagement()
-        {
-            return View();
-        }
 
         public ActionResult CreateList()
         {
@@ -20,6 +16,16 @@ namespace OneListApplication.Controllers
         }
 
         public ActionResult ShowListDetails()
+        {
+            return View();
+        }
+
+        public ActionResult ShowSubscribedList()
+        {
+            return View();
+        }
+
+        public ActionResult ShowCompleteList()
         {
             return View();
         }
