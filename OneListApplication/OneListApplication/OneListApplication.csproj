@@ -212,6 +212,7 @@
     <Content Include="Views\Item\ItemGroupDetail.cshtml" />
     <Content Include="Views\List\EditList.cshtml" />
     <Content Include="Views\Home\SubscriberManagement.cshtml" />
+    <Content Include="Views\_SidebarAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
