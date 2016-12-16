@@ -15,19 +15,19 @@
     </ul>
 
     <form>
-        <div class="form-group">
+        <div class="form-group row">
             <label for="list-title" class="col-xs-2 col-form-label">List Title</label>
             <div class="col-xs-10">
                 <input type="text" class="form-control" id="list-title" aria-describedby="emailHelp" value="My Grocery">
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label for="selectListType" class="col-xs-2 col-form-label">Creation Date</label>
             <div class="col-xs-10">
                 <p>June 24, 2016</p>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <label for="selectItemGroup" class="col-xs-2 col-form-label">List Type</label>
             <div class="col-xs-10">
                 <select class="form-control" id="selectItemGroup">
@@ -38,7 +38,25 @@
                 </select>
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
+            <label for="inviteTextarea" class="col-xs-2 col-form-label">Invite Subscriber</label>
+            <div class="col-xs-10">
+                <textarea class="form-control" id="inviteTextarea" rows="1" placeholder="Enter name or email address..."></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="note-detail" class="col-xs-2 col-form-label">Invitation Message</label>
+            <div class="col-xs-10">
+                <textarea class="form-control" id="note-detail" rows="2"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="note-detail" class="col-xs-2 col-form-label">&nbsp;</label>
+            <div class="col-xs-10">
+                @Html.ActionLink("Send Invitation", "SubGroupDetails", "Subscriber", null, new { @class = "btn btn-primary" })
+            </div>
+        </div>
+        <div class="form-group row">
             <table class="table">
                 <thead class="thead-default">
                     <tr>
@@ -75,10 +93,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="form-group">
+        <div class="form-group row">
             <table class="table">
                 <thead class="thead-inverse">
                     <tr>
+                        <th></th>
                         <th>List Item</th>
                         <th>Price</th>
                         <th></th>
@@ -86,26 +105,31 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td><input type="checkbox" value=""></td>
                         <td>Avacado x 2</td>
                         <td><input value="2.5"/></td>
                         <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
                     </tr>
                     <tr>
+                        <td><input type="checkbox" value=""></td>
                         <td>Paper towel x 9</td>
                         <td><input value="2.5" /></td>
                         <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
                     </tr>
                     <tr>
+                        <td><input type="checkbox" value=""></td>
                         <td>Oranges</td>
                         <td><input value="9.99" /></td>
                         <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
                     </tr>
                     <tr>
+                        <td><input type="checkbox" value=""></td>
                         <td>Cake Mix</td>
                         <td><input value="13.5" /></td>
                         <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
                     </tr>
                     <tr>
+                        <td><input type="checkbox" value=""></td>
                         <td>Whip Cream</td>
                         <td><input value="15" /></td>
                         <td><a class="btn btn-primary" href="#" role="button">Delete</a></td>
@@ -113,29 +137,13 @@
                 </tbody>
             </table>
         </div>
-        <div class="form-group">
-            <label for="inviteTextarea" class="col-xs-2 col-form-label">Invite Subscriber</label>
-            <div class="col-xs-10">
-                <textarea class="form-control" id="inviteTextarea" rows="1" placeholder="Enter name or email address..."></textarea>
 
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="note-detail" class="col-xs-2 col-form-label">Invitation Message</label>
-            <div class="col-xs-10">
-                <textarea class="form-control" id="note-detail" rows="2"></textarea>
-            </div>
-            <label for="note-detail" class="col-xs-2 col-form-label">&nbsp;</label>
-            <div class="col-xs-10">
-                @Html.ActionLink("Send Invitation", "SubGroupDetails", "Subscriber", null, new { @class = "btn btn-primary" })
-            </div>
-        </div>
         <label for="itemTextarea" class="col-xs-2 col-form-label"></label>
         <div class="col-xs-12">
-            <button type="submit" class="btn btn-success">Save Changes</button>
-            <button type="submit" class="btn btn-info">Complete List</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-success">Complete List</button>
         </div>
-    </form>
+</form>
 
 </div>
 

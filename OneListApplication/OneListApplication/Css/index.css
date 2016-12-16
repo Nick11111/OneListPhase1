@@ -7,11 +7,11 @@ body {
     /*
     background-image: url('../Content/image/bg1.jpg');
     */
-    background-color: #e3e3d3 !important;
+    background-color: white !important;
 }
 
 #page-wrapper {
-    box-shadow: 5px 5px 5px 0 rgba(0,0,0,0.2);
+    border: 1px solid grey;
 }
 
 li.nav-item {
@@ -25,8 +25,8 @@ li.nav-item a{
 }
 
 li.nav-item a:hover{
-    color: black;
-    background-color: slategrey;
+    color: #337ab7;
+    background-color: black;
 }
 
 .breadcrumb {
@@ -58,7 +58,7 @@ a.navbar-brand {
 
 .side-nav li a {
     text-align: left;
-    background-color: slategrey;
+    background-color: black;
 }
 
 .side-nav li .btn-primary {
@@ -73,10 +73,13 @@ table {
 }
 
 td {
-    border: 1px solid #222;
+    border-bottom: 0px solid #222;
 }
 
 .table>thead>tr>th {
     border-bottom: 1px solid #222;
 }
 
+img {
+    margin-right: 20px;
+}

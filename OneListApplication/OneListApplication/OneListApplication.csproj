@@ -210,6 +210,7 @@
     <Content Include="Views\Subscriber\SubscriberTab.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
     <Content Include="Views\Item\ItemGroupDetail.cshtml" />
+    <Content Include="Views\List\EditList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
