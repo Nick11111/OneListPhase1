@@ -128,6 +128,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Css\font-awesome.css" />
     <Content Include="Css\index.css" />
+    <Content Include="Css\item.css" />
     <Content Include="Css\morris.css" />
     <Content Include="Css\sb-admin.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -154,8 +155,10 @@
     <Compile Include="Business Logic\CookieHelper.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
+    <Compile Include="Controllers\SubscriberController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -191,12 +194,21 @@
     <Content Include="Views\Profile\ChangePassword.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Item\CreateItem.cshtml" />
+    <Content Include="Views\Item\CreateItemGroup.cshtml" />
+    <Content Include="Views\Item\ItemGroupManagement.cshtml" />
+    <Content Include="Views\Item\ItemManagement.cshtml" />
     <Content Include="Views\List\CreateList.cshtml" />
     <Content Include="Views\List\ShowCompleteList.cshtml" />
     <Content Include="Views\List\ShowListDetails.cshtml" />
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
-    <Content Include="Views\Home\_SidebarAdmin.cshtml" />
-    <None Include="Properties\PublishProfiles\onelistca - Web Deploy.pubxml" />
+    <Content Include="Views\Subscriber\AddSubscriber.cshtml" />
+    <Content Include="Views\Subscriber\EditSubGroup.cshtml" />
+    <Content Include="Views\Subscriber\SubGroupDetails.cshtml" />
+    <Content Include="Views\Subscriber\SubscriberTab.cshtml" />
+    <Content Include="Views\Item\ItemDetail.cshtml" />
+    <Content Include="Views\Item\ItemGroupDetail.cshtml" />
+    <Content Include="Views\List\EditList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

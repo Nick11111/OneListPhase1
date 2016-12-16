@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "ItemGroupManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("~/Views/Home/Sidebar.cshtml");
+
+<div id="wrapper">
+    <h2>Avaliable Item Groups</h2>
+    <div>
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">@Html.ActionLink("Avaliable Items", "ItemManagement", "Item", new { @class = "nav-link active" }, null)</li>
+            <li class="nav-item">@Html.ActionLink("Create Item", "CreateItem", "Item", new { @class = "nav-link" }, null)</li>
+            <li class="nav-item">@Html.ActionLink("Avaliable Item Group", "ItemGroupManagement", "Item", new { @class = "nav-link" }, null)</li>
+            <li class="nav-item">@Html.ActionLink("Create Item Group", "CreateItemGroup", "Item", new { @class = "nav-link" }, null)</li>
+        </ul>
+    </div>
+    <div>
+        <ul id="avaItems" ondragstart="">
+            <li draggable="true">@Html.ActionLink("Grocery Items", "ItemGroupDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Stationary", "ItemGroupDetail", "Item")</li>
+            <li draggable="true">@Html.ActionLink("Bill Items", "ItemGroupDetail", "Item")</li>
+        </ul>
+        <a class="btn btn-primary col-lg-2 col-lg-offset-4" href="CreateItemGroup">Add New</a>
+    </div>
+</div>

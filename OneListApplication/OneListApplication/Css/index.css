@@ -1,7 +1,85 @@
-﻿#title {
-    color:cyan;
-}
+﻿/*
+    font-family: 'Rubik', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+*/
 
 body {
+    /*
     background-image: url('../Content/image/bg1.jpg');
+    */
+    background-color: white !important;
+}
+
+#page-wrapper {
+    border: 1px solid grey;
+}
+
+li.nav-item {
+    background-color: #222222;
+    border-right:1px solid white;
+}
+
+li.nav-item a{
+    color: white;
+    border-radius: 0;
+}
+
+li.nav-item a:hover{
+    color: #337ab7;
+    background-color: black;
+}
+
+.breadcrumb {
+    background-color: transparent;
+}
+
+.navbar {
+    height: 60px;
+}
+
+.navbar-brand {
+    background-image:url('../images/logo.png');
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 40px;
+}
+
+a.navbar-brand {
+    color: transparent !important;
+    margin-top: 10px;
+}
+
+.navbar-nav li a {
+    line-height: 40px;
+    font-family: 'Rubik', sans-serif;
+    font-size: 1.1em;
+    border-radius: 0;
+}
+
+.side-nav li a {
+    text-align: left;
+    background-color: black;
+}
+
+.side-nav li .btn-primary {
+    border-color: #222;
+}
+.navbar-nav li a i {
+    margin-right: 15px;
+}
+
+table {
+    margin-top: 20px;
+}
+
+td {
+    border-bottom: 0px solid #222;
+}
+
+.table>thead>tr>th {
+    border-bottom: 1px solid #222;
+}
+
+img {
+    margin-right: 20px;
 }

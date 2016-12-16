@@ -6,28 +6,32 @@
 @Html.Partial("~/Views/Home/Sidebar.cshtml");
 <div class="col-sm-offset-2">
     <h2>Family Group Details</h2>
-    @Html.Partial("~/Views/Subscriber/SubscriberTab.cshtml");
+    @Html.Partial("~/Views/Subscriber/SubscriberTab.cshtml")
 
     <h3>Family</h3>
     <table class="table">
         <thead class="thead-inverse">
             <tr>
                 <th>Group Subscribers</th>
+                <th>Subscriber Status</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>Greg Willow</td>
-            </tr>
-            <tr>
-                <td>Alice Smith</td>
+                <td>Subscriber</td>
             </tr>
             <tr>
                 <td>Alan Wong</td>
+                <td>Subscriber</td>
+            </tr>
+            <tr>
+                <td>Alice Smith</td>
+                <td>Collaborator</td>
             </tr>
         </tbody>
     </table>
   
-   @Html.ActionLink("Back to Subscriber Groups", "SubscriberManagement", "Home", new { @class = "btn btn-primary" }, null)
+   @Html.ActionLink("Back to Subscriber Groups", "SubscriberManagement", "Home", null, new { @class = "btn btn-primary" })
 
 </div>

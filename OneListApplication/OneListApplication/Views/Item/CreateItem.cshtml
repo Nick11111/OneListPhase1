@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "CreateItem";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Partial("~/Views/Home/Sidebar.cshtml");
+
+<div id="wrapper">
+    <h2>Create Item</h2>
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">@Html.ActionLink("Avaliable Items", "ItemManagement", "Item", new { @class = "nav-link active" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Create Item", "CreateItem", "Item", new { @class = "nav-link" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Avaliable Item Group", "ItemGroupManagement", "Item", new { @class = "nav-link" }, null)</li>
+        <li class="nav-item">@Html.ActionLink("Create Item Group", "CreateItemGroup", "Item", new { @class = "nav-link" }, null)</li>
+    </ul>
+    <form>
+        <div class="form-group">
+            <label for="list-title" class="col-xs-2 col-form-label">Item Name</label>
+            <div class="col-xs-10">
+                <input type="text" class="form-control" id="list-title" aria-describedby="emailHelp" placeholder="Enter name" required>
+            </div>
+        </div><br />
+        <div class="form-group">
+            <label for="list-title" class="col-xs-2 col-form-label">Item Price</label>
+            <div class="col-xs-10">
+                <input type="number" class="form-control" id="list-title" aria-describedby="emailHelp" placeholder="Enter price">
+            </div>
+        </div><br />
+        <div class="form-group">
+            <label for="selectItemGroup" class="col-xs-2 col-form-label">Select Item Group</label>
+            <div class="col-xs-10">
+                <select class="form-control" id="selectItemGroup">
+                    <option>Grocery Items</option>
+                    <option>Stationary</option>
+                    <option>Bill Items</option>
+                </select>
+            </div>
+        </div><br />
+        <div class="form-group">
+            <label for="subscriberTextarea" class="col-xs-2 col-form-label">Description</label>
+            <div class="col-xs-10">
+                <textarea class="form-control" id="subscriberTextarea" rows="4"></textarea>
+            </div>
+        </div><br />
+        <div class="col-xs-10">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
