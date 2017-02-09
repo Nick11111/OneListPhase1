@@ -212,6 +212,9 @@
     <Content Include="Views\List\EditList.cshtml" />
     <Content Include="Views\Home\SubscriberManagement.cshtml" />
     <Content Include="Views\Admin\_SidebarAdmin.cshtml" />
+    <None Include="Properties\PublishProfiles\OneList.pubxml" />
+    <None Include="Properties\PublishProfiles\takethisapart.com - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\takethisapart.com - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
