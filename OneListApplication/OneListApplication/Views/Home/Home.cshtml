@@ -7,7 +7,7 @@
 @Html.Partial("~/Views/Home/Sidebar.cshtml");
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-<script>
+@*<script>
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
@@ -28,7 +28,7 @@
 
         chart.draw(data, options);
     }
-</script>
+</script>*@
 <div id="wrapper">
       <div id="page-wrapper">
         <div class="container-fluid">
@@ -74,7 +74,7 @@
                     </div>
             </div>
             <!-- /.row -->
-            <div class="row">
+            @*<div class="row">
                 <div class="col-lg-6">
                     <div id="piechart" style="width: 550px; height: 500px;"></div>
                 </div>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
         <!-- /.container-fluid -->
     </div>
     <!-- /#page-wrapper -->
