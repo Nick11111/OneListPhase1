@@ -1,3 +1,4 @@
+--part 1--
 USE [master]
 
 GO
@@ -15,13 +16,16 @@ GO
 
 USE [OneListCA]
 GO
-/****** Object:  Table [dbo].[Item]    Script Date: 2/9/2017 1:43:32 PM ******/
+--part 2--
+USE [OneListCA]
+GO
+/****** Object:  Table [dbo].[Item]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Item](
-	[ItemID] [int] NOT NULL,
+	[ItemID] [int] IDENTITY(1,1) NOT NULL,
 	[UserID] [int] NOT NULL,
 	[ItemName] [nvarchar](50) NULL,
 	[ItemDescription] [nvarchar](50) NULL,
@@ -33,7 +37,7 @@ CREATE TABLE [dbo].[Item](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ItemCategory]    Script Date: 2/9/2017 1:43:32 PM ******/
+/****** Object:  Table [dbo].[ItemCategory]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -48,15 +52,15 @@ CREATE TABLE [dbo].[ItemCategory](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[List]    Script Date: 2/9/2017 1:43:32 PM ******/
+/****** Object:  Table [dbo].[List]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[List](
-	[ListID] [int] NOT NULL,
+	[ListID] [int] IDENTITY(1,1) NOT NULL,
 	[CreatorID] [int] NOT NULL,
-	[ListName] [nchar](10) NOT NULL,
+	[ListName] [nchar](50) NOT NULL,
 	[ListTypeID] [int] NOT NULL,
 	[CreationDate] [date] NOT NULL,
 	[ListStatusID] [int] NOT NULL,
@@ -67,13 +71,13 @@ CREATE TABLE [dbo].[List](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ListItem]    Script Date: 2/9/2017 1:43:32 PM ******/
+/****** Object:  Table [dbo].[ListItem]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ListItem](
-	[ListID] [int] NOT NULL,
+	[ListID] [int] IDENTITY(1,1) NOT NULL,
 	[ItemID] [int] NOT NULL,
 	[ListItemSolved] [bit] NOT NULL,
 	[ListItemSolver] [int] NOT NULL,
@@ -88,7 +92,7 @@ CREATE TABLE [dbo].[ListItem](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ListStatus]    Script Date: 2/9/2017 1:43:33 PM ******/
+/****** Object:  Table [dbo].[ListStatus]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -103,7 +107,7 @@ CREATE TABLE [dbo].[ListStatus](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ListType]    Script Date: 2/9/2017 1:43:33 PM ******/
+/****** Object:  Table [dbo].[ListType]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +122,7 @@ CREATE TABLE [dbo].[ListType](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ListUser]    Script Date: 2/9/2017 1:43:33 PM ******/
+/****** Object:  Table [dbo].[ListUser]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -136,7 +140,7 @@ CREATE TABLE [dbo].[ListUser](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[User]    Script Date: 2/9/2017 1:43:33 PM ******/
+/****** Object:  Table [dbo].[User]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -157,7 +161,7 @@ CREATE TABLE [dbo].[User](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[UserType]    Script Date: 2/9/2017 1:43:33 PM ******/
+/****** Object:  Table [dbo].[UserType]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -226,4 +230,33 @@ USE [master]
 GO
 ALTER DATABASE [OneListCA] SET  READ_WRITE 
 GO
+
+
 --part 3.- creating default and test information
+
+use[OneListCA]
+--status
+insert into ListStatus(StatusName)values('Created');
+insert into ListStatus(StatusName)values('In progress');
+insert into ListStatus(StatusName)values('Completed');
+--list types
+insert into ListType(TypeName)values('checklist');
+insert into ListType(TypeName)values('groseries');
+--user type
+insert into UserType(UserTypeName) values('Administrator');
+insert into UserType(UserTypeName) values('List Publisher');
+insert into UserType(UserTypeName) values('List Suscriber');
+insert into UserType(UserTypeName) values('List Colaborator');
+--item category
+insert into ItemCategory(ItemCategoryName) values('Things to Do');
+insert into ItemCategory(ItemCategoryName) values('Pendings');
+insert into ItemCategory(ItemCategoryName) values('Work');
+insert into ItemCategory(ItemCategoryName) values('Groseries');
+--users
+insert into [User](FirstName,LastName,BirthDate,Email,Password,Activeuser,ProfilePic)values('Max','Wu','09/15/1989','max@siwu.com','12345','1','');
+insert into [User](FirstName,LastName,BirthDate,Email,Password,Activeuser,ProfilePic)values('Nick','Liu','04/15/1994','nick@liu.com','12345','1','');
+insert into [User](FirstName,LastName,BirthDate,Email,Password,Activeuser,ProfilePic)values('Xavier','Mercado','09/30/1989','xavier@mercado.com','12345','1','');
+--Lists
+insert into List(CreatorID,ListName,ListTypeID,CreationDate,ListStatusID)values(1,'List of things to do',1,GETDATE(),1);
+insert into List(CreatorID,ListName,ListTypeID,CreationDate,ListStatusID)values(2,'Shopping List',1,GETDATE(),1);
+insert into List(CreatorID,ListName,ListTypeID,CreationDate,ListStatusID)values(3,'Groseries List',2,GETDATE(),1);
