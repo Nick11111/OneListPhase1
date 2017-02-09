@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace OneListApplication.Controllers
 {
@@ -11,6 +13,7 @@ namespace OneListApplication.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            ViewBag.date = GetBuildDate();
             return View();
         }
 
@@ -37,6 +40,14 @@ namespace OneListApplication.Controllers
         public ActionResult Sidebar()
         {
             return View();
+        }
+
+        public static DateTime GetBuildDate()
+        {
+            UriBuilder uri = new UriBuilder(Assembly.GetExecutingAssembly().CodeBase);
+            return System.IO.File.GetLastWriteTime(
+                Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path))
+                );
         }
     }
 }
