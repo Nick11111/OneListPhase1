@@ -145,8 +145,10 @@
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\ad.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\paul_mills.jpg" />
+    <Content Include="images\sql.PNG" />
     <Content Include="OneList.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OneList.edmx</DependentUpon>
@@ -285,6 +287,7 @@
     <None Include="Properties\PublishProfiles\OneList.pubxml" />
     <None Include="Properties\PublishProfiles\takethisapart.com - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\takethisapart.com - Web Deploy.pubxml" />
+    <Content Include="Views\Home\GetDesignDocument.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

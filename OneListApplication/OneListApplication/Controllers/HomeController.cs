@@ -49,5 +49,9 @@ namespace OneListApplication.Controllers
                 Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path))
                 );
         }
+        public ActionResult GetDesignDocument()
+        {
+            return View();
+        }
     }
 }

@@ -6,13 +6,13 @@
 <div class="mainDiv" >
     <div class="row">
     <h2 class="col-lg-4 col-lg-offset-4 col-xs-12" id="title">Welcome to the OneList!</h2>
-    <p class="col-lg-6 col-lg-offset-3 col-xs-12">OneList provides the altimate solution for creating list for multiple people.</p>
+    <a class="col-lg-4 col-lg-offset-4 col-xs-12" href="~/Home/GetDesignDocument">Design Document</a>
+    <p class="col-lg-6 col-lg-offset-3 col-xs-12">OneList provides the ultimate solution for creating lists.</p>
     
     <br />
 
     <button class="btn btn-primary col-lg-2 col-lg-offset-5 col-xs-12" onclick="location.href='@Url.Action("Login", "Home")';return false;">Create an Account</button>
     <br />
-    <a class="col-lg-4 col-lg-offset-4 col-xs-12" href="https://docs.google.com/document/d/1ZJd_2mLclKC9QodANm3mzAkklBZodnQdKstqLdgSoLo/edit#heading=h.z6ne0og04bp5">Current Design Document</a>
-    <p class="col-lg-4 col-lg-offset-4 col-xs-12">@ViewBag.date</p>
+    <p class="col-lg-4 col-lg-offset-4 col-xs-12">Latest Build - @ViewBag.date</p>
     </div>
 </div>
