@@ -16,6 +16,8 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Rubik" rel="stylesheet">
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 </head>
 <body>
 
@@ -31,8 +33,27 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li>@Html.ActionLink("Home", "Home", "Home")</li>
-                    <li>@Html.ActionLink("Log In", "Login", "Home")</li>
+                    @{if (!Request.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        }
+                    }
+                    @{if (!Request.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Log In", "Login", "Home")</li>
+                        }
+                    }
+                    @{if (Request.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Home", "Home", "Home")</li>
+                        }
+                    }
+                    @{if (Request.IsAuthenticated)
+                        {
+                            <li>@Html.ActionLink("Log Out", "Logout", "Home")</li>
+                        }
+                    }
+
                 </ul>
             </div>
         </div>
