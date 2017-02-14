@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
+using OneListApplication.Service;
 
 namespace OneListApplication.Controllers
 {
@@ -146,8 +147,8 @@ namespace OneListApplication.Controllers
 
                 string email = "Please confirm your account by clicking this link: <a href=\""
                                 + callbackUrl + "\">Confirm Registration</a>";
-                //SendGrid.sendEmail(newUser, callbackUrl);
-                ViewBag.FakeConfirmation = email;
+                SendGrid.sendEmail(newUser, callbackUrl);
+                //ViewBag.FakeConfirmation = email;
             }
             return View();
         }
@@ -202,7 +203,7 @@ namespace OneListApplication.Controllers
                                          protocol: Request.Url.Scheme);
             ViewBag.FakeEmailMessage = "Please reset your password by clicking <a href=\""
                                      + callbackUrl + "\">here</a>";
-            //SendGrid.sendResetEmail(user.Email, user.UserName, callbackUrl);
+            SendGrid.sendResetEmail(user.Email, user.UserName, callbackUrl);
             return View();
         }
 

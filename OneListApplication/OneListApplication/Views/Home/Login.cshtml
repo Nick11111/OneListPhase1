@@ -46,8 +46,9 @@
                 </label>
             </div>
             <button class="btn btn-primary btn-signin" type="submit">Sign in</button><br />
-            <a href="#" class="forgot-password">Forgot the password?</a>
-            <a>@Html.ActionLink("Log In as Admin", "Index", "Admin")</a>
+            @*<a href="#" class="forgot-password">Forgot the password?</a>*@
+            @Html.ActionLink("Forgot Password", "ForgotPassword","Home")
+            @Html.ActionLink("Log In as Admin", "Index", "Admin")
         @*</form>*@ 
      }
         </div>

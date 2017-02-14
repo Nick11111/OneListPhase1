@@ -38,7 +38,6 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                         }
                     }
-                    @*<li>@Html.ActionLink("Home", "Home", "Home")</li>*@
                     @{if (!Request.IsAuthenticated)
                         {
                             <li>@Html.ActionLink("Log In", "Login", "Home")</li>
