@@ -1,4 +1,5 @@
-﻿
+﻿@model  OneListApplication.Models.LoginVM
+
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,11 +8,12 @@
 
 <div class="container">
     <ul class="nav nav-pills col-lg-3 col-lg-offset-5">
-        <li class="active"><a href="#register" aria-controls="register" data-toggle="tab">Register</a></li>
-        <li><a href="#login" aria-controls="login" data-toggle="tab">Login</a></li>
+
+        <li class="active"><a href="#login" aria-controls="login" data-toggle="tab">Login</a></li>
+        <li>@Html.ActionLink("Register", "Register", "Home")</li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane active" id="register">
+        @*<div class="tab-pane active" id="register">
         <form class="form-signin col-lg-4 col-lg-offset-4">
                 <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"/>
                 <input type="text" class="form-control" placeholder="Your name" required autofocus><br>
@@ -19,13 +21,25 @@
                 <input type="password" class="form-control" placeholder="Create Password" required><br>
                 <input type="password" class="form-control" placeholder="Comfirm Password" required><br>
                 <button class="btn btn-primary btn-signin" type="submit">Register</button><br />
-            </form>
-        </div>
-        <div class="tab-pane" id="login">
-        <form class="form-signin col-lg-4 col-lg-offset-4">
+         </form>
+        </div>*@
+        <div class="tab-pane active" id="login">
+     @using (Html.BeginForm("Login", "Home",
+            new { ReturnUrl = ViewBag.ReturnUrl },
+            FormMethod.Post, new { @class = "form-signin col-lg-4 col-lg-offset-4" } ))
+     {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @*<form class="form-signin col-lg-4 col-lg-offset-4">*@
             <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /><br>
-            <input type="email" class="form-control" placeholder="Email address" required autofocus><br>
-            <input type="password" class="form-control" placeholder="Password" required>
+            @*<input type="email" class="form-control" placeholder="Email address" required autofocus><br>*@
+            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "User Name" } })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+            @*<input type="password" class="form-control" placeholder="Password" required>*@
             <div id="remember" class="checkbox">
                 <label>
                     <input type="checkbox" value="remember-me"> Remember me
@@ -34,7 +48,8 @@
             <button class="btn btn-primary btn-signin" type="submit">Sign in</button><br />
             <a href="#" class="forgot-password">Forgot the password?</a>
             <a>@Html.ActionLink("Log In as Admin", "Index", "Admin")</a>
-        </form>
+        @*</form>*@ 
+     }
         </div>
     </div>
 </div>
