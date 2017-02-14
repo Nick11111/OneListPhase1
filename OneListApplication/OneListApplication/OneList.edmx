@@ -5,6 +5,18 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="OneListCAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="CouponID" />
+          </Key>
+          <Property Name="CouponID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DiscountPercentage" Type="float" Nullable="false" />
+          <Property Name="RetailID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndingDate" Type="date" Nullable="false" />
+        </EntityType>
         <EntityType Name="Item">
           <Key>
             <PropertyRef Name="ItemID" />
@@ -70,6 +82,16 @@
           <Property Name="ListUserStatus" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Retail">
+          <Key>
+            <PropertyRef Name="RetailID" />
+          </Key>
+          <Property Name="RetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telephone" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -90,6 +112,18 @@
           <Property Name="UserTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserTypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Coupon_Retail">
+          <End Role="Retail" Type="Self.Retail" Multiplicity="1" />
+          <End Role="Coupon" Type="Self.Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retail">
+              <PropertyRef Name="RetailID" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="RetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Item_Item">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
@@ -211,6 +245,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OneListCAModelStoreContainer">
+          <EntitySet Name="Coupon" EntityType="Self.Coupon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Item" EntityType="Self.Item" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemCategory" EntityType="Self.ItemCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="List" EntityType="Self.List" Schema="dbo" store:Type="Tables" />
@@ -218,8 +253,13 @@
           <EntitySet Name="ListStatus" EntityType="Self.ListStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListType" EntityType="Self.ListType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListUser" EntityType="Self.ListUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Retail" EntityType="Self.Retail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Coupon_Retail" Association="Self.FK_Coupon_Retail">
+            <End Role="Retail" EntitySet="Retail" />
+            <End Role="Coupon" EntitySet="Coupon" />
+          </AssociationSet>
           <AssociationSet Name="FK_Item_Item" Association="Self.FK_Item_Item">
             <End Role="User" EntitySet="User" />
             <End Role="Item" EntitySet="Item" />
@@ -266,6 +306,19 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="OneListCAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="CouponID" />
+          </Key>
+          <Property Name="CouponID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiscountPercentage" Type="Double" Nullable="false" />
+          <Property Name="RetailID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Retail" Relationship="Self.FK_Coupon_Retail" FromRole="Coupon" ToRole="Retail" />
+        </EntityType>
         <EntityType Name="Item">
           <Key>
             <PropertyRef Name="ItemID" />
@@ -346,6 +399,17 @@
           <NavigationProperty Name="User" Relationship="Self.FK_ListUser_ListUser" FromRole="ListUser" ToRole="User" />
           <NavigationProperty Name="UserType" Relationship="Self.FK_ListUser_UserType" FromRole="ListUser" ToRole="UserType" />
         </EntityType>
+        <EntityType Name="Retail">
+          <Key>
+            <PropertyRef Name="RetailID" />
+          </Key>
+          <Property Name="RetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Coupons" Relationship="Self.FK_Coupon_Retail" FromRole="Retail" ToRole="Coupon" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -371,6 +435,18 @@
           <Property Name="UserTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ListUsers" Relationship="Self.FK_ListUser_UserType" FromRole="UserType" ToRole="ListUser" />
         </EntityType>
+        <Association Name="FK_Coupon_Retail">
+          <End Role="Retail" Type="Self.Retail" Multiplicity="1" />
+          <End Role="Coupon" Type="Self.Coupon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Retail">
+              <PropertyRef Name="RetailID" />
+            </Principal>
+            <Dependent Role="Coupon">
+              <PropertyRef Name="RetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Item_Item">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="Item" Type="Self.Item" Multiplicity="*" />
@@ -492,6 +568,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="OneListCAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Coupons" EntityType="Self.Coupon" />
           <EntitySet Name="Items" EntityType="Self.Item" />
           <EntitySet Name="ItemCategories" EntityType="Self.ItemCategory" />
           <EntitySet Name="Lists" EntityType="Self.List" />
@@ -499,8 +576,13 @@
           <EntitySet Name="ListStatus" EntityType="Self.ListStatu" />
           <EntitySet Name="ListTypes" EntityType="Self.ListType" />
           <EntitySet Name="ListUsers" EntityType="Self.ListUser" />
+          <EntitySet Name="Retails" EntityType="Self.Retail" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <AssociationSet Name="FK_Coupon_Retail" Association="Self.FK_Coupon_Retail">
+            <End Role="Retail" EntitySet="Retails" />
+            <End Role="Coupon" EntitySet="Coupons" />
+          </AssociationSet>
           <AssociationSet Name="FK_Item_Item" Association="Self.FK_Item_Item">
             <End Role="User" EntitySet="Users" />
             <End Role="Item" EntitySet="Items" />
@@ -548,6 +630,19 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="OneListCAModelStoreContainer" CdmEntityContainer="OneListCAEntities">
+          <EntitySetMapping Name="Coupons">
+            <EntityTypeMapping TypeName="OneListCAModel.Coupon">
+              <MappingFragment StoreEntitySet="Coupon">
+                <ScalarProperty Name="CouponID" ColumnName="CouponID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+                <ScalarProperty Name="RetailID" ColumnName="RetailID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndingDate" ColumnName="EndingDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="OneListCAModel.Item">
               <MappingFragment StoreEntitySet="Item">
@@ -616,6 +711,17 @@
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="ListUserStatus" ColumnName="ListUserStatus" />
                 <ScalarProperty Name="SuscriptionDate" ColumnName="SuscriptionDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Retails">
+            <EntityTypeMapping TypeName="OneListCAModel.Retail">
+              <MappingFragment StoreEntitySet="Retail">
+                <ScalarProperty Name="RetailID" ColumnName="RetailID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

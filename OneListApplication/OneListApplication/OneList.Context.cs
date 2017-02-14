@@ -25,6 +25,7 @@ namespace OneListApplication
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Coupon> Coupons { get; set; }
         public virtual DbSet<Item> Items { get; set; }
         public virtual DbSet<ItemCategory> ItemCategories { get; set; }
         public virtual DbSet<List> Lists { get; set; }
@@ -32,6 +33,7 @@ namespace OneListApplication
         public virtual DbSet<ListStatu> ListStatus { get; set; }
         public virtual DbSet<ListType> ListTypes { get; set; }
         public virtual DbSet<ListUser> ListUsers { get; set; }
+        public virtual DbSet<Retail> Retails { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
     }
