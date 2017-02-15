@@ -226,6 +226,48 @@ REFERENCES [dbo].[UserType] ([UserTypeID])
 GO
 ALTER TABLE [dbo].[ListUser] CHECK CONSTRAINT [FK_ListUser_UserType]
 GO
+
+--coupon for CORS webAPI
+CREATE TABLE [dbo].[Coupon](
+	[CouponID] [int] IDENTITY(1,1) NOT NULL,
+	[Title] [nvarchar](20) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+	[DiscountPercentage] [float] NOT NULL,
+	[RetailID] [int] NOT NULL,
+	[StartDate] [date] NOT NULL,
+	[EndingDate] [date] NOT NULL,
+ CONSTRAINT [PK_Coupon] PRIMARY KEY CLUSTERED 
+(
+	[CouponID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+CREATE TABLE [dbo].[Retail](
+	[RetailID] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](50) NOT NULL,
+	[Address] [nvarchar](50) NOT NULL,
+	[Description] [nvarchar](50) NOT NULL,
+	[Telephone] [nvarchar](50) NOT NULL,
+ CONSTRAINT [PK_Retail] PRIMARY KEY CLUSTERED 
+(
+	[RetailID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+ALTER TABLE [dbo].[Coupon]  WITH CHECK ADD  CONSTRAINT [FK_Coupon_Retail] FOREIGN KEY([RetailID])
+REFERENCES [dbo].[Retail] ([RetailID])
+GO
+
+ALTER TABLE [dbo].[Coupon] CHECK CONSTRAINT [FK_Coupon_Retail]
+GO
+
+
+
+
 USE [master]
 GO
 ALTER DATABASE [OneListCA] SET  READ_WRITE 
@@ -260,3 +302,13 @@ insert into [User](FirstName,LastName,BirthDate,Email,Password,Activeuser,Profil
 insert into List(CreatorID,ListName,ListTypeID,CreationDate,ListStatusID)values(1,'List of things to do',1,GETDATE(),1);
 insert into List(CreatorID,ListName,ListTypeID,CreationDate,ListStatusID)values(2,'Shopping List',1,GETDATE(),1);
 insert into List(CreatorID,ListName,ListTypeID,CreationDate,ListStatusID)values(3,'Groseries List',2,GETDATE(),1);
+
+--retail examples for the WebAPI
+insert into dbo.Retail(Name,Address,Description,Telephone)values('SaveonFoods','4721 Gladstone St','Groseries shopping all over Canada','7788882243')
+insert into dbo.Retail(Name,Address,Description,Telephone)values('Shoppers','Burrard St','Drugstore and retail','7788882243')
+insert into dbo.Retail(Name,Address,Description,Telephone)values('88 Supermarket','Victoria Dr and Kinsgway St','Only the best asian supermarket in Vancouver','7788882243')
+
+--coupons examples
+insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,EndingDate) values('Bananas Discount!','Buy all bananas with a 20% off',20,1,'02/14/2017','03/01/2017')
+insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,EndingDate) values('Ham Magic!','5% off when buying more than 200grms of Ham',5,2,'02/20/2017','03/01/2017')
+insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,EndingDate) values('Chocolate lovers','all chocolates have 2x1',50,3,'02/14/2017','03/01/2017')

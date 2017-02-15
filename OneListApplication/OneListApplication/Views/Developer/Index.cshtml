@@ -1,0 +1,86 @@
+﻿<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script src="~/Scripts/app.js"></script>
+@{
+    ViewBag.Title = "Developer's Guide";
+}
+<div class="mainDiv">
+        <h2 class="col-lg-12 col-lg-offset-1 col-xs-12" id="title">How To Populate on the Onelist Discount's feed!</h2>
+        <p class="col-lg-12 col-lg-offset-1 col-xs-12">If you want to populate our Coupon's Database with your special offers you can use the following API Methods.</p>
+        <div id="Select">
+            <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Get Coupons">Get Coupons</h3>
+
+            <form class="col-lg-12 col-lg-offset-1 col-xs-12" method="get" action="api/Coupons">
+                <span id='value1'>(Result)<br /></span>
+                <input type="button" value="Get" onclick="getCoupons()" />
+            </form>
+        </div>
+        <div id="Create">
+            <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Create Cupon">Create Coupon</h3>
+            <div>
+                <label for="_New Product"><b>Create Coupon</b></label>
+                <label for="_ID">Title:</label>
+                <input type="text" id="txtAdd_Title" size="20" />
+                <br />
+                <label for="_ID">Description:</label>
+                <input type="text" id="txtAdd_Description" size="50" />
+                <br />
+                <label for="_ID">Discount Percentage:</label>
+                <input type="text" id="txtAdd_DiscountPercentage" size="5" />
+                <br />
+                <label for="_ID">Retail ID(This should be your retail ID):</label>
+                <input type="text" id="txtAdd_RetailID" size="5" />
+                <br />
+                <label for="_ID">Starting Date:</label>
+                <input type="date" id="txtAdd_StartDate" size="10" />
+                <br />
+                <label for="_ID">Ending Date:</label>
+                <input type="date" id="txtAdd_EndingDate" size="10" />
+                <br />
+                <input type="button" value="Add" onclick="create();" />
+                <p id="couponCreate" />
+            </div>
+
+        </div>
+        <div id="Update">
+            <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Update Cupon">Update Coupon</h3>
+            <div>
+                
+                <label for="_ID">Coupon ID:</label>
+                <input type="text" id="txtUp_CouponID" size="10" />
+                <br />
+                <label for="_ID">Title:</label>
+                <input type="text" id="txtUp_Title" size="20" />
+                <br />
+                <label for="_ID">Description:</label>
+                <input type="text" id="txtUp_Description" size="50" />
+                <br />
+                <label for="_ID">Discount Percentage:</label>
+                <input type="text" id="txtUp_DiscountPercentage" size="5" />
+                <br />
+                <label for="_ID">Retail ID(This should be your retail ID):</label>
+                <input type="text" id="txtUp_RetailID" size="5" />
+                <br />
+                <label for="_ID">Starting Date:</label>
+                <input type="date" id="txtUp_StartDate" size="10" />
+                <br />
+                <label for="_ID">Ending Date:</label>
+                <input type="date" id="txtUp_EndingDate" size="10" />
+                <br />
+                <input type="button" value="Add" onclick="update();" />
+                <p id="couponUpdate" />
+            </div>
+
+        </div>
+        <div id="Update">
+            <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Delete Cupon">Delete Coupon</h3>
+            <div>
+                <label for="_ID">Delete Manufacturer by ID:</label>
+                <input type="text" id="txtDelete_CouponID" size="10" />
+                <input type="button" value="Delete" onclick="del();" />
+                <p id="manufacturerDelete" />
+            </div>
+
+        </div>
+        <br />
+
+    </div>
