@@ -138,6 +138,16 @@ namespace OneListApplication.Controllers
 
             if (result.Succeeded)
             {
+
+                OneListCAEntities context = new OneListCAEntities();
+                AspNetUser user = context.AspNetUsers
+                                    .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
+                AspNetRole role = new AspNetRole();
+                role.Id = "User";
+                role.Name = "User";
+
+                user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
+                context.SaveChanges();
                 //add information of user and password to table users in core
                 CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
