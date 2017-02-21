@@ -347,6 +347,7 @@
     <Compile Include="UserType.cs">
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\ItemCategoryList.cs" />
     <Compile Include="ViewModels\ItemVM.cs" />
     <Compile Include="ViewModels\ListItemVM.cs" />
     <Compile Include="ViewModels\ListVM.cs" />
@@ -380,7 +381,7 @@
     <Content Include="Views\Profile\ChangePassword.cshtml" />
     <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Item\CreateItem.cshtml" />
+    <Content Include="Views\Item\old\CreateItem.cshtml" />
     <Content Include="Views\Item\CreateItemGroup.cshtml" />
     <Content Include="Views\Item\ItemGroupManagement.cshtml" />
     <Content Include="Views\Item\ItemManagement.cshtml" />
@@ -427,6 +428,7 @@
     <Content Include="Views\Home\AddRole.cshtml" />
     <Content Include="Views\Home\AddUserToRole.cshtml" />
     <Content Include="Views\Home\AdminOnly.cshtml" />
+    <Content Include="Views\Item\CreateItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

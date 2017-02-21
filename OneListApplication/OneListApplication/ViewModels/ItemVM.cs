@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace OneListApplication.ViewModels
 {
@@ -20,6 +21,8 @@ namespace OneListApplication.ViewModels
 
         [DisplayName("Item Description")]
         public string ItemDescription { get; set; }
+        
+        public IEnumerable<SelectListItem> ItemCategoryList { get; set; }
 
         [DisplayName("Item Category")]
         public int ItemCategory { get; set; }
