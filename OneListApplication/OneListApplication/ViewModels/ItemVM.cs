@@ -12,7 +12,7 @@ namespace OneListApplication.ViewModels
         [Key]
         public int ItemID { get; set; }
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
 
         [Required]
         [DisplayName("Item Name")]

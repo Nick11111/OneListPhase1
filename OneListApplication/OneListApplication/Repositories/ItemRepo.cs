@@ -10,7 +10,7 @@ namespace OneListApplication.Repositories
     {
         public IEnumerable<ItemVM> GetAll()
         {
-            OneListCAEntities db = new OneListCAEntities();
+            OneListEntitiesCore db = new OneListEntitiesCore();
             IEnumerable<ItemVM> itemList = db.Items
                     .Select(it => new ItemVM()
                     {
@@ -28,7 +28,7 @@ namespace OneListApplication.Repositories
                 errMsg = "name field empty";
             }else
             {
-                OneListCAEntities db = new OneListCAEntities();
+                OneListEntitiesCore db = new OneListEntitiesCore();
                 Item itemAdded = new Item();
                 itemAdded.UserID = item.UserID;
                 itemAdded.ItemName = item.ItemName;
@@ -44,7 +44,7 @@ namespace OneListApplication.Repositories
 
         public ItemVM GetDetails(int itemId)
         {
-            OneListCAEntities db = new OneListCAEntities();
+            OneListEntitiesCore db = new OneListEntitiesCore();
             Item itemToBeUpdated = db.Items.Where(a => a.ItemID == itemId).FirstOrDefault();
             ItemVM iv = new ItemVM();
             iv.ItemID = itemToBeUpdated.ItemID;
@@ -57,7 +57,7 @@ namespace OneListApplication.Repositories
 
         public bool UpdateItem(ItemVM item)
         {
-            OneListCAEntities db = new OneListCAEntities();
+            OneListEntitiesCore db = new OneListEntitiesCore();
             Item itemUpdated = db.Items.Where(a => a.ItemID == item.ItemID).FirstOrDefault();
             itemUpdated.ItemName = item.ItemName;
             itemUpdated.ItemDescription = item.ItemDescription;
@@ -69,7 +69,7 @@ namespace OneListApplication.Repositories
 
         public void DeleteItem(int itemId, out string errMsg)
         {
-            OneListCAEntities db = new OneListCAEntities();
+            OneListEntitiesCore db = new OneListEntitiesCore();
             Item itemToBeUpdated = db.Items.Where(a => a.ItemID == itemId).FirstOrDefault();
             if(itemToBeUpdated != null)
             {
