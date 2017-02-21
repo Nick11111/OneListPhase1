@@ -4,9 +4,8 @@
     ViewBag.Title = "CreateItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@Html.Partial("~/Views/Home/Sidebar.cshtml");
 <h2>CreateItem</h2>
-
 
 @using (Html.BeginForm()) 
 {
@@ -53,10 +52,6 @@
         </div>
         </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

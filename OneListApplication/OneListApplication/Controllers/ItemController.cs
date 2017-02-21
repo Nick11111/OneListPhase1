@@ -70,6 +70,8 @@ namespace OneListApplication.Controllers
         {
             ItemRepo itemRepo = new ItemRepo();
             ItemVM item = itemRepo.GetDetails(id);
+            ViewBag.Categories = new SelectList(GetCategories(), "Value",
+                             "Text", id);
             return View(item);
         }
         [HttpPost]

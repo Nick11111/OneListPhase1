@@ -19,7 +19,7 @@
                 @Html.DisplayNameFor(model => model.ItemDescription)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ItemCategory)
+                @Html.DisplayNameFor(model => model.ItemCategoryName)
             </th>
             <th></th>
         </tr>
@@ -34,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.ItemDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ItemCategory)
+                    @Html.DisplayFor(modelItem => item.ItemCategoryName)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-primary" }) 

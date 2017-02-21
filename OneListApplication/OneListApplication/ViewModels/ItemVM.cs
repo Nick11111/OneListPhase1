@@ -27,5 +27,8 @@ namespace OneListApplication.ViewModels
         [DisplayName("Item Category")]
         public int ItemCategory { get; set; }
 
+        [DisplayName("Item Category Name")]
+        public string ItemCategoryName { get; set; }
+
     }
 }

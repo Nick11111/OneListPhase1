@@ -11,14 +11,17 @@ namespace OneListApplication.Repositories
         public IEnumerable<ItemVM> GetAll()
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            IEnumerable<ItemVM> itemList = db.Items
+            IEnumerable<ItemVM> itemList = db.ItemCategories
+                    .SelectMany(a => a.Items
                     .Select(it => new ItemVM()
                     {
                         ItemID = it.ItemID,
                         ItemName = it.ItemName,
                         ItemDescription = it.ItemDescription,
-                        ItemCategory = (int)it.ItemCategory
-                    });
+                        ItemCategory = (int)it.ItemCategory,
+                        ItemCategoryName = a.ItemCategoryName
+                    }));
+                 
             return itemList;
         }
         public void CreateItem(ItemVM item, out string errMsg)
@@ -33,7 +36,7 @@ namespace OneListApplication.Repositories
                 itemAdded.UserID = item.UserID;
                 itemAdded.ItemName = item.ItemName;
                 itemAdded.ItemDescription = item.ItemDescription;
-                itemAdded.ItemCategory = item.ItemCategory;
+                itemAdded.ItemCategory = (int)item.ItemCategory;
 
                 db.Items.Add(itemAdded);
                 db.SaveChanges();
@@ -52,6 +55,8 @@ namespace OneListApplication.Repositories
             iv.ItemName = itemToBeUpdated.ItemName;
             iv.ItemDescription = itemToBeUpdated.ItemDescription;
             iv.ItemCategory = (int)itemToBeUpdated.ItemCategory;
+            ItemCategory categoryDb = db.ItemCategories.Where(a => a.ItemCategoryID == iv.ItemCategory).FirstOrDefault();
+            iv.ItemCategoryName = categoryDb.ItemCategoryName;
             return iv;
         }
 
