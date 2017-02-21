@@ -21,7 +21,7 @@ namespace OneListApplication
         }
     
         public int ListID { get; set; }
-        public int CreatorID { get; set; }
+        public string CreatorID { get; set; }
         public string ListName { get; set; }
         public int ListTypeID { get; set; }
         public System.DateTime CreationDate { get; set; }

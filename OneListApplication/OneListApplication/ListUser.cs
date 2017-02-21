@@ -15,7 +15,7 @@ namespace OneListApplication
     public partial class ListUser
     {
         public string ListID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public int UserTypeID { get; set; }
         public string ListUserStatus { get; set; }
         public string SuscriptionDate { get; set; }

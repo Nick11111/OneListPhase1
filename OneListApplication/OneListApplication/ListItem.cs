@@ -17,7 +17,7 @@ namespace OneListApplication
         public int ListID { get; set; }
         public int ItemID { get; set; }
         public bool ListItemSolved { get; set; }
-        public int ListItemSolver { get; set; }
+        public string ListItemSolver { get; set; }
         public System.DateTime ListItemSolvingDate { get; set; }
         public Nullable<decimal> ListItemCost { get; set; }
         public string ListItemNotes { get; set; }

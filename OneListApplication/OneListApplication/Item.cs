@@ -21,7 +21,7 @@ namespace OneListApplication
         }
     
         public int ItemID { get; set; }
-        public int UserID { get; set; }
+        public string UserID { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public Nullable<int> ItemCategory { get; set; }

@@ -83,7 +83,7 @@
             <PropertyRef Name="ItemID" />
           </Key>
           <Property Name="ItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
           <Property Name="ItemDescription" Type="nvarchar" MaxLength="50" />
           <Property Name="ItemCategory" Type="int" />
@@ -100,7 +100,7 @@
             <PropertyRef Name="ListID" />
           </Key>
           <Property Name="ListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CreatorID" Type="int" Nullable="false" />
+          <Property Name="CreatorID" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ListName" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="ListTypeID" Type="int" Nullable="false" />
           <Property Name="CreationDate" Type="date" Nullable="false" />
@@ -114,7 +114,7 @@
           <Property Name="ListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ItemID" Type="int" Nullable="false" />
           <Property Name="ListItemSolved" Type="bit" Nullable="false" />
-          <Property Name="ListItemSolver" Type="int" Nullable="false" />
+          <Property Name="ListItemSolver" Type="nvarchar" MaxLength="200" />
           <Property Name="ListItemSolvingDate" Type="date" Nullable="false" />
           <Property Name="ListItemCost" Type="decimal" Precision="18" Scale="0" />
           <Property Name="ListItemNotes" Type="nvarchar" MaxLength="50" />
@@ -138,7 +138,7 @@
             <PropertyRef Name="ListID" />
           </Key>
           <Property Name="ListID" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="UserTypeID" Type="int" Nullable="false" />
           <Property Name="ListUserStatus" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" Nullable="false" />
@@ -157,7 +157,8 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="BirthDate" Type="date" Nullable="false" />
@@ -326,7 +327,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ListItem_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="ListItem" Type="Self.ListItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -522,7 +523,7 @@
             <PropertyRef Name="ItemID" />
           </Key>
           <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ItemDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ItemCategory" Type="Int32" />
@@ -543,7 +544,7 @@
             <PropertyRef Name="ListID" />
           </Key>
           <Property Name="ListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatorID" Type="Int32" Nullable="false" />
+          <Property Name="CreatorID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ListName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="ListTypeID" Type="Int32" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -561,7 +562,7 @@
           <Property Name="ListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ItemID" Type="Int32" Nullable="false" />
           <Property Name="ListItemSolved" Type="Boolean" Nullable="false" />
-          <Property Name="ListItemSolver" Type="Int32" Nullable="false" />
+          <Property Name="ListItemSolver" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ListItemSolvingDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ListItemCost" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="ListItemNotes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -590,7 +591,7 @@
             <PropertyRef Name="ListID" />
           </Key>
           <Property Name="ListID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserTypeID" Type="Int32" Nullable="false" />
           <Property Name="ListUserStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="SuscriptionDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
@@ -612,7 +613,8 @@
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -758,7 +760,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ListItem_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
           <End Role="ListItem" Type="Self.ListItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
@@ -1031,6 +1033,7 @@
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
