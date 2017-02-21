@@ -15,7 +15,7 @@ namespace OneListApplication.Controllers
 {
     public class CouponsController : ApiController
     {
-        private OneListCAEntities db = new OneListCAEntities();
+        private OneListEntitiesCore db = new OneListEntitiesCore();
 
         // GET: api/Coupons
         public IQueryable<Coupon> GetCoupons()

@@ -4,37 +4,36 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1906147e92c64e8299c9216f0406d36e" Name="Diagram1">
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.C__MigrationHistory" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetRole" Width="1.5" PointX="5.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="9" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUser" Width="1.5" PointX="8" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Coupon" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Item" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ItemCategory" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.List" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListItem" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListStatu" Width="1.5" PointX="3.75" PointY="8.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListType" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListUser" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Retail" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.User" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.UserType" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_Coupon_Retail" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_Item_Item" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_Item_ItemCategory" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_ListItem_Item" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_List_List" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_List_ListStatus" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_List_User" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_ListItem_List" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_ListItem_User" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_ListUser_ListUser" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.FK_ListUser_UserType" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_110660_onelistcaModel.AspNetUserRoles" ManuallyRouted="false" />
+      <Diagram DiagramId="c73608823ab749d29e25d041c1dca97c" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.C__MigrationHistory" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.AspNetRole" Width="1.5" PointX="5.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.AspNetUserClaim" Width="1.5" PointX="10.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.AspNetUserLogin" Width="1.5" PointX="10.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.AspNetUser" Width="1.5" PointX="8" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.Coupon" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.Item" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ItemCategory" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.List" Width="1.5" PointX="6" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListItem" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListStatu" Width="1.5" PointX="3.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListType" Width="1.5" PointX="3.75" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListUser" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.Retail" Width="1.5" PointX="5.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.User" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.UserType" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_Coupon_Retail" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_Item_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_Item_ItemCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_ListItem_Item" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_List_List" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_List_ListStatus" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_List_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_ListItem_List" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_ListUser_ListUser" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.FK_ListUser_UserType" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_110660_onelistcaModel1.AspNetUserRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

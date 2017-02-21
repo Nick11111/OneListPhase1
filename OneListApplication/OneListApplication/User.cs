@@ -19,7 +19,6 @@ namespace OneListApplication
         {
             this.Items = new HashSet<Item>();
             this.Lists = new HashSet<List>();
-            this.ListItems = new HashSet<ListItem>();
             this.ListUsers = new HashSet<ListUser>();
         }
     
@@ -37,8 +36,6 @@ namespace OneListApplication
         public virtual ICollection<Item> Items { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<List> Lists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ListItem> ListItems { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ListUser> ListUsers { get; set; }
     }

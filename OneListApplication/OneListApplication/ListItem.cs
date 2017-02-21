@@ -24,6 +24,5 @@ namespace OneListApplication
     
         public virtual Item Item { get; set; }
         public virtual List List { get; set; }
-        public virtual User User { get; set; }
     }
 }

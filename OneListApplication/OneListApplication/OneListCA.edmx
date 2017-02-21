@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DB_110660_onelistcaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="DB_110660_onelistcaModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -326,18 +326,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListItem_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ListItem" Type="Self.ListItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="ListItem">
-              <PropertyRef Name="ListItemSolver" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ListUser_ListUser">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
@@ -362,7 +350,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DB_110660_onelistcaModelStoreContainer">
+        <EntityContainer Name="DB_110660_onelistcaModel1StoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -428,10 +416,6 @@
             <End Role="List" EntitySet="List" />
             <End Role="ListItem" EntitySet="ListItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_ListItem_User" Association="Self.FK_ListItem_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="ListItem" EntitySet="ListItem" />
-          </AssociationSet>
           <AssociationSet Name="FK_ListUser_ListUser" Association="Self.FK_ListUser_ListUser">
             <End Role="User" EntitySet="User" />
             <End Role="ListUser" EntitySet="ListUser" />
@@ -445,7 +429,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="DB_110660_onelistcaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="DB_110660_onelistcaModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -568,7 +552,6 @@
           <Property Name="ListItemNotes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Item" Relationship="Self.FK_ListItem_Item" FromRole="ListItem" ToRole="Item" />
           <NavigationProperty Name="List" Relationship="Self.FK_ListItem_List" FromRole="ListItem" ToRole="List" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ListItem_User" FromRole="ListItem" ToRole="User" />
         </EntityType>
         <EntityType Name="ListStatu">
           <Key>
@@ -624,7 +607,6 @@
           <Property Name="ProfilePic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Items" Relationship="Self.FK_Item_Item" FromRole="User" ToRole="Item" />
           <NavigationProperty Name="Lists" Relationship="Self.FK_List_User" FromRole="User" ToRole="List" />
-          <NavigationProperty Name="ListItems" Relationship="Self.FK_ListItem_User" FromRole="User" ToRole="ListItem" />
           <NavigationProperty Name="ListUsers" Relationship="Self.FK_ListUser_ListUser" FromRole="User" ToRole="ListUser" />
         </EntityType>
         <EntityType Name="UserType">
@@ -759,18 +741,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListItem_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="ListItem" Type="Self.ListItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="ListItem">
-              <PropertyRef Name="ListItemSolver" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ListUser_ListUser">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
@@ -856,10 +826,6 @@
             <End Role="List" EntitySet="Lists" />
             <End Role="ListItem" EntitySet="ListItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_ListItem_User" Association="Self.FK_ListItem_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ListItem" EntitySet="ListItems" />
-          </AssociationSet>
           <AssociationSet Name="FK_ListUser_ListUser" Association="Self.FK_ListUser_ListUser">
             <End Role="User" EntitySet="Users" />
             <End Role="ListUser" EntitySet="ListUsers" />
@@ -878,9 +844,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="DB_110660_onelistcaModelStoreContainer" CdmEntityContainer="OneListEntitiesCore">
+        <EntityContainerMapping StorageEntityContainer="DB_110660_onelistcaModel1StoreContainer" CdmEntityContainer="OneListEntitiesCore">
           <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.C__MigrationHistory">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
                 <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
                 <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
@@ -890,7 +856,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetRole">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -898,7 +864,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetUserClaim">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -908,7 +874,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetUserLogin">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
@@ -917,7 +883,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetUser">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -935,7 +901,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Coupons">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.Coupon">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.Coupon">
               <MappingFragment StoreEntitySet="Coupon">
                 <ScalarProperty Name="CouponID" ColumnName="CouponID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -948,7 +914,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.Item">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.Item">
               <MappingFragment StoreEntitySet="Item">
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -959,7 +925,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ItemCategories">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ItemCategory">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.ItemCategory">
               <MappingFragment StoreEntitySet="ItemCategory">
                 <ScalarProperty Name="ItemCategoryID" ColumnName="ItemCategoryID" />
                 <ScalarProperty Name="ItemCategoryName" ColumnName="ItemCategoryName" />
@@ -967,7 +933,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lists">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.List">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.List">
               <MappingFragment StoreEntitySet="List">
                 <ScalarProperty Name="ListID" ColumnName="ListID" />
                 <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
@@ -979,7 +945,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListItems">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListItem">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.ListItem">
               <MappingFragment StoreEntitySet="ListItem">
                 <ScalarProperty Name="ListID" ColumnName="ListID" />
                 <ScalarProperty Name="ItemID" ColumnName="ItemID" />
@@ -992,7 +958,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListStatus">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListStatu">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.ListStatu">
               <MappingFragment StoreEntitySet="ListStatus">
                 <ScalarProperty Name="ListStatusID" ColumnName="ListStatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
@@ -1000,7 +966,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListTypes">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListType">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.ListType">
               <MappingFragment StoreEntitySet="ListType">
                 <ScalarProperty Name="ListTypeID" ColumnName="ListTypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
@@ -1008,7 +974,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListUsers">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListUser">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.ListUser">
               <MappingFragment StoreEntitySet="ListUser">
                 <ScalarProperty Name="ListID" ColumnName="ListID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
@@ -1019,7 +985,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Retails">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.Retail">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.Retail">
               <MappingFragment StoreEntitySet="Retail">
                 <ScalarProperty Name="RetailID" ColumnName="RetailID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1030,7 +996,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.User">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.User">
               <MappingFragment StoreEntitySet="User">
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -1045,14 +1011,14 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserTypes">
-            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.UserType">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.UserType">
               <MappingFragment StoreEntitySet="UserType">
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="DB_110660_onelistcaModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="DB_110660_onelistcaModel1.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
             <EndProperty Name="AspNetRoles">
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
