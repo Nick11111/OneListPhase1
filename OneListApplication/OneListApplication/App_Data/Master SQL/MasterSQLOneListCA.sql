@@ -312,3 +312,9 @@ insert into dbo.Retail(Name,Address,Description,Telephone)values('88 Supermarket
 insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,EndingDate) values('Bananas Discount!','Buy all bananas with a 20% off',20,1,'02/14/2017','03/01/2017')
 insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,EndingDate) values('Ham Magic!','5% off when buying more than 200grms of Ham',5,2,'02/20/2017','03/01/2017')
 insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,EndingDate) values('Chocolate lovers','all chocolates have 2x1',50,3,'02/14/2017','03/01/2017')
+
+
+insert into AspNetRoles(Id,Name) values ('Administrator','Administrator')
+insert into AspNetRoles(Id,Name) values ('List Collaborator','List Collaborator')
+insert into AspNetRoles(Id,Name) values ('List Publisher','List Publisher')
+insert into AspNetRoles(Id,Name) values ('List Subscriber','List Subscriber')
