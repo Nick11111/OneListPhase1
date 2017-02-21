@@ -347,11 +347,8 @@
     <Compile Include="UserType.cs">
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ItemCategoryVM.cs" />
     <Compile Include="ViewModels\ItemVM.cs" />
     <Compile Include="ViewModels\ListItemVM.cs" />
-    <Compile Include="ViewModels\ListStatusVM.cs" />
-    <Compile Include="ViewModels\ListTypeVM.cs" />
     <Compile Include="ViewModels\ListVM.cs" />
   </ItemGroup>
   <ItemGroup>
