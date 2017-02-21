@@ -205,7 +205,6 @@
     <Content Include="images\ad.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\paul_mills.jpg" />
-    <Content Include="images\sql.PNG" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
