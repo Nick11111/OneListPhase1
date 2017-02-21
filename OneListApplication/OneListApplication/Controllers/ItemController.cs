@@ -20,7 +20,25 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult CreateItem()
         {
-            return View();
+            var model = new ItemVM
+            {
+                ItemCategoryList = GetCategories()
+            };
+            return View(model);
+        }
+
+        private IEnumerable<SelectListItem> GetCategories()
+        {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            var categories = db.ItemCategories
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.ItemCategoryID.ToString(),
+                                    Text = x.ItemCategoryName
+                                });
+
+            return new SelectList(categories, "Value", "Text");
         }
         [HttpPost]
         public ActionResult CreateItem(ItemVM item)
