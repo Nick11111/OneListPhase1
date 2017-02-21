@@ -138,6 +138,7 @@ namespace OneListApplication.Controllers
 
             if (result.Succeeded)
             {
+                //add information of user and password to table users in core
                 CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
                 var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
