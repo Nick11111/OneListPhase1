@@ -18,8 +18,24 @@ function getCoupons() {
 function callback(val) {
     //  $("#manufacturers").replaceWith("<span id='value1'>(Result)</span>");
     $("#value1").replaceWith("<ul id='coupons' />");
-    var str = "Title: " + val.Title + " Description: " + val.Description + " Discount Percentage: " + val.DiscountPercentage + " Start Date: " + val.StartDate + " Ending Date: " + val.EndingDate;
-    $('<li/>', { text: str }).appendTo($('#coupons'));
+    var couponID = val.CouponID;
+    $('<div id="cup'+couponID+'"/>').appendTo($('#coupons'));
+    var str = "Title3: <br>" + val.Title + "</br> Description: " + val.Description + " Discount Percentage: " + val.DiscountPercentage + " Start Date: " + val.StartDate + " Ending Date: " + val.EndingDate;
+    var Title=val.Title;
+    var Description=val.Description;
+    var discount=val.DiscountPercentage;
+    var initialDate = val.StartDate;
+    var i = new Date(initialDate);
+    var begintring = "Starting Date: "+ i.getDate() + "-" + (i.getMonth() + 1) + "-" + i.getFullYear();
+    var expireDate = val.EndingDate;
+    var d = new Date(expireDate);
+    var datestring = "Ending Date: " + d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    $('<b/>', { text: Title }).appendTo($('#cup' + couponID + ''));
+    $('<p/>', { text: Description }).appendTo($('#cup' + couponID + ''));
+    $('<p/>', { text: begintring }).appendTo($('#cup' + couponID + ''));
+    $('<p/>', { text: datestring }).appendTo($('#cup' + couponID + ''));
+    $('<hr/>').appendTo($('#coupons'));
+
 }
 
 // Deletes and refreshes list.
