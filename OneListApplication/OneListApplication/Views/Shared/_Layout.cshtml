@@ -55,7 +55,17 @@
                     }*@
                     @{if (Request.IsAuthenticated&& HttpContext.Current.User.IsInRole("Administrator"))
                         {
-                            <li>@Html.ActionLink("Assign Roles", "AddUserToRole", "Home")</li>
+                            <li class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    Admin
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li>@Html.ActionLink("Assign Roles", "AddUserToRole", "Home")</li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                </ul>
+                            </li>
                         }
                     }
                     @{if (Request.IsAuthenticated)

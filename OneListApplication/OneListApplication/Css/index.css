@@ -13,7 +13,9 @@ body {
 #page-wrapper {
     border: 1px solid grey;
 }
-
+#coupon {
+     border-right:1px solid grey;
+}
 li.nav-item {
     background-color: #222222;
     border-right:1px solid white;
@@ -90,4 +92,8 @@ footer {
 
 .mainDiv {
     text-align:center;
+}
+
+#dropdownMenu1 {
+    margin-top:18px;
 }

@@ -1,23 +1,6 @@
---part 1--
-USE [master]
 
-GO
-/****** Object:  Database [OneListCA]    Script Date: 2/9/2017 1:43:32 PM ******/
-IF EXISTS(SELECT * FROM master.sys.databases 
-          WHERE name='OneListCA')
-BEGIN
-	ALTER DATABASE OneListCA SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-	DROP DATABASE OneListCA
-END
-
-CREATE DATABASE [OneListCA]
-
-GO
-
-USE [OneListCA]
-GO
 --part 2--
-USE [OneListCA]
+USE [DB_110660_onelistca]
 GO
 /****** Object:  Table [dbo].[Item]    Script Date: 2/9/2017 3:02:48 PM ******/
 SET ANSI_NULLS ON
@@ -26,7 +9,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Item](
 	[ItemID] [int] IDENTITY(1,1) NOT NULL,
-	[UserID] [int] NOT NULL,
+	[UserID] [nvarchar](200) NOT NULL,
 	[ItemName] [nvarchar](50) NULL,
 	[ItemDescription] [nvarchar](50) NULL,
 	[ItemCategory] [int] NULL,
@@ -59,7 +42,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[List](
 	[ListID] [int] IDENTITY(1,1) NOT NULL,
-	[CreatorID] [int] NOT NULL,
+	[CreatorID] [nvarchar](200) NOT NULL,
 	[ListName] [nchar](50) NOT NULL,
 	[ListTypeID] [int] NOT NULL,
 	[CreationDate] [date] NOT NULL,
@@ -80,7 +63,7 @@ CREATE TABLE [dbo].[ListItem](
 	[ListID] [int] IDENTITY(1,1) NOT NULL,
 	[ItemID] [int] NOT NULL,
 	[ListItemSolved] [bit] NOT NULL,
-	[ListItemSolver] [int] NOT NULL,
+	[ListItemSolver] [nvarchar](200),
 	[ListItemSolvingDate] [date] NOT NULL,
 	[ListItemCost] [decimal](18, 0) NULL,
 	[ListItemNotes] [nvarchar](50) NULL,
@@ -129,7 +112,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[ListUser](
 	[ListID] [nchar](10) NOT NULL,
-	[UserID] [int] NOT NULL,
+	[UserID] [nvarchar](200) NOT NULL,
 	[UserTypeID] [int] NOT NULL,
 	[ListUserStatus] [nchar](10) NOT NULL,
 	[SuscriptionDate] [nchar](10) NOT NULL,
@@ -146,7 +129,8 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[User](
-	[UserID] [int] IDENTITY(1,1) NOT NULL,
+	[UserID] [nvarchar](200)  NOT NULL,
+	[UserName] [nvarchar](200) NOT NULL,
 	[FirstName] [nvarchar](50) NOT NULL,
 	[LastName] [nvarchar](50) NOT NULL,
 	[BirthDate] [date] NOT NULL,
@@ -211,9 +195,6 @@ REFERENCES [dbo].[List] ([ListID])
 GO
 ALTER TABLE [dbo].[ListItem] CHECK CONSTRAINT [FK_ListItem_List]
 GO
-ALTER TABLE [dbo].[ListItem]  WITH CHECK ADD  CONSTRAINT [FK_ListItem_User] FOREIGN KEY([ListItemSolver])
-REFERENCES [dbo].[User] ([UserID])
-GO
 ALTER TABLE [dbo].[ListItem] CHECK CONSTRAINT [FK_ListItem_User]
 GO
 ALTER TABLE [dbo].[ListUser]  WITH CHECK ADD  CONSTRAINT [FK_ListUser_ListUser] FOREIGN KEY([UserID])
@@ -270,13 +251,13 @@ GO
 
 USE [master]
 GO
-ALTER DATABASE [OneListCA] SET  READ_WRITE 
+ALTER DATABASE [DB_110660_onelistca] SET  READ_WRITE 
 GO
 
 
 --part 3.- creating default and test information
 
-use[OneListCA]
+use[DB_110660_onelistca]
 --status
 insert into ListStatus(StatusName)values('Created');
 insert into ListStatus(StatusName)values('In progress');
@@ -314,7 +295,7 @@ insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,Endi
 insert into coupon (Title,Description,DiscountPercentage,RetailID,StartDate,EndingDate) values('Chocolate lovers','all chocolates have 2x1',50,3,'02/14/2017','03/01/2017')
 
 
-insert into AspNetRoles(Id,Name) values ('Administrator','Administrator')
-insert into AspNetRoles(Id,Name) values ('List Collaborator','List Collaborator')
-insert into AspNetRoles(Id,Name) values ('List Publisher','List Publisher')
-insert into AspNetRoles(Id,Name) values ('List Subscriber','List Subscriber')
+--insert into AspNetRoles(Id,Name) values ('Administrator','Administrator')
+--insert into AspNetRoles(Id,Name) values ('List Collaborator','List Collaborator')
+--insert into AspNetRoles(Id,Name) values ('List Publisher','List Publisher')
+--insert into AspNetRoles(Id,Name) values ('List Subscriber','List Subscriber')
