@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
 <div id="wrapper">
     <h2>All Items</h2>
-    @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
-
     <table class="table">
         <tr>
             <th>
@@ -37,8 +36,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-primary" }) 
-                    @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new {@class = "btn btn-primary" }) 
-                    @Html.ActionLink("Delete", "DeleteItem", new { id = item.ItemID}, new {@class = "btn btn-danger" })
+                    @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new {@class = "btn btn-primary" })
+                    
+                    <a class="btn btn-danger" href="@Url.Action("DeleteItem","Item",  new { id = item.ItemID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
         }

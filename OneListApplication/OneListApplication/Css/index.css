@@ -61,12 +61,8 @@ a.navbar-brand {
 
 .side-nav li a {
     text-align: left;
-    background-color: black;
 }
 
-.side-nav li .btn-primary {
-    border-color: #222;
-}
 .navbar-nav li a i {
     margin-right: 15px;
 }
@@ -121,4 +117,19 @@ footer {
 }
 .navbar-left li a:hover{
     border: 2px solid white;
+}
+
+.navbar-right li:nth-child(2){
+    width: 40px;
+}
+
+.collapse.navbar-collapse.navbar-ex1-collapse {
+    float: left;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 96%;
+        margin: 0 auto;
+    }
 }

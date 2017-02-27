@@ -10,11 +10,21 @@ namespace OneListApplication.Controllers
 {
     public class ItemController : Controller
     {
+        public string FindUserID()
+        {
+            string name = User.Identity.Name;
+            OneListCAEntities context = new OneListCAEntities();
+            AspNetUser user = context.AspNetUsers
+                    .Where(u => u.UserName == name).FirstOrDefault();
+            string userId = user.Id;
+            return userId;
+        }
         [HttpGet]
         public ActionResult ItemManagement()
         {
+            string userId = FindUserID();
             ItemRepo itemRepo = new ItemRepo();
-            IEnumerable<ItemVM> items = itemRepo.GetAll();
+            IEnumerable<ItemVM> items = itemRepo.GetAll(userId);
             return View(items);
         }
         [HttpGet]
@@ -43,6 +53,7 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult CreateItem(ItemVM item)
         {
+            item.UserID = FindUserID();
             string errMsg = "";
             if (ModelState.IsValid)
             {

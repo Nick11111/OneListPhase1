@@ -433,6 +433,7 @@
     <Content Include="Views\Item\CreateItem.cshtml" />
     <Content Include="Views\Item\old\EditItem.cshtml" />
     <Content Include="Views\Item\EditItem.cshtml" />
+    <Content Include="Views\Item\_ItemPageTopNav.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

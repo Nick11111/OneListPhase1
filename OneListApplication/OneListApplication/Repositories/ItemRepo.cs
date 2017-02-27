@@ -8,11 +8,12 @@ namespace OneListApplication.Repositories
 {
     public class ItemRepo
     {
-        public IEnumerable<ItemVM> GetAll()
+        public IEnumerable<ItemVM> GetAll(string userId)
         {
+
             OneListEntitiesCore db = new OneListEntitiesCore();
             IEnumerable<ItemVM> itemList = db.ItemCategories
-                    .SelectMany(a => a.Items
+                    .SelectMany(a => a.Items.Where(b => b.UserID == userId)
                     .Select(it => new ItemVM()
                     {
                         ItemID = it.ItemID,
