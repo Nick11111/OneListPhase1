@@ -42,8 +42,9 @@ li.nav-item a:hover{
 .navbar-brand {
     background-image:url('../images/logo.png');
     background-repeat: no-repeat;
-    width: 150px;
-    height: 40px;
+    background-size: 100px 25px !important;
+    width: 100px;
+    background-position: 0 8px !important;
 }
 
 a.navbar-brand {
@@ -96,4 +97,28 @@ footer {
 
 #dropdownMenu1 {
     margin-top:18px;
+}
+
+.fa-user-circle-o {
+    padding-top: 3px;
+    margin: 0 auto;
+}
+
+.navbar-left {
+    padding-top: 15px;
+    padding-left: 20px;
+}
+
+.navbar-left li a {
+    background-color: #444444;
+    border-radius: 15px;
+    color: white !important;
+    line-height:1 !important;
+    padding: 8px;
+    margin-left: 10px;
+    transition: 0.5s;
+    border: 2px solid black;
+}
+.navbar-left li a:hover{
+    border: 2px solid white;
 }
