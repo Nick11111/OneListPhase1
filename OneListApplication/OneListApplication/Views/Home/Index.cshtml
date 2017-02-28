@@ -4,16 +4,13 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="mainDiv" >
-    <div class="row">
-    <h2 class="col-lg-4 col-lg-offset-4 col-xs-12" id="title">Welcome to the OneList!</h2>
-    <a class="col-lg-4 col-lg-offset-4 col-xs-12" href="~/Home/GetDesignDocument">Design Document</a>
-    <p class="col-lg-6 col-lg-offset-3 col-xs-12">OneList provides the ultimate solution for creating lists.</p>
-    
-    <br />
 
-    <button class="btn btn-primary col-lg-2 col-lg-offset-5 col-xs-12" onclick="location.href='@Url.Action("Login", "Home")';return false;">Create an Account</button>
-    <br />
-    <p class="col-lg-4 col-lg-offset-4 col-xs-12">Latest Build - @ViewBag.date</p>
+<div class="jumbotron">
+    <div>
+        <h1>Welcome to the OneList!</h1>
+        <h4>Check Out Our<a href="~/Home/GetDesignDocument"> Design Document</a></h4>
     </div>
+    <p>Your ultimate solution to organize daily tasks, OneList can help increase efficency, register today for free.</p>
+    <p><a class="btn btn-primary btn-lg" href="@Url.Action("Register", "Home")" role="button">Register Now</a></p>
+    <p class="text-success">Latest Build - @ViewBag.date</p>
 </div>
