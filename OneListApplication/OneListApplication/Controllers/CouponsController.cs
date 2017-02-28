@@ -13,11 +13,14 @@ using System.Web.Http.Cors;
 
 namespace OneListApplication.Controllers
 {
+    
     public class CouponsController : ApiController
     {
+       
         private OneListEntitiesCore db = new OneListEntitiesCore();
 
         // GET: api/Coupons
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IQueryable<Coupon> GetCoupons()
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -26,6 +29,7 @@ namespace OneListApplication.Controllers
 
         // GET: api/Coupons/5
         [ResponseType(typeof(Coupon))]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult GetCoupon(int id)
         {
             Coupon coupon = db.Coupons.Find(id);
@@ -39,6 +43,7 @@ namespace OneListApplication.Controllers
 
         // PUT: api/Coupons/5
         [ResponseType(typeof(void))]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult PutCoupon(int id, Coupon coupon)
         {
             if (!ModelState.IsValid)
@@ -74,6 +79,7 @@ namespace OneListApplication.Controllers
 
         // POST: api/Coupons
         [ResponseType(typeof(Coupon))]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult PostCoupon(Coupon coupon)
         {
             if (!ModelState.IsValid)
@@ -89,6 +95,7 @@ namespace OneListApplication.Controllers
 
         // DELETE: api/Coupons/5
         [ResponseType(typeof(Coupon))]
+        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult DeleteCoupon(int id)
         {
             Coupon coupon = db.Coupons.Find(id);

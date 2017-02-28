@@ -1,5 +1,5 @@
 ﻿// When client is not on same domain.
-var serviceUrl = 'http://localhost:7464/api/Coupons';
+var serviceUrl = 'http://takethisapart.com/onelist/api/coupons';
 function getCoupons() {
     $("#coupons").replaceWith("<span id='value1'></span>");
     var method = $('#method').val();
