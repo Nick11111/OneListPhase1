@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("~/Views/Home/Sidebar.cshtml")
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="~/Scripts/app.js"></script>
 <script>
@@ -38,19 +37,24 @@
     }
 </script>*@
 <div id="wrapper">
-      <div id="page-wrapper">
+   
+    <div id="page-wrapper">
         <div class="container-fluid">
             <!-- Page Heading -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">
-                        Welcome back Nick!
-                    </h1>
+
+            <div class="col-lg-8">
+
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Welcome back Nick!
+                        </h1>
+                    </div>
                 </div>
-            </div>
-            <!-- /.row -->
-            <div class="row" id="listType">
-                    <div class="col-md-4 col-sm-12" >
+                <!-- /.row -->
+                <div class="row" id="listType">
+                    <div class="col-md-4 col-sm-12">
                         <h4>Your Current Opening Lists</h4>
                         <ul>
                             <li><a href="#">Office supply list</a></li>
@@ -80,62 +84,63 @@
                         </ul>
                         <a href="#">View More <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
+                </div>
+                <!-- /.row -->
+                @*<div class="row">
+                        <div class="col-lg-6">
+                            <div id="piechart" style="width: 550px; height: 500px;"></div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Activity History</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="list-group">
+                                        <a href="#" class="list-group-item">
+                                            <span class="badge">just now</span>
+                                            List status updated
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <span class="badge">4 minutes ago</span>
+                                            Complete a list item
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <span class="badge">23 minutes ago</span>
+                                            Invite people to a list
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <span class="badge">46 minutes ago</span>
+                                            Assign a collaborator of a list
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <span class="badge">1 hour ago</span>
+                                            Subscribe a new list
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <span class="badge">2 hours ago</span>
+                                            Become a collaborator of a list
+                                        </a>
+                                        <a href="#" class="list-group-item">
+                                            <span class="badge">yesterday</span>
+                                            Complete a list
+                                        </a>
+                                    </div>
+                                    <div class="text-right">
+                                        <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+                <!-- /.container-fluid -->
             </div>
-            <!-- /.row -->
-            @*<div class="row">
-                <div class="col-lg-6">
-                    <div id="piechart" style="width: 550px; height: 500px;"></div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Activity History</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">just now</span>
-                                    List status updated
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">4 minutes ago</span>
-                                    Complete a list item
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">23 minutes ago</span>
-                                    Invite people to a list
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">46 minutes ago</span>
-                                    Assign a collaborator of a list
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">1 hour ago</span>
-                                    Subscribe a new list
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">2 hours ago</span>
-                                    Become a collaborator of a list 
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <span class="badge">yesterday</span>
-                                    Complete a list
-                                </a>
-                            </div>
-                            <div class="text-right">
-                                <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
-        <!-- /.container-fluid -->
+
+            <div id="coupon" class="col-lg-4">
+                    <h3>Offers List:</h3>
+                    <span id='value1'><br /></span>
+            </div>
+            <!-- /#page-wrapper -->
+        </div>
     </div>
-    <!-- /#page-wrapper -->
-</div>
-   
-</div>
-<div class="row">
-    <h3>Go ahead and use the following coupons!!!</h3>
-    <span id='value1'><br /></span>
 </div>

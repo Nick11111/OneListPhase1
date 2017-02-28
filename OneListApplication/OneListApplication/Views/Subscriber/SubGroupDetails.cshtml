@@ -3,12 +3,10 @@
     ViewBag.Title = "SubGroupDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("~/Views/Home/Sidebar.cshtml");
-<div class="col-sm-offset-2">
-    <h2>Family Group Details</h2>
-    @Html.Partial("~/Views/Subscriber/SubscriberTab.cshtml")
 
-    <h3>Family</h3>
+@Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
+<div class="col-md-10">
+    <h2>Family Group Details</h2>
     <table class="table">
         <thead class="thead-inverse">
             <tr>

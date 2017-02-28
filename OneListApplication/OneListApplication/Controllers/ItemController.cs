@@ -10,21 +10,50 @@ namespace OneListApplication.Controllers
 {
     public class ItemController : Controller
     {
+        public string FindUserID()
+        {
+            string name = User.Identity.Name;
+            OneListCAEntities context = new OneListCAEntities();
+            AspNetUser user = context.AspNetUsers
+                    .Where(u => u.UserName == name).FirstOrDefault();
+            string userId = user.Id;
+            return userId;
+        }
         [HttpGet]
         public ActionResult ItemManagement()
         {
+            string userId = FindUserID();
             ItemRepo itemRepo = new ItemRepo();
-            IEnumerable<ItemVM> items = itemRepo.GetAll();
+            IEnumerable<ItemVM> items = itemRepo.GetAll(userId);
             return View(items);
         }
         [HttpGet]
         public ActionResult CreateItem()
         {
-            return View();
+            var model = new ItemVM
+            {
+                ItemCategoryList = GetCategories()
+            };
+            return View(model);
+        }
+
+        private IEnumerable<SelectListItem> GetCategories()
+        {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            var categories = db.ItemCategories
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.ItemCategoryID.ToString(),
+                                    Text = x.ItemCategoryName
+                                });
+
+            return new SelectList(categories, "Value", "Text");
         }
         [HttpPost]
         public ActionResult CreateItem(ItemVM item)
         {
+            item.UserID = FindUserID();
             string errMsg = "";
             if (ModelState.IsValid)
             {
@@ -52,6 +81,8 @@ namespace OneListApplication.Controllers
         {
             ItemRepo itemRepo = new ItemRepo();
             ItemVM item = itemRepo.GetDetails(id);
+            ViewBag.Categories = new SelectList(GetCategories(), "Value",
+                             "Text", id);
             return View(item);
         }
         [HttpPost]

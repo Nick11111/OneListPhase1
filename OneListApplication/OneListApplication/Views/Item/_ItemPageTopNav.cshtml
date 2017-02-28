@@ -1,6 +1,16 @@
-﻿<ul class="nav nav-pills nav-justified">
-    <li class="nav-item">@Html.ActionLink("Avaliable Items", "ItemManagement", "Item", new { @class = "nav-link active" }, null)</li>
-    <li class="nav-item">@Html.ActionLink("Create Item", "CreateItem", "Item", new { @class = "nav-link" }, null)</li>
-    <li class="nav-item">@Html.ActionLink("Avaliable Item Group", "ItemCategoryManagement", "Item", new { @class = "nav-link" }, null)</li>
-    <li class="nav-item">@Html.ActionLink("Create Item Group", "CreateItemCategory", "Item", new { @class = "nav-link" }, null)</li>
-</ul>
+﻿<div class="col-md-2">
+    <ul class="nav navbar-nav side-nav">
+        <li class="active">
+            <a class="nav-link active" href="@Url.Action("ItemManagement", "Item")"><i class="fa fa-shopping-basket" aria-hidden="true"></i>&nbsp;&nbsp;All Items</a>
+        </li>
+        <li>
+            <a class="nav-link" href="@Url.Action("CreateItem", "Item")"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;Create Item</a>
+        </li>
+        <li>
+            <a class="nav-link" href="@Url.Action("ItemCategoryManagement", "Item")"><i class="fa fa-object-group" aria-hidden="true"></i>Categories</a>
+        </li>
+        <li>
+            <a class="nav-link" href="@Url.Action("CreateItemCategory", "Item")"><i class="fa fa-object-ungroup" aria-hidden="true"></i>Create Category</a>
+        </li>
+    </ul>
+</div>

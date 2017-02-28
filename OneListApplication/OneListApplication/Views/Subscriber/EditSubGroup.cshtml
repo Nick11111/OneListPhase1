@@ -3,12 +3,10 @@
     ViewBag.Title = "EditSubGroup";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("~/Views/Home/Sidebar.cshtml");
 
-<div class="col-sm-offset-2">
+@Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
+<div class="col-md-10">
     <h2>Edit Subscriber Group</h2>
-    @Html.Partial("~/Views/Subscriber/SubscriberTab.cshtml")
-
     <form>
         <div class="form-group row">
             <label for="list-title" class="col-xs-2 col-form-label">Group Title</label>

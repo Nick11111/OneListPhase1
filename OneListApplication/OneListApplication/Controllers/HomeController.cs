@@ -138,14 +138,15 @@ namespace OneListApplication.Controllers
 
             if (result.Succeeded)
             {
+
                 OneListCAEntities context = new OneListCAEntities();
                 AspNetUser user = context.AspNetUsers
-                                    .Where(u => u.UserName == identityUser.UserName).FirstOrDefault();
-                AspNetRole role = context.AspNetRoles.Find("User");
-                //role.Id = "User";
-                //role.Name = "User";
+                                    .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
+                AspNetRole role = new AspNetRole();
+                role.Id = "User";
+                role.Name = "User";
 
-                user.AspNetRoles.Add(role);
+                user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
                 context.SaveChanges();
                 //add information of user and password to table users in core
                 CreateTokenProvider(manager, EMAIL_CONFIRMATION);
@@ -158,8 +159,6 @@ namespace OneListApplication.Controllers
                 string email = "Please confirm your account by clicking this link: <a href=\""
                                 + callbackUrl + "\">Confirm Registration</a>";
                 SendGrid.sendEmail(newUser, callbackUrl);
-
-
                 //ViewBag.FakeConfirmation = email;
             }
             return View();
@@ -228,6 +227,13 @@ namespace OneListApplication.Controllers
             }
             return View();
         }
+        //[Authorize(Roles = "Administrator")]
+        // To allow more than one role access use syntax like the following:
+        // [Authorize(Roles="Admin, Staff")]
+        //public ActionResult AdminOnly()
+        //{
+        //    return View();
+        //}
 
         public ActionResult Logout()
         {
