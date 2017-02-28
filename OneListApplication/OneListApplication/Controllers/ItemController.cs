@@ -117,7 +117,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemCategoryManagement()
         {
-            return View();
+            string userId = FindUserID();
+            ItemRepo itemRepo = new ItemRepo();
+            IEnumerable<ItemCategoryVM> items = itemRepo.GetItemCategories();
+            return View(items);
         }
         [HttpGet]
         public ActionResult CreateItemCategory()
