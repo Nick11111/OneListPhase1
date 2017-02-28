@@ -6,10 +6,8 @@
 }
 
 <div class="container">
-    <ul class="nav nav-pills col-lg-3 col-lg-offset-5">
-        <li>@Html.ActionLink("Login", "Login", "Home")</li>
-        <li class="active"><a href="#register" aria-controls="register" data-toggle="tab">Register</a></li>
-    </ul>
+    <h4 class="text-center">Register</h4>
+
     <div class="tab-content">
         <div class="tab-pane active" id="register">
 @using (Html.BeginForm("Register", "Home",
@@ -20,25 +18,26 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             @*<form class="form-signin col-lg-4 col-lg-offset-4">*@
-                <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-                @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Your name" } })
-                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-                @*<input type="text" class="form-control" placeholder="Your name" required autofocus><br>*@
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email address" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                @*<input type="email" class="form-control" placeholder="Email address" required><br>*@
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Create Password" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Your name" } })
+        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        @*<input type="text" class="form-control" placeholder="Your name" required autofocus><br>*@
+        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email address" } })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        @*<input type="email" class="form-control" placeholder="Email address" required><br>*@
+        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Create Password" } })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 
-                @*<input type="password" class="form-control" placeholder="Create Password" required><br>*@
-                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Comfirm Password" } })
-                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-            
-                @*<input type="password" class="form-control" placeholder="Comfirm Password" required><br>*@
-                <button class="btn btn-primary btn-signin" type="submit">Register</button><br />
-            @*</form>*@
-            }
+        @*<input type="password" class="form-control" placeholder="Create Password" required><br>*@
+        @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Comfirm Password" } })
+        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+        @*<input type="password" class="form-control" placeholder="Comfirm Password" required><br>*@
+        <div class="text-center">
+            <button class="btn btn-primary btn-signin" type="submit">Register</button><br />
         </div>
+        @*</form>*@
+        }
+    </div>
         @*<div class="tab-pane" id="login">
             <form class="form-signin col-lg-4 col-lg-offset-4">
                 <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /><br>
