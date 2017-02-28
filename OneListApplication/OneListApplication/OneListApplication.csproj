@@ -246,6 +246,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="AspNetRole.cs">
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
