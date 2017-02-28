@@ -141,5 +141,14 @@ footer {
 
 .btn-signin {
     width: 80%;
-    margin: 15px 0;
+    margin-bottom: 15px;
+}
+
+.btn-register {
+    margin-top: 15px;
+}
+
+.forget-pw {
+    padding-right: 10%;
+    margin-bottom: 40px;
 }

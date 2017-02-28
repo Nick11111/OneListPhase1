@@ -39,15 +39,16 @@
             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
 
             @*<input type="password" class="form-control" placeholder="Password" required>*@
-            <div class="text-center form-check">
+            <div class="text-center">
                 <div id="remember" class="checkbox">
                     <label class="form-check-label">
                         <input value="remember-me" type="checkbox"> Remember Me
                     </label>
                 </div>
                 <button class="btn btn-primary btn-signin" type="submit">Sign in</button><br />
-
-                @Html.ActionLink("Forgot Password", "ForgotPassword", "Home")
+                <div class="text-right forget-pw">
+                    @Html.ActionLink("Forgot Password", "ForgotPassword", "Home")
+                </div>
             </div>
             @*</form>*@
             }
