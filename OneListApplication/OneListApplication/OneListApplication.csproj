@@ -394,7 +394,6 @@
     <Content Include="Views\Subscriber\AddSubscriber.cshtml" />
     <Content Include="Views\Subscriber\EditSubGroup.cshtml" />
     <Content Include="Views\Subscriber\SubGroupDetails.cshtml" />
-    <Content Include="Views\Subscriber\SubscriberTab.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
     <Content Include="Views\Item\ItemGroupDetail.cshtml" />
     <Content Include="Views\List\EditList.cshtml" />
@@ -434,6 +433,8 @@
     <Content Include="Views\Item\old\EditItem.cshtml" />
     <Content Include="Views\Item\EditItem.cshtml" />
     <Content Include="Views\Item\_ItemPageTopNav.cshtml" />
+    <Content Include="Views\List\_ListSideBar.cshtml" />
+    <Content Include="Views\Subscriber\_SubscriberSideBar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

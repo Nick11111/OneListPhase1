@@ -3,16 +3,9 @@
     ViewBag.Title = "EditList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="col-sm-offset-2">
+@Html.Partial("~/Views/List/_ListSideBar.cshtml")
+<div class="col-md-10">
     <h2>Edit List</h2>
-    <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">@Html.ActionLink("Open Lists", "ListManagement", "Home", new { @class = "nav-link active" }, null)</li>
-        <li class="nav-item">@Html.ActionLink("Create List", "CreateList", "List", new { @class = "nav-link" }, null)</li>
-        <li class="nav-item">@Html.ActionLink("Completed Lists", "ShowCompleteList", "List", new { @class = "nav-link" }, null)</li>
-        <li class="nav-item">@Html.ActionLink("Subscribed Lists", "ShowSubscribedList", "List", new { @class = "nav-link" }, null)</li>
-    </ul>
-
     <form>
         <div class="form-group row">
             <label for="list-title" class="col-xs-2 col-form-label">List Title</label>

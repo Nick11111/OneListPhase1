@@ -6,7 +6,7 @@
 }
 
 @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
-<div id="wrapper">
+<div class="col-md-10">
     <h2>All Items</h2>
     <table class="table">
         <tr>
@@ -35,9 +35,9 @@
                     @Html.DisplayFor(modelItem => item.ItemCategoryName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-primary" }) 
-                    @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new {@class = "btn btn-primary" })
-                    
+                    @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new { @class = "btn btn-primary" })
+
                     <a class="btn btn-danger" href="@Url.Action("DeleteItem","Item",  new { id = item.ItemID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
@@ -45,4 +45,4 @@
 
     </table>
     <p>@ViewBag.ErrorMsg</p>
-    </div>
+</div>

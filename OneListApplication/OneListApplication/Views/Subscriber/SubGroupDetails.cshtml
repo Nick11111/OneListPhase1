@@ -4,11 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div>
+@Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
+<div class="col-md-10">
     <h2>Family Group Details</h2>
-    @Html.Partial("~/Views/Subscriber/SubscriberTab.cshtml")
-
-    <h3>Family</h3>
     <table class="table">
         <thead class="thead-inverse">
             <tr>

@@ -3,15 +3,9 @@
     ViewBag.Title = "CreateItemGroup";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div id="wrapper">
+@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
+<div class="col-md-10">
     <h2>Create Item Group</h2>
-    <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">@Html.ActionLink("Avaliable Items", "ItemManagement", "Item", new { @class = "nav-link active" }, null)</li>
-        <li class="nav-item">@Html.ActionLink("Create Item", "CreateItem", "Item", new { @class = "nav-link" }, null)</li>
-        <li class="nav-item">@Html.ActionLink("Avaliable Item Group", "ItemGroupManagement", "Item", new { @class = "nav-link" }, null)</li>
-        <li class="nav-item">@Html.ActionLink("Create Item Group", "CreateItemGroup", "Item", new { @class = "nav-link" }, null)</li>
-    </ul>
     <form>
         <div class="form-group">
             <label for="list-title" class="col-xs-2 col-form-label">Group Name</label>
