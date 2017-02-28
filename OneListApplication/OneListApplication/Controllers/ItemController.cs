@@ -124,6 +124,25 @@ namespace OneListApplication.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult CreateItemCategory(ItemCategoryVM itemCategory)
+        {
+            if (ModelState.IsValid)
+            {
+                //currently allowing duplicate item name.
+                ItemCategory c = new ItemCategory();
+                c.ItemCategoryName = itemCategory.ItemCategoryName;
+                c.ItemCategoryID = 0;
+                OneListEntitiesCore Core = new OneListEntitiesCore();
+                Core.ItemCategories.Add(c);
+                Core.SaveChanges();
+            }
+            else
+            {
+                ViewBag.ErrorMsg = "Cannot add Item Category.";
+            }
+            return View();
+        }
         //TO DO: create post action for CreateItemGroup()
         [HttpGet]
         public ActionResult ItemCategoryDetail()

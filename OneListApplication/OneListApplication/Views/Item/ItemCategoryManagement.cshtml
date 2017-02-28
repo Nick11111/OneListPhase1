@@ -1,0 +1,34 @@
+﻿@model IEnumerable<OneListApplication.ViewModels.ItemCategoryVM>
+
+@{
+    ViewBag.Title = "ItemCategoryManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ItemCategoryManagement</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemCategoryName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemCategoryName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemCategoryID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ItemCategoryID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemCategoryID })
+        </td>
+    </tr>
+}
+
+</table>

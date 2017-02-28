@@ -352,6 +352,7 @@
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ItemCategoryList.cs" />
+    <Compile Include="ViewModels\ItemCategoryVM.cs" />
     <Compile Include="ViewModels\ItemVM.cs" />
     <Compile Include="ViewModels\ListItemVM.cs" />
     <Compile Include="ViewModels\ListVM.cs" />
@@ -439,6 +440,8 @@
     <Content Include="Views\Developer\Index.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Item\CreateItemCategory.cshtml" />
+    <Content Include="Views\Item\ItemCategoryManagement.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
