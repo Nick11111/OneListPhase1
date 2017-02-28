@@ -55,6 +55,7 @@
                     }*@
                     @{if (Request.IsAuthenticated&& HttpContext.Current.User.IsInRole("Administrator"))
                         {
+
                             <li>@Html.ActionLink("Assign Roles", "AddUserToRole", "Home")</li>
                         }
                     }

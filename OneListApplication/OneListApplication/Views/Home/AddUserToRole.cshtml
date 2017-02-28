@@ -32,21 +32,21 @@
                     List<SelectListItem> listItems = new List<SelectListItem>();
                     listItems.Add(new SelectListItem
                     {
-                        Text = "List Collaborator",
-                        Value = "List Collaborator",
+                        Text = "Administrator",
+                        Value = "Administrator",
                         Selected = true
                     });
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "List Publisher",
-                        Value = "List Publisher"
+                    //listItems.Add(new SelectListItem
+                    //{
+                    //    Text = "List Publisher",
+                    //    Value = "List Publisher"
 
-                    });
-                    listItems.Add(new SelectListItem
-                    {
-                        Text = "List Subscriber",
-                        Value = "List Subscriber"
-                    });
+                    //});
+                    //listItems.Add(new SelectListItem
+                    //{
+                    //    Text = "List Subscriber",
+                    //    Value = "List Subscriber"
+                    //});
                 }
 
                 @Html.DropDownListFor(model => model.RoleName, listItems, "-- Select Status --")

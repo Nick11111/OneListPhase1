@@ -138,6 +138,15 @@ namespace OneListApplication.Controllers
 
             if (result.Succeeded)
             {
+                OneListCAEntities context = new OneListCAEntities();
+                AspNetUser user = context.AspNetUsers
+                                    .Where(u => u.UserName == identityUser.UserName).FirstOrDefault();
+                AspNetRole role = context.AspNetRoles.Find("User");
+                //role.Id = "User";
+                //role.Name = "User";
+
+                user.AspNetRoles.Add(role);
+                context.SaveChanges();
                 //add information of user and password to table users in core
                 CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
@@ -149,6 +158,8 @@ namespace OneListApplication.Controllers
                 string email = "Please confirm your account by clicking this link: <a href=\""
                                 + callbackUrl + "\">Confirm Registration</a>";
                 SendGrid.sendEmail(newUser, callbackUrl);
+
+
                 //ViewBag.FakeConfirmation = email;
             }
             return View();
