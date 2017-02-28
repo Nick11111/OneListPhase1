@@ -228,13 +228,6 @@ namespace OneListApplication.Controllers
             }
             return View();
         }
-        //[Authorize(Roles = "Administrator")]
-        // To allow more than one role access use syntax like the following:
-        // [Authorize(Roles="Admin, Staff")]
-        //public ActionResult AdminOnly()
-        //{
-        //    return View();
-        //}
 
         public ActionResult Logout()
         {
