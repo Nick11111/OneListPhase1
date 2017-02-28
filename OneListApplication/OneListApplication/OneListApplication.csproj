@@ -436,6 +436,9 @@
     <Content Include="Views\Item\_ItemPageTopNav.cshtml" />
     <Content Include="Views\List\_ListSideBar.cshtml" />
     <Content Include="Views\Subscriber\_SubscriberSideBar.cshtml" />
+    <Content Include="Views\Developer\Index.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
