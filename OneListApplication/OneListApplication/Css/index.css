@@ -133,3 +133,13 @@ footer {
         margin: 0 auto;
     }
 }
+
+.form-control {
+    margin: 15px auto 0;
+}
+
+
+.btn-signin {
+    width: 80%;
+    margin: 15px 0;
+}
