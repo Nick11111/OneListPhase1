@@ -324,9 +324,7 @@ namespace OneListApplication.Controllers
         public static DateTime GetBuildDate()
         {
             UriBuilder uri = new UriBuilder(Assembly.GetExecutingAssembly().CodeBase);
-            return System.IO.File.GetLastWriteTime(
-                Path.GetDirectoryName(Uri.UnescapeDataString(uri.Path))
-                );
+            return OneListApplication.Properties.Settings.Default.LastBuildtime;
         }
         public ActionResult GetDesignDocument()
         {

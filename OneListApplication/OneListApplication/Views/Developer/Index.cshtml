@@ -4,19 +4,19 @@
     ViewBag.Title = "Developer's Guide";
 }
 <div class="mainDiv">
-        <h2 class="col-lg-12 col-lg-offset-1 col-xs-12" id="title">How To Populate on the Onelist Discount's feed!</h2>
-        <p class="col-lg-12 col-lg-offset-1 col-xs-12">If you want to populate our Coupon's Database with your special offers you can use the following API Methods.</p>
-        <div id="Select">
-            <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Get Coupons">Get Coupons</h3>
+        <h2 class="col-lg-12 col-lg-offset-1" id="title">How To Populate on the Onelist Discount's feed!</h2>
+        <p class="col-lg-12 col-lg-offset-1">If you want to populate our Coupon's Database with your special offers you can use the following API Methods.</p>
+        <div id="Select" class="col-lg-5 col-lg-offset-1">
+            <h3 class="col-lg-12 col-lg-offset-1" id="Get Coupons" >Get Coupons</h3>
 
-            <form class="col-lg-12 col-lg-offset-1 col-xs-12" method="get" action="api/Coupons">
-                <span id='value1'>(Result)<br /></span>
+            <form class="col-lg-12 col-lg-offset-1" method="get" action="api/Coupons">
+                <span id='value1' style="display: block;overflow: auto;">(Result)<br /></span>
                 <input type="button" value="Get" onclick="getCoupons()" />
             </form>
         </div>
-        <div id="Create">
-            <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Create Cupon">Create Coupon</h3>
-            <div>
+        <div id="Create" class="col-lg-5 col-lg-offset-1" >
+            <div >
+                <h3 class="col-lg-12 col-lg-offset-1" id="Create Cupon">Create Coupon</h3>
                 <label for="_New Product"><b>Create Coupon</b></label>
                 <label for="_ID">Title:</label>
                 <input type="text" id="txtAdd_Title" size="20" />
@@ -41,7 +41,7 @@
             </div>
 
         </div>
-        <div id="Update">
+        <div id="Update" class="col-lg-5 col-lg-offset-1">
             <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Update Cupon">Update Coupon</h3>
             <div>
                 
@@ -71,10 +71,10 @@
             </div>
 
         </div>
-        <div id="Update">
-            <h3 class="col-lg-12 col-lg-offset-1 col-xs-12" id="Delete Cupon">Delete Coupon</h3>
+        <div id="Delete"  class="col-lg-5 col-lg-offset-1">
+            <h3 class="col-lg-12 col-lg-offset-1" id="Delete Cupon">Delete Coupon</h3>
             <div>
-                <label for="_ID">Delete Manufacturer by ID:</label>
+                <label for="_ID">Delete Coupon by ID:</label>
                 <input type="text" id="txtDelete_CouponID" size="10" />
                 <input type="button" value="Delete" onclick="del();" />
                 <p id="manufacturerDelete" />
