@@ -356,6 +356,7 @@
     <Compile Include="ViewModels\ItemVM.cs" />
     <Compile Include="ViewModels\ListItemVM.cs" />
     <Compile Include="ViewModels\ListVM.cs" />
+    <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
