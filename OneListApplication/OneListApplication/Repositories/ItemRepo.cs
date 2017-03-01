@@ -25,6 +25,13 @@ namespace OneListApplication.Repositories
                  
             return itemList;
         }
+        public IEnumerable<ItemCategoryVM> GetItemCategories()
+        {
+
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            IEnumerable<ItemCategoryVM> itemList = db.ItemCategories.Select(p =>  new ItemCategoryVM() { ItemCategoryID = p.ItemCategoryID, ItemCategoryName= p.ItemCategoryName });
+            return itemList;
+        }
         public void CreateItem(ItemVM item, out string errMsg)
         {
             if (String.IsNullOrEmpty(item.ItemName))

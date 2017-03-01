@@ -13,7 +13,7 @@ using System.Web.Http.Cors;
 
 namespace OneListApplication.Controllers
 {
-    
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class CouponsController : ApiController
     {
        
@@ -43,7 +43,6 @@ namespace OneListApplication.Controllers
 
         // PUT: api/Coupons/5
         [ResponseType(typeof(void))]
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult PutCoupon(int id, Coupon coupon)
         {
             if (!ModelState.IsValid)
@@ -79,7 +78,6 @@ namespace OneListApplication.Controllers
 
         // POST: api/Coupons
         [ResponseType(typeof(Coupon))]
-        [EnableCors(origins: "*", headers: "*", methods: "*")]
         public IHttpActionResult PostCoupon(Coupon coupon)
         {
             if (!ModelState.IsValid)
