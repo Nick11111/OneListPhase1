@@ -96,7 +96,7 @@ footer {
 }
 
 .fa-user-circle-o {
-    padding-top: 3px;
+    padding: 0;
     margin: 0 auto;
 }
 
@@ -119,9 +119,6 @@ footer {
     border: 2px solid white;
 }
 
-.profile-icon{
-    width: 40px;
-}
 
 .collapse.navbar-collapse.navbar-ex1-collapse {
     float: left;
@@ -134,7 +131,7 @@ footer {
     }
 }
 
-.form-control {
+.form-signin .form-control {
     margin: 15px auto 0;
 }
 

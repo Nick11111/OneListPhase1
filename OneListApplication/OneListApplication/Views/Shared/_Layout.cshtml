@@ -69,19 +69,16 @@
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                     <li>@Html.ActionLink("Assign Roles", "AddUserToRole", "Home")</li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
                                 </ul>
                             </li>
                         }
                     }
                     @{if (Request.IsAuthenticated)
                         {
-                            <li class="profile-icon"><a href="@Url.Action("Index", "Profile")"><i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i></a></li>
+                            <li class="profile-icon"><a href="@Url.Action("Index", "Profile")"><span id="username">Hi, @Html.Raw(User.Identity.Name)</span></a></li>
                             <li>@Html.ActionLink("Log Out", "Logout", "Home")</li>
                         }
                     }
-
                 </ul>
             </div>
         </div>

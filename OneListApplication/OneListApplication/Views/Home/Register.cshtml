@@ -18,7 +18,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             @*<form class="form-signin col-lg-4 col-lg-offset-4">*@
-        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Your name" } })
+        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
         @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
         @*<input type="text" class="form-control" placeholder="Your name" required autofocus><br>*@
         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email address" } })
@@ -53,6 +53,8 @@
                 <a>@Html.ActionLink("Log In as Admin", "Index", "Admin")</a>
             </form>
         </div>*@
-        @Html.Raw(ViewBag.FakeConfirmation)
+        <p class="text-success">
+            @Html.Raw(ViewBag.FakeConfirmation)
+        </p>
     </div>
 </div>

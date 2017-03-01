@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using OneListApplication.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,16 +20,20 @@ namespace OneListApplication.Controllers
         // GET: Profile
         public ActionResult Index()
         {
-            return View();
+            var username = User.Identity.Name;
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            User user = db.Users.Where(a => a.UserName == username).FirstOrDefault();
+            UserVM userForView = new UserVM();
+            userForView.FirstName = user.FirstName;
+            userForView.LastName = user.LastName;
+            userForView.UserName = user.UserName;
+            userForView.Email = user.Email;
+            return View(userForView);
         }
-        //public ActionResult ChangePassword()
-        //{
-        //    return View();
-        //}
+
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            //var user = UserManager.FindById(User.Identity.GetUserId());
             var userStore = new UserStore<IdentityUser>();
             UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
             var user = manager.FindByName(User.Identity.Name);
@@ -73,9 +78,16 @@ namespace OneListApplication.Controllers
                 ViewBag.Result = "Two passwords don't match!";
             return View();
         }
-        public ActionResult Edit()
+
+        [HttpPost]
+        public ActionResult Edit(UserVM userInput)
         {
-            return View();
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            User user = db.Users.Where(a => a.UserName == User.Identity.Name).FirstOrDefault();
+            user.FirstName = userInput.FirstName;
+            user.LastName = userInput.LastName;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Profile");
         }
     }
 }

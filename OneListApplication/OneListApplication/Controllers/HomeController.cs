@@ -303,12 +303,13 @@ namespace OneListApplication.Controllers
 
     public ActionResult Home()
         {
+            ViewBag.UserName = User.Identity.Name;
             return View();
         }
 
         public ActionResult ListManagement()
         {
-            return View();
+           return View();
         }
 
         public ActionResult SubscriberManagement()

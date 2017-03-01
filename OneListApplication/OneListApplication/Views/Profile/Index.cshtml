@@ -1,44 +1,75 @@
-﻿
+﻿@model OneListApplication.ViewModels.UserVM
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="col-sm-offset-2">
-    <h2>Profile Information</h2>
-    <h3 for="selectItemGroup" style="float:left; width:100%; text-align:center">Information Details</h3>
-    <img src="../images/paul_mills.jpg" style="float:left ; width:50%; width:200px; height:200px;"/>
-    <table class="table table-inverse" style="float:left ; width:50%">
-        <thead>
-            <tr>
-                <th>Information</th>
-                <th>Value</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><b>FirstName</b></td>
-                <td>Paul</td>
-            </tr>
-            <tr>
-                <td><b>LastName</b></td>
-                <td>Mills</td>
-            </tr>
-            <tr>
-                <td><b>BirthDate</b></td>
-                <td>1966/09/23</td>
-            </tr>
-            <tr>
-                <td><b>email</b></td>
-                <td>paul.mills@bcit.ca</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><button  class="btn btn-primary" onclick="location.href='@Url.Action("Edit", "Profile")';return false;">Edit Information</button><button  class="btn btn-primary" onclick="location.href='@Url.Action("ChangePassword", "Profile")';return false;">Change Password</button></td>
-            </tr>
-        </tbody>
-    </table>
-    <div style="clear:both">
-    @Html.ActionLink("Return to Profile Information", "Index", "Profile")
-    </div>
+    @using (Html.BeginForm("Edit", "Profile"))
+    {
+        @Html.HiddenFor(model => model.UserName)
+        <h3 for="selectItemGroup" style="float:left; width:100%; text-align:center">User Profile</h3>
+        <img src="https://kenanfellows.org/wp-content/uploads/2016/02/blank-profile-picture-973460_960_720.png" style="float:left ; width:50%; width:200px; height:200px;" />
+        <table class="table table-inverse" style="float:left ; width:50%">
+            <thead>
+                <tr>
+                    <th>Details</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.UserName)
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </td>
+
+                    <td>
+                        @Html.EditorFor(model => model.FirstName)
+                    </td>
+                    <td>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </td>
+
+                    <td>
+                        @Html.EditorFor(model => model.LastName)
+                    </td>
+                    <td>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => model.Email)
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><button class="btn btn-primary" onclick="location.href='@Url.Action("ChangePassword", "Profile")';return false;">Change Password</button></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    }
 </div>
