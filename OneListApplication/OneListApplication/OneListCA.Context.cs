@@ -12,6 +12,8 @@ namespace OneListApplication
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class OneListEntitiesCore : DbContext
     {
@@ -39,7 +41,14 @@ namespace OneListApplication
         public virtual DbSet<ListType> ListTypes { get; set; }
         public virtual DbSet<ListUser> ListUsers { get; set; }
         public virtual DbSet<Retail> Retails { get; set; }
+        public virtual DbSet<SuscriberGroup> SuscriberGroups { get; set; }
+        public virtual DbSet<SuscriberGroupUser> SuscriberGroupUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserType> UserTypes { get; set; }
+    
+        public virtual int UpdateInfousers()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateInfousers");
+        }
     }
 }

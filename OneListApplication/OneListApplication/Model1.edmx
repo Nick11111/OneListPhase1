@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DB_110660_onelistcaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DB_110660_onelistcaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -137,11 +137,9 @@
           <Key>
             <PropertyRef Name="ListID" />
           </Key>
-          <Property Name="ListID" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="UserTypeID" Type="int" Nullable="false" />
-          <Property Name="ListUserStatus" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ListID" Type="int" Nullable="false" />
+          <Property Name="SuscriberGroupID" Type="int" Nullable="false" />
+          <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Retail">
           <Key>
@@ -152,6 +150,23 @@
           <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Telephone" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SuscriberGroup">
+          <Key>
+            <PropertyRef Name="SuscriberGroupID" />
+          </Key>
+          <Property Name="SuscriberGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SuscriberGroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SuscriberGroupUser">
+          <Key>
+            <PropertyRef Name="SuscriberGroupID" />
+          </Key>
+          <Property Name="SuscriberGroupID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="UserTypeID" Type="int" Nullable="false" />
+          <Property Name="ListUserStatus" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -326,30 +341,31 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListUser_ListUser">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
-            </Principal>
-            <Dependent Role="ListUser">
-              <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ListUser_UserType">
-          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+          <End Role="SuscriberGroup" Type="Self.SuscriberGroup" Multiplicity="1" />
           <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="UserType">
-              <PropertyRef Name="UserTypeID" />
+            <Principal Role="SuscriberGroup">
+              <PropertyRef Name="SuscriberGroupID" />
             </Principal>
             <Dependent Role="ListUser">
-              <PropertyRef Name="UserTypeID" />
+              <PropertyRef Name="SuscriberGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Suscriber_SuscriberUser">
+          <End Role="SuscriberGroup" Type="Self.SuscriberGroup" Multiplicity="1" />
+          <End Role="SuscriberGroupUser" Type="Self.SuscriberGroupUser" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="SuscriberGroup">
+              <PropertyRef Name="SuscriberGroupID" />
+            </Principal>
+            <Dependent Role="SuscriberGroupUser">
+              <PropertyRef Name="SuscriberGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="UpdateInfousers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DB_110660_onelistcaModelStoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -366,6 +382,8 @@
           <EntitySet Name="ListType" EntityType="Self.ListType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListUser" EntityType="Self.ListUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Retail" EntityType="Self.Retail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuscriberGroup" EntityType="Self.SuscriberGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SuscriberGroupUser" EntityType="Self.SuscriberGroupUser" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Coupon_Retail" Association="Self.FK_Coupon_Retail">
@@ -416,47 +434,119 @@
             <End Role="List" EntitySet="List" />
             <End Role="ListItem" EntitySet="ListItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_ListUser_ListUser" Association="Self.FK_ListUser_ListUser">
-            <End Role="User" EntitySet="User" />
+          <AssociationSet Name="FK_ListUser_UserType" Association="Self.FK_ListUser_UserType">
+            <End Role="SuscriberGroup" EntitySet="SuscriberGroup" />
             <End Role="ListUser" EntitySet="ListUser" />
           </AssociationSet>
-          <AssociationSet Name="FK_ListUser_UserType" Association="Self.FK_ListUser_UserType">
-            <End Role="UserType" EntitySet="UserType" />
-            <End Role="ListUser" EntitySet="ListUser" />
+          <AssociationSet Name="FK_Suscriber_SuscriberUser" Association="Self.FK_Suscriber_SuscriberUser">
+            <End Role="SuscriberGroup" EntitySet="SuscriberGroup" />
+            <End Role="SuscriberGroupUser" EntitySet="SuscriberGroupUser" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DB_110660_onelistcaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="OneListCAEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="DB_110660_onelistcaModel.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="DB_110660_onelistcaModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="DB_110660_onelistcaModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="DB_110660_onelistcaModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="DB_110660_onelistcaModel.AspNetUser" />
+          <EntitySet Name="Coupons" EntityType="DB_110660_onelistcaModel.Coupon" />
+          <EntitySet Name="Items" EntityType="DB_110660_onelistcaModel.Item" />
+          <EntitySet Name="ItemCategories" EntityType="DB_110660_onelistcaModel.ItemCategory" />
+          <EntitySet Name="Lists" EntityType="DB_110660_onelistcaModel.List" />
+          <EntitySet Name="ListItems" EntityType="DB_110660_onelistcaModel.ListItem" />
+          <EntitySet Name="ListStatus" EntityType="DB_110660_onelistcaModel.ListStatu" />
+          <EntitySet Name="ListTypes" EntityType="DB_110660_onelistcaModel.ListType" />
+          <EntitySet Name="ListUsers" EntityType="DB_110660_onelistcaModel.ListUser" />
+          <EntitySet Name="Retails" EntityType="DB_110660_onelistcaModel.Retail" />
+          <EntitySet Name="SuscriberGroups" EntityType="DB_110660_onelistcaModel.SuscriberGroup" />
+          <EntitySet Name="SuscriberGroupUsers" EntityType="DB_110660_onelistcaModel.SuscriberGroupUser" />
+          <EntitySet Name="Users" EntityType="DB_110660_onelistcaModel.User" />
+          <EntitySet Name="UserTypes" EntityType="DB_110660_onelistcaModel.UserType" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DB_110660_onelistcaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="DB_110660_onelistcaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coupon_Retail" Association="DB_110660_onelistcaModel.FK_Coupon_Retail">
+            <End Role="Retail" EntitySet="Retails" />
+            <End Role="Coupon" EntitySet="Coupons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_Item" Association="DB_110660_onelistcaModel.FK_Item_Item">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Item_ItemCategory" Association="DB_110660_onelistcaModel.FK_Item_ItemCategory">
+            <End Role="ItemCategory" EntitySet="ItemCategories" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListItem_Item" Association="DB_110660_onelistcaModel.FK_ListItem_Item">
+            <End Role="Item" EntitySet="Items" />
+            <End Role="ListItem" EntitySet="ListItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_List_List" Association="DB_110660_onelistcaModel.FK_List_List">
+            <End Role="ListType" EntitySet="ListTypes" />
+            <End Role="List" EntitySet="Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_List_ListStatus" Association="DB_110660_onelistcaModel.FK_List_ListStatus">
+            <End Role="ListStatu" EntitySet="ListStatus" />
+            <End Role="List" EntitySet="Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_List_User" Association="DB_110660_onelistcaModel.FK_List_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="List" EntitySet="Lists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListItem_List" Association="DB_110660_onelistcaModel.FK_ListItem_List">
+            <End Role="List" EntitySet="Lists" />
+            <End Role="ListItem" EntitySet="ListItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListUser_UserType" Association="DB_110660_onelistcaModel.FK_ListUser_UserType">
+            <End Role="SuscriberGroup" EntitySet="SuscriberGroups" />
+            <End Role="ListUser" EntitySet="ListUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suscriber_SuscriberUser" Association="DB_110660_onelistcaModel.FK_Suscriber_SuscriberUser">
+            <End Role="SuscriberGroup" EntitySet="SuscriberGroups" />
+            <End Role="SuscriberGroupUser" EntitySet="SuscriberGroupUsers" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="DB_110660_onelistcaModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <FunctionImport Name="UpdateInfousers" />
+        </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
             <PropertyRef Name="ContextKey" />
           </Key>
-          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
-          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="DB_110660_onelistcaModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUser" Relationship="DB_110660_onelistcaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUserLogin">
           <Key>
@@ -464,16 +554,16 @@
             <PropertyRef Name="ProviderKey" />
             <PropertyRef Name="UserId" />
           </Key>
-          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="DB_110660_onelistcaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
           <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -484,59 +574,59 @@
           <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
-          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="DB_110660_onelistcaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="DB_110660_onelistcaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="AspNetRoles" Relationship="DB_110660_onelistcaModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
         </EntityType>
         <EntityType Name="Coupon">
           <Key>
             <PropertyRef Name="CouponID" />
           </Key>
           <Property Name="CouponID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DiscountPercentage" Type="Double" Nullable="false" />
           <Property Name="RetailID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="EndingDate" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="Retail" Relationship="Self.FK_Coupon_Retail" FromRole="Coupon" ToRole="Retail" />
+          <NavigationProperty Name="Retail" Relationship="DB_110660_onelistcaModel.FK_Coupon_Retail" FromRole="Coupon" ToRole="Retail" />
         </EntityType>
         <EntityType Name="Item">
           <Key>
             <PropertyRef Name="ItemID" />
           </Key>
           <Property Name="ItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ItemDescription" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ItemCategory" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Item_Item" FromRole="Item" ToRole="User" />
-          <NavigationProperty Name="ItemCategory1" Relationship="Self.FK_Item_ItemCategory" FromRole="Item" ToRole="ItemCategory" />
-          <NavigationProperty Name="ListItems" Relationship="Self.FK_ListItem_Item" FromRole="Item" ToRole="ListItem" />
+          <NavigationProperty Name="User" Relationship="DB_110660_onelistcaModel.FK_Item_Item" FromRole="Item" ToRole="User" />
+          <NavigationProperty Name="ItemCategory1" Relationship="DB_110660_onelistcaModel.FK_Item_ItemCategory" FromRole="Item" ToRole="ItemCategory" />
+          <NavigationProperty Name="ListItems" Relationship="DB_110660_onelistcaModel.FK_ListItem_Item" FromRole="Item" ToRole="ListItem" />
         </EntityType>
         <EntityType Name="ItemCategory">
           <Key>
             <PropertyRef Name="ItemCategoryID" />
           </Key>
           <Property Name="ItemCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ItemCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Items" Relationship="Self.FK_Item_ItemCategory" FromRole="ItemCategory" ToRole="Item" />
+          <Property Name="ItemCategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="DB_110660_onelistcaModel.FK_Item_ItemCategory" FromRole="ItemCategory" ToRole="Item" />
         </EntityType>
         <EntityType Name="List">
           <Key>
             <PropertyRef Name="ListID" />
           </Key>
           <Property Name="ListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatorID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ListName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="CreatorID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ListName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="ListTypeID" Type="Int32" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ListStatusID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ListType" Relationship="Self.FK_List_List" FromRole="List" ToRole="ListType" />
-          <NavigationProperty Name="ListStatu" Relationship="Self.FK_List_ListStatus" FromRole="List" ToRole="ListStatus" />
-          <NavigationProperty Name="User" Relationship="Self.FK_List_User" FromRole="List" ToRole="User" />
-          <NavigationProperty Name="ListItems" Relationship="Self.FK_ListItem_List" FromRole="List" ToRole="ListItem" />
+          <NavigationProperty Name="ListType" Relationship="DB_110660_onelistcaModel.FK_List_List" FromRole="List" ToRole="ListType" />
+          <NavigationProperty Name="ListStatu" Relationship="DB_110660_onelistcaModel.FK_List_ListStatus" FromRole="List" ToRole="ListStatu" />
+          <NavigationProperty Name="User" Relationship="DB_110660_onelistcaModel.FK_List_User" FromRole="List" ToRole="User" />
+          <NavigationProperty Name="ListItems" Relationship="DB_110660_onelistcaModel.FK_ListItem_List" FromRole="List" ToRole="ListItem" />
         </EntityType>
         <EntityType Name="ListItem">
           <Key>
@@ -550,104 +640,119 @@
           <Property Name="ListItemSolvingDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ListItemCost" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="ListItemNotes" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Item" Relationship="Self.FK_ListItem_Item" FromRole="ListItem" ToRole="Item" />
-          <NavigationProperty Name="List" Relationship="Self.FK_ListItem_List" FromRole="ListItem" ToRole="List" />
+          <NavigationProperty Name="Item" Relationship="DB_110660_onelistcaModel.FK_ListItem_Item" FromRole="ListItem" ToRole="Item" />
+          <NavigationProperty Name="List" Relationship="DB_110660_onelistcaModel.FK_ListItem_List" FromRole="ListItem" ToRole="List" />
         </EntityType>
         <EntityType Name="ListStatu">
           <Key>
             <PropertyRef Name="ListStatusID" />
           </Key>
           <Property Name="ListStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Lists" Relationship="Self.FK_List_ListStatus" FromRole="ListStatus" ToRole="List" />
+          <Property Name="StatusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lists" Relationship="DB_110660_onelistcaModel.FK_List_ListStatus" FromRole="ListStatu" ToRole="List" />
         </EntityType>
         <EntityType Name="ListType">
           <Key>
             <PropertyRef Name="ListTypeID" />
           </Key>
           <Property Name="ListTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Lists" Relationship="Self.FK_List_List" FromRole="ListType" ToRole="List" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Lists" Relationship="DB_110660_onelistcaModel.FK_List_List" FromRole="ListType" ToRole="List" />
         </EntityType>
         <EntityType Name="ListUser">
           <Key>
             <PropertyRef Name="ListID" />
           </Key>
-          <Property Name="ListID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="UserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserTypeID" Type="Int32" Nullable="false" />
-          <Property Name="ListUserStatus" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="SuscriptionDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_ListUser_ListUser" FromRole="ListUser" ToRole="User" />
-          <NavigationProperty Name="UserType" Relationship="Self.FK_ListUser_UserType" FromRole="ListUser" ToRole="UserType" />
+          <Property Name="ListID" Type="Int32" Nullable="false" />
+          <Property Name="SuscriberGroupID" Type="Int32" Nullable="false" />
+          <Property Name="SuscriptionDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SuscriberGroup" Relationship="DB_110660_onelistcaModel.FK_ListUser_UserType" FromRole="ListUser" ToRole="SuscriberGroup" />
         </EntityType>
         <EntityType Name="Retail">
           <Key>
             <PropertyRef Name="RetailID" />
           </Key>
           <Property Name="RetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Coupons" Relationship="Self.FK_Coupon_Retail" FromRole="Retail" ToRole="Coupon" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telephone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Coupons" Relationship="DB_110660_onelistcaModel.FK_Coupon_Retail" FromRole="Retail" ToRole="Coupon" />
+        </EntityType>
+        <EntityType Name="SuscriberGroup">
+          <Key>
+            <PropertyRef Name="SuscriberGroupID" />
+          </Key>
+          <Property Name="SuscriberGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SuscriberGroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListUsers" Relationship="DB_110660_onelistcaModel.FK_ListUser_UserType" FromRole="SuscriberGroup" ToRole="ListUser" />
+          <NavigationProperty Name="SuscriberGroupUser" Relationship="DB_110660_onelistcaModel.FK_Suscriber_SuscriberUser" FromRole="SuscriberGroup" ToRole="SuscriberGroupUser" />
+        </EntityType>
+        <EntityType Name="SuscriberGroupUser">
+          <Key>
+            <PropertyRef Name="SuscriberGroupID" />
+          </Key>
+          <Property Name="SuscriberGroupID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserTypeID" Type="Int32" Nullable="false" />
+          <Property Name="ListUserStatus" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SuscriptionDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="SuscriberGroup" Relationship="DB_110660_onelistcaModel.FK_Suscriber_SuscriberUser" FromRole="SuscriberGroupUser" ToRole="SuscriberGroup" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
           </Key>
-          <Property Name="UserID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UserName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ActiveUser" Type="Boolean" Nullable="false" />
           <Property Name="ProfilePic" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <NavigationProperty Name="Items" Relationship="Self.FK_Item_Item" FromRole="User" ToRole="Item" />
-          <NavigationProperty Name="Lists" Relationship="Self.FK_List_User" FromRole="User" ToRole="List" />
-          <NavigationProperty Name="ListUsers" Relationship="Self.FK_ListUser_ListUser" FromRole="User" ToRole="ListUser" />
+          <NavigationProperty Name="Items" Relationship="DB_110660_onelistcaModel.FK_Item_Item" FromRole="User" ToRole="Item" />
+          <NavigationProperty Name="Lists" Relationship="DB_110660_onelistcaModel.FK_List_User" FromRole="User" ToRole="List" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
             <PropertyRef Name="UserTypeID" />
           </Key>
           <Property Name="UserTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserTypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ListUsers" Relationship="Self.FK_ListUser_UserType" FromRole="UserType" ToRole="ListUser" />
+          <Property Name="UserTypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="DB_110660_onelistcaModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserClaims">
+            <Dependent Role="AspNetUserClaim">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+          <End Type="DB_110660_onelistcaModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
+            <Principal Role="AspNetUser">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="AspNetUserLogins">
+            <Dependent Role="AspNetUserLogin">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Coupon_Retail">
-          <End Role="Retail" Type="Self.Retail" Multiplicity="1" />
-          <End Role="Coupon" Type="Self.Coupon" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.Retail" Role="Retail" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.Coupon" Role="Coupon" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Retail">
               <PropertyRef Name="RetailID" />
@@ -658,8 +763,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Item_Item">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.User" Role="User" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.Item" Role="Item" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -670,8 +775,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Item_ItemCategory">
-          <End Role="ItemCategory" Type="Self.ItemCategory" Multiplicity="0..1" />
-          <End Role="Item" Type="Self.Item" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.ItemCategory" Role="ItemCategory" Multiplicity="0..1" />
+          <End Type="DB_110660_onelistcaModel.Item" Role="Item" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ItemCategory">
               <PropertyRef Name="ItemCategoryID" />
@@ -682,8 +787,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ListItem_Item">
-          <End Role="Item" Type="Self.Item" Multiplicity="1" />
-          <End Role="ListItem" Type="Self.ListItem" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.Item" Role="Item" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.ListItem" Role="ListItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Item">
               <PropertyRef Name="ItemID" />
@@ -694,8 +799,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_List_List">
-          <End Role="ListType" Type="Self.ListType" Multiplicity="1" />
-          <End Role="List" Type="Self.List" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.ListType" Role="ListType" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.List" Role="List" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ListType">
               <PropertyRef Name="ListTypeID" />
@@ -706,10 +811,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_List_ListStatus">
-          <End Role="ListStatus" Type="Self.ListStatu" Multiplicity="1" />
-          <End Role="List" Type="Self.List" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.ListStatu" Role="ListStatu" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.List" Role="List" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ListStatus">
+            <Principal Role="ListStatu">
               <PropertyRef Name="ListStatusID" />
             </Principal>
             <Dependent Role="List">
@@ -718,8 +823,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_List_User">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="List" Type="Self.List" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.User" Role="User" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.List" Role="List" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="User">
               <PropertyRef Name="UserID" />
@@ -730,8 +835,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ListItem_List">
-          <End Role="List" Type="Self.List" Multiplicity="1" />
-          <End Role="ListItem" Type="Self.ListItem" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.List" Role="List" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.ListItem" Role="ListItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="List">
               <PropertyRef Name="ListID" />
@@ -741,104 +846,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListUser_ListUser">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
+        <Association Name="FK_ListUser_UserType">
+          <End Type="DB_110660_onelistcaModel.SuscriberGroup" Role="SuscriberGroup" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.ListUser" Role="ListUser" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserID" />
+            <Principal Role="SuscriberGroup">
+              <PropertyRef Name="SuscriberGroupID" />
             </Principal>
             <Dependent Role="ListUser">
-              <PropertyRef Name="UserID" />
+              <PropertyRef Name="SuscriberGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListUser_UserType">
-          <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
-          <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
+        <Association Name="FK_Suscriber_SuscriberUser">
+          <End Type="DB_110660_onelistcaModel.SuscriberGroup" Role="SuscriberGroup" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.SuscriberGroupUser" Role="SuscriberGroupUser" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="UserType">
-              <PropertyRef Name="UserTypeID" />
+            <Principal Role="SuscriberGroup">
+              <PropertyRef Name="SuscriberGroupID" />
             </Principal>
-            <Dependent Role="ListUser">
-              <PropertyRef Name="UserTypeID" />
+            <Dependent Role="SuscriberGroupUser">
+              <PropertyRef Name="SuscriberGroupID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="AspNetUserRoles">
-          <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
-          <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="DB_110660_onelistcaModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="OneListCAEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
-          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
-          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
-          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
-          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
-          <EntitySet Name="Coupons" EntityType="Self.Coupon" />
-          <EntitySet Name="Items" EntityType="Self.Item" />
-          <EntitySet Name="ItemCategories" EntityType="Self.ItemCategory" />
-          <EntitySet Name="Lists" EntityType="Self.List" />
-          <EntitySet Name="ListItems" EntityType="Self.ListItem" />
-          <EntitySet Name="ListStatus" EntityType="Self.ListStatu" />
-          <EntitySet Name="ListTypes" EntityType="Self.ListType" />
-          <EntitySet Name="ListUsers" EntityType="Self.ListUser" />
-          <EntitySet Name="Retails" EntityType="Self.Retail" />
-          <EntitySet Name="Users" EntityType="Self.User" />
-          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
-          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Coupon_Retail" Association="Self.FK_Coupon_Retail">
-            <End Role="Retail" EntitySet="Retails" />
-            <End Role="Coupon" EntitySet="Coupons" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Item_Item" Association="Self.FK_Item_Item">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Item_ItemCategory" Association="Self.FK_Item_ItemCategory">
-            <End Role="ItemCategory" EntitySet="ItemCategories" />
-            <End Role="Item" EntitySet="Items" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ListItem_Item" Association="Self.FK_ListItem_Item">
-            <End Role="Item" EntitySet="Items" />
-            <End Role="ListItem" EntitySet="ListItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_List_List" Association="Self.FK_List_List">
-            <End Role="ListType" EntitySet="ListTypes" />
-            <End Role="List" EntitySet="Lists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_List_ListStatus" Association="Self.FK_List_ListStatus">
-            <End Role="ListStatus" EntitySet="ListStatus" />
-            <End Role="List" EntitySet="Lists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_List_User" Association="Self.FK_List_User">
-            <End Role="User" EntitySet="Users" />
-            <End Role="List" EntitySet="Lists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ListItem_List" Association="Self.FK_ListItem_List">
-            <End Role="List" EntitySet="Lists" />
-            <End Role="ListItem" EntitySet="ListItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ListUser_ListUser" Association="Self.FK_ListUser_ListUser">
-            <End Role="User" EntitySet="Users" />
-            <End Role="ListUser" EntitySet="ListUsers" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ListUser_UserType" Association="Self.FK_ListUser_UserType">
-            <End Role="UserType" EntitySet="UserTypes" />
-            <End Role="ListUser" EntitySet="ListUsers" />
-          </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -848,184 +883,202 @@
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetRole">
               <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
                 <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserLogins">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetUserLogin">
               <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.AspNetUser">
               <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Coupons">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.Coupon">
               <MappingFragment StoreEntitySet="Coupon">
-                <ScalarProperty Name="CouponID" ColumnName="CouponID" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
-                <ScalarProperty Name="RetailID" ColumnName="RetailID" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
                 <ScalarProperty Name="EndingDate" ColumnName="EndingDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="RetailID" ColumnName="RetailID" />
+                <ScalarProperty Name="DiscountPercentage" ColumnName="DiscountPercentage" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CouponID" ColumnName="CouponID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.Item">
               <MappingFragment StoreEntitySet="Item">
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
                 <ScalarProperty Name="ItemCategory" ColumnName="ItemCategory" />
+                <ScalarProperty Name="ItemDescription" ColumnName="ItemDescription" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ItemCategories">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ItemCategory">
               <MappingFragment StoreEntitySet="ItemCategory">
-                <ScalarProperty Name="ItemCategoryID" ColumnName="ItemCategoryID" />
                 <ScalarProperty Name="ItemCategoryName" ColumnName="ItemCategoryName" />
+                <ScalarProperty Name="ItemCategoryID" ColumnName="ItemCategoryID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lists">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.List">
               <MappingFragment StoreEntitySet="List">
-                <ScalarProperty Name="ListID" ColumnName="ListID" />
-                <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
-                <ScalarProperty Name="ListName" ColumnName="ListName" />
-                <ScalarProperty Name="ListTypeID" ColumnName="ListTypeID" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="ListStatusID" ColumnName="ListStatusID" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ListTypeID" ColumnName="ListTypeID" />
+                <ScalarProperty Name="ListName" ColumnName="ListName" />
+                <ScalarProperty Name="CreatorID" ColumnName="CreatorID" />
+                <ScalarProperty Name="ListID" ColumnName="ListID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListItems">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListItem">
               <MappingFragment StoreEntitySet="ListItem">
-                <ScalarProperty Name="ListID" ColumnName="ListID" />
-                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
-                <ScalarProperty Name="ListItemSolved" ColumnName="ListItemSolved" />
-                <ScalarProperty Name="ListItemSolver" ColumnName="ListItemSolver" />
-                <ScalarProperty Name="ListItemSolvingDate" ColumnName="ListItemSolvingDate" />
-                <ScalarProperty Name="ListItemCost" ColumnName="ListItemCost" />
                 <ScalarProperty Name="ListItemNotes" ColumnName="ListItemNotes" />
+                <ScalarProperty Name="ListItemCost" ColumnName="ListItemCost" />
+                <ScalarProperty Name="ListItemSolvingDate" ColumnName="ListItemSolvingDate" />
+                <ScalarProperty Name="ListItemSolver" ColumnName="ListItemSolver" />
+                <ScalarProperty Name="ListItemSolved" ColumnName="ListItemSolved" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ListID" ColumnName="ListID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListStatus">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListStatu">
               <MappingFragment StoreEntitySet="ListStatus">
-                <ScalarProperty Name="ListStatusID" ColumnName="ListStatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="ListStatusID" ColumnName="ListStatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListTypes">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListType">
               <MappingFragment StoreEntitySet="ListType">
-                <ScalarProperty Name="ListTypeID" ColumnName="ListTypeID" />
                 <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="ListTypeID" ColumnName="ListTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ListUsers">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.ListUser">
               <MappingFragment StoreEntitySet="ListUser">
-                <ScalarProperty Name="ListID" ColumnName="ListID" />
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
-                <ScalarProperty Name="ListUserStatus" ColumnName="ListUserStatus" />
                 <ScalarProperty Name="SuscriptionDate" ColumnName="SuscriptionDate" />
+                <ScalarProperty Name="SuscriberGroupID" ColumnName="SuscriberGroupID" />
+                <ScalarProperty Name="ListID" ColumnName="ListID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Retails">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.Retail">
               <MappingFragment StoreEntitySet="Retail">
-                <ScalarProperty Name="RetailID" ColumnName="RetailID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RetailID" ColumnName="RetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuscriberGroups">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.SuscriberGroup">
+              <MappingFragment StoreEntitySet="SuscriberGroup">
+                <ScalarProperty Name="SuscriberGroupName" ColumnName="SuscriberGroupName" />
+                <ScalarProperty Name="SuscriberGroupID" ColumnName="SuscriberGroupID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SuscriberGroupUsers">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel.SuscriberGroupUser">
+              <MappingFragment StoreEntitySet="SuscriberGroupUser">
+                <ScalarProperty Name="SuscriptionDate" ColumnName="SuscriptionDate" />
+                <ScalarProperty Name="ListUserStatus" ColumnName="ListUserStatus" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="SuscriberGroupID" ColumnName="SuscriberGroupID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.User">
               <MappingFragment StoreEntitySet="User">
-                <ScalarProperty Name="UserID" ColumnName="UserID" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="ActiveUser" ColumnName="ActiveUser" />
                 <ScalarProperty Name="ProfilePic" ColumnName="ProfilePic" />
+                <ScalarProperty Name="ActiveUser" ColumnName="ActiveUser" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserTypes">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.UserType">
               <MappingFragment StoreEntitySet="UserType">
-                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="UserTypeName" ColumnName="UserTypeName" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="AspNetUserRoles" TypeName="DB_110660_onelistcaModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
+            <EndProperty Name="AspNetUser">
               <ScalarProperty Name="Id" ColumnName="UserId" />
             </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="UpdateInfousers" FunctionName="DB_110660_onelistcaModel.Store.UpdateInfousers" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

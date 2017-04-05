@@ -12,10 +12,12 @@ namespace OneListApplication
     using System;
     using System.Collections.Generic;
     
-    public partial class ListUser
+    public partial class SuscriberGroupUser
     {
-        public int ListID { get; set; }
         public int SuscriberGroupID { get; set; }
+        public string UserID { get; set; }
+        public int UserTypeID { get; set; }
+        public string ListUserStatus { get; set; }
         public string SuscriptionDate { get; set; }
     
         public virtual SuscriberGroup SuscriberGroup { get; set; }

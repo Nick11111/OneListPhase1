@@ -345,6 +345,12 @@
     </Compile>
     <Compile Include="Service\SandGrid.cs" />
     <Compile Include="Startup1.cs" />
+    <Compile Include="SuscriberGroup.cs">
+      <DependentUpon>OneListCA.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SuscriberGroupUser.cs">
+      <DependentUpon>OneListCA.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>

@@ -14,16 +14,7 @@ namespace OneListApplication
     
     public partial class UserType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public UserType()
-        {
-            this.ListUsers = new HashSet<ListUser>();
-        }
-    
         public int UserTypeID { get; set; }
         public string UserTypeName { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ListUser> ListUsers { get; set; }
     }
 }

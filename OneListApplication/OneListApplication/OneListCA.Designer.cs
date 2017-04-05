@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\Work\ASP\OneListPhase2\OneListPhase1\OneListApplication\OneListApplication\OneListCA.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Hillary\Desktop\SSD 2016\Internal Project\Phase 3\OneListPhase1\OneListApplication\OneListApplication\OneListCA.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
