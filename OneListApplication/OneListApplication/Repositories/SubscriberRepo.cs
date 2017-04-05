@@ -39,17 +39,24 @@ namespace OneListApplication.Repositories
                 errMsg = "Group could not be deleted.";
             }
         }
+        /* *******************************************************
+        * AddUserToGroup
+        * Parameter: string userID
+        ********************************************************/
+        public void AddUserToGroup(int id, string userId) {
+            // TO DO: server side validation & client side validation
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            SuscriberGroupUser newGroupUser = new SuscriberGroupUser();
 
-        //public bool GetSubscriberGroupUsers(SuscriberGroupUser subGroupUser) {
-        //    OneListEntitiesCore db = new OneListEntitiesCore();
-        //    SuscriberGroupUser itemUpdated = db.SuscriberGroupUsers.Where(s => s.ItemID == item.ItemID).FirstOrDefault();
-        //    itemUpdated.ItemName = subGroupUser.ItemName;
-        //    itemUpdated.ItemDescription = item.ItemDescription;
-        //    itemUpdated.ItemCategory = item.ItemCategory;
+            db.SuscriberGroupUsers.Add(newGroupUser);
+            db.SaveChanges();
+        }
 
-        //    db.SaveChanges();
-        //    return true;
-        //}
+        /* *******************************************************
+        * GetGroupDetails
+        * Parameter: int GroupID
+        * return: SubscriberGroupVM
+        ********************************************************/
         public SubscriberGroupVM GetGroupDetails(int id) {
             OneListEntitiesCore db = new OneListEntitiesCore();
             SuscriberGroup groupToBeUpdated = db.SuscriberGroups.Where(a => a.SuscriberGroupID == id).FirstOrDefault();
@@ -60,7 +67,10 @@ namespace OneListApplication.Repositories
 
             return sg;
         }
-
+        /* *******************************************************
+        * GetAllUsers
+        * Return: IEnumerable<SelectListItem>
+        ********************************************************/
         public IEnumerable<SelectListItem> GetAllUsers() {
             OneListEntitiesCore db = new OneListEntitiesCore();
             var categories = db.Users
@@ -73,7 +83,10 @@ namespace OneListApplication.Repositories
 
             return new SelectList(categories, "Value", "Text");
         }
-
+        /* *******************************************************
+        * UpdateGroup
+        * Return: bool
+        ********************************************************/
         public bool UpdateGroup(SubscriberGroupVM subscriberGroup)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
@@ -83,7 +96,10 @@ namespace OneListApplication.Repositories
             db.SaveChanges();
             return true;
         }
-
+        /* *******************************************************
+        * GetSubscriberGroupUsers
+        * Return: IEnumerable<SubscriberGroupUserVM>
+        ********************************************************/
         public IEnumerable<SubscriberGroupUserVM> GetSubscriberGroupUsers(int id)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();

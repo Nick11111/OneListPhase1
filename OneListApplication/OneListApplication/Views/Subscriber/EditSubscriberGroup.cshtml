@@ -17,7 +17,7 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.SubscriberGroupID)
-
+            <!-- Input for New Group Title-->
             <div class="form-group">
                 @Html.LabelFor(model => model.SubscriberGroupName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -26,14 +26,15 @@
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
-
+            <!-- Select List for adding user to Group-->
             <div class="form-group">
                 <label class="control-label col-md-2" >Add Users to Group</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.SubscriberGroupID, Model.UserList, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.subscribedUserList, Model.UserList, htmlAttributes: new { @class = "" })
                     @Html.ActionLink("Add", "AddUserToGroup", new { id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
                 </div>
             </div>
+            <!-- Display Current users in the Group-->
         </div>
     }
 
