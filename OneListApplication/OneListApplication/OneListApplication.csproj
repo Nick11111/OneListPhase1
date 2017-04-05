@@ -340,6 +340,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ItemRepo.cs" />
+    <Compile Include="Repositories\SubscriberRepo.cs" />
     <Compile Include="Retail.cs">
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
@@ -362,6 +363,8 @@
     <Compile Include="ViewModels\ItemVM.cs" />
     <Compile Include="ViewModels\ListItemVM.cs" />
     <Compile Include="ViewModels\ListVM.cs" />
+    <Compile Include="ViewModels\SubscriberGroupUserVM.cs" />
+    <Compile Include="ViewModels\SubscriberGroupVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -400,7 +403,6 @@
     <Content Include="Views\List\ShowCompleteList.cshtml" />
     <Content Include="Views\List\ShowListDetails.cshtml" />
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
-    <Content Include="Views\Subscriber\AddSubscriber.cshtml" />
     <Content Include="Views\Subscriber\EditSubGroup.cshtml" />
     <Content Include="Views\Subscriber\SubGroupDetails.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
@@ -449,6 +451,10 @@
     </Content>
     <Content Include="Views\Item\CreateItemCategory.cshtml" />
     <Content Include="Views\Item\ItemCategoryManagement.cshtml" />
+    <Content Include="Views\Subscriber\AddSubscriberGroup.cshtml" />
+    <Content Include="Views\Subscriber\SubscriberGroupManagement.cshtml" />
+    <Content Include="Views\Subscriber\EditSubscriberGroup.cshtml" />
+    <Content Include="Views\Subscriber\AddSubscriberToGroup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

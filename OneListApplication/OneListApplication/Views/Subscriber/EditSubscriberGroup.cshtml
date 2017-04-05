@@ -1,0 +1,47 @@
+﻿@model OneListApplication.ViewModels.SubscriberGroupVM
+
+@{
+    ViewBag.Title = "EditSubscriberGroup";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
+<div class="col-md-10">
+    <h2>Edit Subscriber Group</h2>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.SubscriberGroupID)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.SubscriberGroupName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.SubscriberGroupName, new { htmlAttributes = new { @class = "" } })
+                    @Html.ValidationMessageFor(model => model.SubscriberGroupName, "", new { @class = "text-danger" })
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label col-md-2" >Add Users to Group</label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.SubscriberGroupID, Model.UserList, htmlAttributes: new { @class = "" })
+                    @Html.ActionLink("Add", "AddUserToGroup", new { id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "SubscriberGroupManagement")
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
