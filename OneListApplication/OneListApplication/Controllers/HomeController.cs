@@ -37,14 +37,15 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult Login(LoginVM login)
         {
+            ViewBag.ErrorMessage = "";
             // UserStore and UserManager manages data retreival.
             UserStore<IdentityUser> userStore = new UserStore<IdentityUser>();
             UserManager<IdentityUser> manager
             = new UserManager<IdentityUser>(userStore);
-            IdentityUser identityUser = manager.Find(login.UserName, login.Password);
 
             if (ModelState.IsValid)
             {
+                IdentityUser identityUser = manager.Find(login.UserName, login.Password);
                 if (ValidLogin(login))
                 {
                     IAuthenticationManager authenticationManager
@@ -64,6 +65,10 @@ namespace OneListApplication.Controllers
                         IsPersistent = false
                     }, identity);
                     return RedirectToAction("Home", "Home");
+                }
+                else {
+                    ViewBag.ErrorMessage = "Login failed, please try again!";
+
                 }
             }
             return View();
@@ -127,40 +132,43 @@ namespace OneListApplication.Controllers
             {
                 UserLockoutEnabledByDefault = true,
                 DefaultAccountLockoutTimeSpan = new TimeSpan(0, 10, 0),
-                MaxFailedAccessAttemptsBeforeLockout = 3
+                MaxFailedAccessAttemptsBeforeLockout = 5
             };
             var identityUser = new IdentityUser()
             {
                 UserName = newUser.UserName,
                 Email = newUser.Email
             };
-            IdentityResult result = manager.Create(identityUser, newUser.Password);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
+                IdentityResult result = manager.Create(identityUser, newUser.Password);
+                if (result.Succeeded)
+                {
 
-                OneListCAEntities context = new OneListCAEntities();
-                AspNetUser user = context.AspNetUsers
-                                    .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
-                AspNetRole role = new AspNetRole();
-                role.Id = "User";
-                role.Name = "User";
+                    OneListCAEntities context = new OneListCAEntities();
+                    AspNetUser user = context.AspNetUsers
+                                        .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
+                    AspNetRole role = new AspNetRole();
+                    role.Id = "User";
+                    role.Name = "User";
 
-                user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
-                context.SaveChanges();
-                //add information of user and password to table users in core
-                CreateTokenProvider(manager, EMAIL_CONFIRMATION);
+                    user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
+                    context.SaveChanges();
+                    //add information of user and password to table users in core
+                    CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
-                var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
-                var callbackUrl = Url.Action("ConfirmEmail", "Home",
-                                                new { userId = identityUser.Id, code = code },
-                                                    protocol: Request.Url.Scheme);
+                    var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Home",
+                                                    new { userId = identityUser.Id, code = code },
+                                                        protocol: Request.Url.Scheme);
 
-                string email = "Please confirm your account by clicking this link: <a href=\""
-                                + callbackUrl + "\">Confirm Registration</a>";
-                SendGrid.sendEmail(newUser, callbackUrl);
-                //ViewBag.FakeConfirmation = email;
+                    string email = "Please confirm your account by clicking this link: <a href=\""
+                                    + callbackUrl + "\">Confirm Registration</a>";
+                    SendGrid.sendEmail(newUser, callbackUrl);
+                    //ViewBag.FakeConfirmation = email;
+                }
             }
+            
             return View();
         }
         public ActionResult ConfirmEmail(string userID, string code)
