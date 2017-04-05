@@ -141,6 +141,10 @@ namespace OneListApplication.Controllers
             };
             if (ModelState.IsValid)
             {
+                CaptchaHelper captchaHelper = new CaptchaHelper();
+                string captchaResponse = captchaHelper.CheckRecaptcha();
+                ViewBag.CaptchaResponse = captchaResponse;
+
                 IdentityResult result = manager.Create(identityUser, newUser.Password);
                 if (result.Succeeded)
                 {
@@ -282,30 +286,30 @@ namespace OneListApplication.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ResetPassword(string password, string passwordConfirm,
+        public ActionResult ResetPassword(RegisteredUserVM currentUser, 
                                           string passwordToken, string userID)
         {
+                CaptchaHelper captchaHelper = new CaptchaHelper();
+                string captchaResponse = captchaHelper.CheckRecaptcha();
+                ViewBag.CaptchaResponse = captchaResponse;
 
-            var userStore = new UserStore<IdentityUser>();
-            UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
-            var user = manager.FindById(userID);
-            CreateTokenProvider(manager, PASSWORD_RESET);
+                var userStore = new UserStore<IdentityUser>();
+                UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
+                var user = manager.FindById(userID);
+                CreateTokenProvider(manager, PASSWORD_RESET);
 
-            if (password == passwordConfirm)
-            {
-                IdentityResult result = manager.ResetPassword(userID, passwordToken, password);
-                if (result.Succeeded)
+                if (currentUser.Password == currentUser.ConfirmPassword)
                 {
-                    ViewBag.Result = "The password has been reset.";
+                    IdentityResult result = manager.ResetPassword(userID, passwordToken, currentUser.Password);
+                    if (result.Succeeded)
+                    {
+                        ViewBag.Result = "The password has been reset.";
+                    }
+                    else
+                    {
+                        ViewBag.Result = "The password has not been reset.";
+                    }
                 }
-                else
-                {
-                    ViewBag.Result = "The password has not been reset.";
-                }
-            }
-
-            else
-                ViewBag.Result = "Two passwords don't match!";
             return View();
         }
 
