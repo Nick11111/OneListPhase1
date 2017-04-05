@@ -18,6 +18,8 @@ namespace OneListApplication.ViewModels
 
         public IEnumerable<SelectListItem> UserList { get; set; }
 
+        public string UserID { get; set; }
+
         public IEnumerable<SubscriberGroupUserVM> subscribedUserList { get; set; }
     }
 }

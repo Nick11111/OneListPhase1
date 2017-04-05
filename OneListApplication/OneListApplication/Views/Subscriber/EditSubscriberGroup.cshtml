@@ -30,8 +30,8 @@
             <div class="form-group">
                 <label class="control-label col-md-2" >Add Users to Group</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.subscribedUserList, Model.UserList, htmlAttributes: new { @class = "" })
-                    @Html.ActionLink("Add", "AddUserToGroup", new { id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
+                    @Html.DropDownListFor(m => m.UserID, Model.UserList, htmlAttributes: new { @class = "" })
+                    @Html.ActionLink("Add", "AddSubscriberToGroup", new { id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
                 </div>
             </div>
             <!-- Display Current users in the Group-->

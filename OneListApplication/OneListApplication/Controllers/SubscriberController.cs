@@ -59,19 +59,19 @@ namespace OneListApplication.Controllers
             return RedirectToAction("SubscriberGroupManagement");
         }
 
-        public ActionResult AddSubscriberToGroup(int id, string userId) {
+        public ActionResult AddSubscriberToGroup(SubscriberGroupVM subGroup) {
             string errMsg = "";
             if (ModelState.IsValid)
             {
                 SubscriberRepo subscriberRepo = new SubscriberRepo();
-                subscriberRepo.AddUserToGroup(id, userId);
+                subscriberRepo.AddUserToGroup(subGroup);
                 ViewBag.ErrorMsg = errMsg;
             }
             else
             {
                 ViewBag.ErrorMsg = "Cannot add user to group.";
             }
-            return View();
+            return RedirectToAction("SubscriberGroupManagement");
         }
 
         [HttpGet]
