@@ -43,10 +43,16 @@ namespace OneListApplication.Repositories
         * AddUserToGroup
         * Parameter: string userID
         ********************************************************/
-        public void AddUserToGroup(int id, string userId) {
+        public void AddUserToGroup(SubscriberGroupVM subGroup) {
             // TO DO: server side validation & client side validation
+            var now = DateTime.UtcNow;
             OneListEntitiesCore db = new OneListEntitiesCore();
             SuscriberGroupUser newGroupUser = new SuscriberGroupUser();
+            newGroupUser.UserID = subGroup.UserID;
+            newGroupUser.SuscriberGroupID = subGroup.SubscriberGroupID;
+            newGroupUser.UserTypeID = 3;
+            newGroupUser.ListUserStatus = "Active";
+            newGroupUser.SuscriptionDate = now.ToString();
 
             db.SuscriberGroupUsers.Add(newGroupUser);
             db.SaveChanges();
