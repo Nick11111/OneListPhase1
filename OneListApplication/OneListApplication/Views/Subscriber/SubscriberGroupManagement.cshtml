@@ -1,0 +1,35 @@
+﻿@model IEnumerable<OneListApplication.ViewModels.SubscriberGroupVM>
+
+@{
+    ViewBag.Title = "SubscriberGroupManagement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
+
+<div class="col-md-10">
+    <h2>All Subscriber Groups</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubscriberGroupName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubscriberGroupName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditSubscriberGroup", new { id = item.SubscriberGroupID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "Details", new { id = item.SubscriberGroupID }, new { @class = "btn btn-primary" })
+                    <a class="btn btn-danger" href="@Url.Action("DeleteSubscriberGroup","Subscriber", new { id = item.SubscriberGroupID })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
