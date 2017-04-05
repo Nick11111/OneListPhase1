@@ -143,34 +143,39 @@ namespace OneListApplication.Controllers
             {
                 CaptchaHelper captchaHelper = new CaptchaHelper();
                 string captchaResponse = captchaHelper.CheckRecaptcha();
-                ViewBag.CaptchaResponse = captchaResponse;
-
-                IdentityResult result = manager.Create(identityUser, newUser.Password);
-                if (result.Succeeded)
+                if (captchaResponse == "Valid")
                 {
+                    ViewBag.CaptchaResponse = captchaResponse;
+                    IdentityResult result = manager.Create(identityUser, newUser.Password);
+                    if (result.Succeeded)
+                    {
 
-                    OneListCAEntities context = new OneListCAEntities();
-                    AspNetUser user = context.AspNetUsers
-                                        .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
-                    AspNetRole role = new AspNetRole();
-                    role.Id = "User";
-                    role.Name = "User";
+                        OneListCAEntities context = new OneListCAEntities();
+                        AspNetUser user = context.AspNetUsers
+                                            .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
+                        AspNetRole role = new AspNetRole();
+                        role.Id = "User";
+                        role.Name = "User";
 
-                    user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
-                    context.SaveChanges();
-                    //add information of user and password to table users in core
-                    CreateTokenProvider(manager, EMAIL_CONFIRMATION);
+                        user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
+                        context.SaveChanges();
+                        //add information of user and password to table users in core
+                        CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
-                    var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Home",
-                                                    new { userId = identityUser.Id, code = code },
-                                                        protocol: Request.Url.Scheme);
+                        var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Home",
+                                                        new { userId = identityUser.Id, code = code },
+                                                            protocol: Request.Url.Scheme);
 
-                    string email = "Please confirm your account by clicking this link: <a href=\""
-                                    + callbackUrl + "\">Confirm Registration</a>";
-                    SendGrid.sendEmail(newUser, callbackUrl);
-                    //ViewBag.FakeConfirmation = email;
+                        string email = "Please confirm your account by clicking this link: <a href=\""
+                                        + callbackUrl + "\">Confirm Registration</a>";
+                        SendGrid.sendEmail(newUser, callbackUrl);
+                    }
+
                 }
+                else {
+                    ViewBag.CaptchaResponse = "Registration failed!";
+                }     
             }
             
             return View();
@@ -293,6 +298,8 @@ namespace OneListApplication.Controllers
                 string captchaResponse = captchaHelper.CheckRecaptcha();
                 ViewBag.CaptchaResponse = captchaResponse;
 
+            if (captchaResponse == "Valid")
+            {
                 var userStore = new UserStore<IdentityUser>();
                 UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
                 var user = manager.FindById(userID);
@@ -310,6 +317,11 @@ namespace OneListApplication.Controllers
                         ViewBag.Result = "The password has not been reset.";
                     }
                 }
+
+            }
+            else {
+                ViewBag.Result = "The password has not been reset.";
+            }
             return View();
         }
 
