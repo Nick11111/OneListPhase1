@@ -170,11 +170,12 @@ namespace OneListApplication.Controllers
                         string email = "Please confirm your account by clicking this link: <a href=\""
                                         + callbackUrl + "\">Confirm Registration</a>";
                         SendGrid.sendEmail(newUser, callbackUrl);
+                        ViewBag.Result = "Please check your email to activate your account!";
                     }
 
                 }
                 else {
-                    ViewBag.CaptchaResponse = "Registration failed!";
+                    ViewBag.Result = "Registration failed!";
                 }     
             }
             
@@ -271,15 +272,22 @@ namespace OneListApplication.Controllers
             var userStore = new UserStore<IdentityUser>();
             UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
             var user = manager.FindByEmail(email);
-            CreateTokenProvider(manager, PASSWORD_RESET);
+            if (user != null)
+            {
+                CreateTokenProvider(manager, PASSWORD_RESET);
 
-            var code = manager.GeneratePasswordResetToken(user.Id);
-            var callbackUrl = Url.Action("ResetPassword", "Home",
-                                         new { userId = user.Id, code = code },
-                                         protocol: Request.Url.Scheme);
-            ViewBag.FakeEmailMessage = "Please reset your password by clicking <a href=\""
-                                     + callbackUrl + "\">here</a>";
-            SendGrid.sendResetEmail(user.Email, user.UserName, callbackUrl);
+                var code = manager.GeneratePasswordResetToken(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Home",
+                                             new { userId = user.Id, code = code },
+                                             protocol: Request.Url.Scheme);
+                ViewBag.FakeEmailMessage = "Please reset your password by clicking <a href=\""
+                                         + callbackUrl + "\">here</a>";
+                SendGrid.sendResetEmail(user.Email, user.UserName, callbackUrl);
+                ViewBag.Success = "Please check your email to complete!";
+            }
+            else {
+                ViewBag.Fail = "Email not found!";
+            }
             return View();
         }
 
