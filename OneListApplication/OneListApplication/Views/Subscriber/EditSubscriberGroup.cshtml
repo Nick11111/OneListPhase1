@@ -9,7 +9,8 @@
 <div class="col-md-10">
     <h2>Edit Subscriber Group</h2>
 
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("EditSubscriberGroup", "Subscriber", FormMethod.Post,
+        new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -26,18 +27,28 @@
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
-            <!-- Select List for adding user to Group-->
+        </div>
+    }
+    @using (Html.BeginForm("AddSubscriberToGroup", "Subscriber", FormMethod.Post,
+                new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.SubscriberGroupID)
             <div class="form-group">
-                <label class="control-label col-md-2" >Add Users to Group</label>
+                <label class="control-label col-md-2">Add Users to Group</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.UserID, Model.UserList, htmlAttributes: new { @class = "" })
-                    @Html.ActionLink("Add", "AddSubscriberToGroup", new { id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
+                    @Html.DropDownListFor(m => m.subscribedUser.UserID, Model.UserList, htmlAttributes: new { @class = "" })
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
-            <!-- Display Current users in the Group-->
         </div>
     }
 
+
+    <!-- Display Current users in the Group-->
     <div>
         @Html.ActionLink("Back to List", "SubscriberGroupManagement")
     </div>

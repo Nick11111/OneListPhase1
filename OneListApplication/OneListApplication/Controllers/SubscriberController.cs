@@ -28,7 +28,7 @@ namespace OneListApplication.Controllers
                 //TO DO: typo for the database model 
                 SuscriberGroup sg = new SuscriberGroup();
                 sg.SuscriberGroupName = subscriberGroup.SubscriberGroupName;
-                sg.SuscriberGroupID = 0;
+                //sg.SuscriberGroupID = 0;
                 OneListEntitiesCore Core = new OneListEntitiesCore();
                 Core.SuscriberGroups.Add(sg);
                 Core.SaveChanges();
