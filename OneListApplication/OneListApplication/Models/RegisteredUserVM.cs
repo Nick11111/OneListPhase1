@@ -9,6 +9,7 @@ namespace OneListApplication.Models
     public class RegisteredUserVM
     {
         [Required(ErrorMessage = "User name is required")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Require at least 3 characters!")]
         [Display(Name = "User name")]
         public string UserName { get; set; }
 
@@ -19,6 +20,7 @@ namespace OneListApplication.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "Require at least 3 characters!")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

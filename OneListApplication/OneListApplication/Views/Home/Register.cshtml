@@ -19,17 +19,17 @@
 
             @*<form class="form-signin col-lg-4 col-lg-offset-4">*@
         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
-        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
         @*<input type="text" class="form-control" placeholder="Your name" required autofocus><br>*@
         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email address" } })
-        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
         @*<input type="email" class="form-control" placeholder="Email address" required><br>*@
         @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Create Password" } })
-        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
 
         @*<input type="password" class="form-control" placeholder="Create Password" required><br>*@
         @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Comfirm Password" } })
-        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
 
         @*<input type="password" class="form-control" placeholder="Comfirm Password" required><br>*@
         <div class="text-center">
