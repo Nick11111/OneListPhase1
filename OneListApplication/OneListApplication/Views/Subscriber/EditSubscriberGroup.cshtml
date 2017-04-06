@@ -46,9 +46,38 @@
             </div>
         </div>
     }
-
-
     <!-- Display Current users in the Group-->
+    @if (Model.allSubscribedUsers.Count() > 0) {
+    <table class="table">
+        <tr>
+            <th>User ID</th>
+            <th>User Type ID</th>
+            <th>User Statuss</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.allSubscribedUsers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserTypeID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListUserStatus)
+                </td>
+                <td>
+                    @Html.ActionLink("Convert", "ConvertUserType", new { userId = item.UserID, id = item.SubscriberGroupID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Disable", "DisableSubscribedUser", new { userId = item.UserID, id = item.SubscriberGroupID }, new { @class = "btn btn-primary" })
+
+                    <a class="btn btn-danger" href="@Url.Action("DeleteItem", "Item", new { userId = item.UserID, id = item.SubscriberGroupID })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        }
+
+    </table>
+    }
     <div>
         @Html.ActionLink("Back to List", "SubscriberGroupManagement")
     </div>

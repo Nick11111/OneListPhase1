@@ -75,9 +75,28 @@ namespace OneListApplication.Repositories
             sg.SubscriberGroupID = groupToBeUpdated.SuscriberGroupID;
             sg.SubscriberGroupName = groupToBeUpdated.SuscriberGroupName;
             sg.UserList = GetAllUsers();
-
+            sg.allSubscribedUsers = GetAllSubscribedUsers(id);
             return sg;
         }
+        /* *******************************************************
+        * GetAllSubscribedUsers
+        * Return: IEnumerable<SelectListItem>
+        ********************************************************/
+        public IEnumerable<SubscriberGroupUserVM> GetAllSubscribedUsers(int id)
+        {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            var subscribedUsers = db.SuscriberGroupUsers
+                                    .Where(a=>a.SuscriberGroupID ==id )
+                                    .Select(x =>
+                                            new SubscriberGroupUserVM
+                                            {
+                                                UserID = x.UserID,
+                                                ListUserStatus = x.ListUserStatus,
+                                                UserTypeID = x.UserTypeID,
+                                            });
+            return subscribedUsers;
+        }
+
         /* *******************************************************
         * GetAllUsers
         * Return: IEnumerable<SelectListItem>
@@ -89,7 +108,7 @@ namespace OneListApplication.Repositories
                                 new SelectListItem
                                 {
                                     Value = x.UserID.ToString(),
-                                    Text = x.FirstName + x.LastName
+                                    Text = x.UserName
                                 });
 
             return new SelectList(categories, "Value", "Text");

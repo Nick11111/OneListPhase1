@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Master SQL\MasterSQLOneListCA.sql" />
+    <Content Include="App_Data\Select SQL\Select.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -408,7 +409,6 @@
     <Content Include="Views\List\ShowListDetails.cshtml" />
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
     <Content Include="Views\Subscriber\EditSubGroup.cshtml" />
-    <Content Include="Views\Subscriber\SubGroupDetails.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
     <Content Include="Views\Item\ItemGroupDetail.cshtml" />
     <Content Include="Views\List\EditList.cshtml" />
