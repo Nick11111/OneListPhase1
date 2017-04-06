@@ -49,7 +49,7 @@ namespace OneListApplication.Controllers
             IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups();
             return View(subscriberGroups);
         }
-
+        [HttpPost]
         public ActionResult DeleteSubscriberGroup(int id)
         {
             string errMsg = "";
@@ -58,12 +58,12 @@ namespace OneListApplication.Controllers
             ViewBag.ErrorMsg = errMsg;
             return RedirectToAction("SubscriberGroupManagement");
         }
-
+        [HttpPost]
         public ActionResult AddSubscriberToGroup(SubscriberGroupVM subGroup) {
             string errMsg = "";
+            SubscriberRepo subscriberRepo = new SubscriberRepo();
             if (ModelState.IsValid)
-            {
-                SubscriberRepo subscriberRepo = new SubscriberRepo();
+            { 
                 subscriberRepo.AddUserToGroup(subGroup);
                 ViewBag.ErrorMsg = errMsg;
             }
@@ -71,7 +71,16 @@ namespace OneListApplication.Controllers
             {
                 ViewBag.ErrorMsg = "Cannot add user to group.";
             }
-            return RedirectToAction("SubscriberGroupManagement");
+            SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(subGroup.SubscriberGroupID);
+            return RedirectToAction("EditSubscriberGroup", new { id = subGroup.SubscriberGroupID });
+        }
+
+        public ActionResult DeleteSubscriber(string userId, int id) {
+            string errMsg = "";
+            SubscriberRepo subscriberRepo = new SubscriberRepo();
+            subscriberRepo.DeleteSubscriber(userId, id, out errMsg);
+            ViewBag.ErrorMsg = errMsg;
+            return RedirectToAction("EditSubscriberGroup", new { id = id});
         }
 
         [HttpGet]
@@ -101,7 +110,6 @@ namespace OneListApplication.Controllers
             }
             return View();
         }
-
 
     }
 }

@@ -458,6 +458,8 @@
     <Content Include="Views\Subscriber\AddSubscriberGroup.cshtml" />
     <Content Include="Views\Subscriber\SubscriberGroupManagement.cshtml" />
     <Content Include="Views\Subscriber\EditSubscriberGroup.cshtml" />
+    <Content Include="Views\Subscriber\SubscribedUserList.cshtml" />
+    <Content Include="Views\Subscriber\_SubscriberTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

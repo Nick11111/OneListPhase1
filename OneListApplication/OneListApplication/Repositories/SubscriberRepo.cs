@@ -47,13 +47,14 @@ namespace OneListApplication.Repositories
             // TO DO: server side validation & client side validation
             var now = DateTime.UtcNow;
             const string DEFAULT_STATUS = "Active";
+            const int DEFAULT_TYPE = 2;
             OneListEntitiesCore db = new OneListEntitiesCore();
 
             SuscriberGroup sGroup = db.SuscriberGroups.Where(a => a.SuscriberGroupID == subGroup.SubscriberGroupID).FirstOrDefault();
             SuscriberGroupUser newGroupUser = new SuscriberGroupUser();
             newGroupUser.UserID = subGroup.subscribedUser.UserID;
             newGroupUser.SuscriberGroupID = subGroup.SubscriberGroupID;
-            newGroupUser.UserTypeID = 2;
+            newGroupUser.UserTypeID = DEFAULT_TYPE;
             newGroupUser.ListUserStatus = DEFAULT_STATUS;
             newGroupUser.SuscriptionDate = now.ToShortDateString();
             newGroupUser.SuscriberGroup = sGroup; //Add subscriberGroup property !important
@@ -135,6 +136,28 @@ namespace OneListApplication.Repositories
             OneListEntitiesCore db = new OneListEntitiesCore();
             IEnumerable<SubscriberGroupUserVM> subscriberGroupUsers = db.SuscriberGroupUsers.Select(a => new SubscriberGroupUserVM() { SubscriberGroupID = id, UserID = a.UserID, ListUserStatus = a.ListUserStatus, UserTypeID = a.UserTypeID, SubscriptionDate = a.SuscriptionDate });
             return subscriberGroupUsers;
+        }
+        /* *******************************************************
+        * DeleteSubscriber
+        * Return: void
+        ********************************************************/
+        public void DeleteSubscriber(string userId, int id, out string errMsg) {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            SuscriberGroupUser groupToBeUpdated = db.SuscriberGroupUsers
+                                                    .Where(s => s.UserID == userId
+                                                        && s.SuscriberGroupID == id
+                                                    ).FirstOrDefault();
+
+            if (groupToBeUpdated != null)
+            {
+                db.SuscriberGroupUsers.Remove(groupToBeUpdated);
+                db.SaveChanges();
+                errMsg = "Subscriber Deleted";
+            }
+            else
+            {
+                errMsg = "Subscriber could not be deleted.";
+            }
         }
     }
 }
