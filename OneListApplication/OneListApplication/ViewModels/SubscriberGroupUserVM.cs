@@ -10,10 +10,12 @@ namespace OneListApplication.ViewModels
 {
     public class SubscriberGroupUserVM
     {
+ 
         [Key]
+        public string SubscriberGroupUserID { get; set; }
+
         public int SubscriberGroupID { get; set; }
 
-        [Key]
         public string UserID { get; set; }
 
         [DisplayName("Subscriber Type")]
