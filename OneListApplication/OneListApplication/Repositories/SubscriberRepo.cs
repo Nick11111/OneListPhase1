@@ -164,7 +164,7 @@ namespace OneListApplication.Repositories
         * UpdateGroup
         * Return: bool
         ********************************************************/
-        public bool UpdateGroup(SubscriberGroupVM subscriberGroup)
+        public void UpdateGroup(SubscriberGroupVM subscriberGroup, out string errMsg)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
             SuscriberGroup groupUpdated = db.SuscriberGroups
@@ -173,8 +173,21 @@ namespace OneListApplication.Repositories
                                         ).FirstOrDefault();
             groupUpdated.SuscriberGroupName = subscriberGroup.SubscriberGroupName;
 
-            db.SaveChanges();
-            return true;
+            if (String.IsNullOrEmpty(subscriberGroup.SubscriberGroupName))
+            {
+                errMsg = "Name cannot be empty";
+            }
+            else {
+                if (subscriberGroup.SubscriberGroupName.Trim() == "")
+                {
+                    errMsg = "Name cannot be empty";
+
+                }
+                else {
+                    db.SaveChanges();
+                    errMsg = "Group name updated";
+                }
+            }
         }
         /* *******************************************************
         * GetSubscriberGroupUsers

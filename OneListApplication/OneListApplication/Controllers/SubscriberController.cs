@@ -35,11 +35,9 @@ namespace OneListApplication.Controllers
 
             if (ModelState.IsValid)
             {
-                //TO DO: typo for Database
                 SuscriberGroup sg = new SuscriberGroup();
                 sg.SuscriberGroupName = subscriberGroup.SubscriberGroupName;
                 sg.UserID = subscriberGroup.UserID;
-                //sg.SuscriberGroupID = 0;
                 OneListEntitiesCore Core = new OneListEntitiesCore();
                 Core.SuscriberGroups.Add(sg);
                 Core.SaveChanges();
@@ -127,21 +125,13 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult EditSubscriberGroup(SubscriberGroupVM group)
         {
-            bool ItemUpdated;
+            string errMsg = "";
             ViewBag.EditMsg = TempData["EditMsg"];
             if (ModelState.IsValid)
             {
                 SubscriberRepo subscriberRepo = new SubscriberRepo();
-                ItemUpdated = subscriberRepo.UpdateGroup(group);
-                if (ItemUpdated)
-                {
-                    ViewBag.EditMsg = "Group Name Updated";
-                    //return RedirectToAction("ItemDetail", new { id = group.ItemID });
-                }
-                else
-                {
-                    ViewBag.EditMsg = "Updated failed";
-                }
+                subscriberRepo.UpdateGroup(group, out errMsg);
+                ViewBag.ErrorMsg = errMsg;
             }
             return RedirectToAction("EditSubscriberGroup", new { id = group.SubscriberGroupID });
         }
