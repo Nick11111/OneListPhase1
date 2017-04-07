@@ -1,4 +1,5 @@
-﻿
+﻿select * from AspNetUsers;
+select * from usertype;
 select * from item;
 select * from usertype;
 select * from suscribergroup;

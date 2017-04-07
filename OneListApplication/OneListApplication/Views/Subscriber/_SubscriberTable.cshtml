@@ -3,26 +3,34 @@
 
     <table class="table">
         <tr>
-            <th>User ID</th>
-            <th>User Type ID</th>
-            <th>User Statuss</th>
+            <th>Email</th>
+            <th>User Type</th>
+            <th>User Status</th>
             <th></th>
         </tr>
         @foreach (var item in Model.allSubscribedUsers)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
+                    @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.UserTypeID)
+                    @if (item.UserTypeID == 2)
+                    {
+                        @Html.Raw("Collaborator")
+                    }
+                    else
+                    {
+                        @Html.Raw("Subscriber")
+
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ListUserStatus)
                 </td>
                 <td>
-                    @Html.ActionLink("Convert", "ConvertUserType", new { userId = item.UserID, id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Disable", "DisableSubscribedUser", new { userId = item.UserID, id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Change Type", "ChangeSubscriberType", "Subscriber", new { userId = item.UserID, id = Model.SubscriberGroupID, type= item.ListUserStatus }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Change Status", "ChangeSubscriberStatus", "Subscriber", new { userId = item.UserID, id = Model.SubscriberGroupID }, new { @class = "btn btn-primary" })
 
                     <a class="btn btn-danger" href="@Url.Action("DeleteSubscriber", "Subscriber", new { userId = item.UserID, id = Model.SubscriberGroupID })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
