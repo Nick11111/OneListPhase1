@@ -9,8 +9,8 @@
     <h4 class="text-center">Register</h4>
 
     <div class="tab-content">
-        <div class="tab-pane active" id="register">
-@using (Html.BeginForm("Register", "Home",
+       <div class="tab-pane active" id="register">
+        @using (Html.BeginForm("Register", "Home",
             new { ReturnUrl = ViewBag.ReturnUrl },
             FormMethod.Post, new { @class = "form-signin col-lg-4 col-lg-offset-4" }))
             {
@@ -19,42 +19,24 @@
 
             @*<form class="form-signin col-lg-4 col-lg-offset-4">*@
         @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Username" } })
-        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
         @*<input type="text" class="form-control" placeholder="Your name" required autofocus><br>*@
         @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email address" } })
-        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
         @*<input type="email" class="form-control" placeholder="Email address" required><br>*@
         @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Create Password" } })
-        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
 
         @*<input type="password" class="form-control" placeholder="Create Password" required><br>*@
         @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Comfirm Password" } })
-        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-
+        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
+        <div class="g-recaptcha inp50 col-lg-10 col-lg-offset-1" data-sitekey="6LeQxhsUAAAAAFWNEvxImWCM-lb6o0LCquBoT_1O"></div>
         @*<input type="password" class="form-control" placeholder="Comfirm Password" required><br>*@
         <div class="text-center">
             <button class="btn btn-primary btn-register" type="submit">Register</button><br />
         </div>
-        @*</form>*@
         }
+        @Html.Raw(ViewBag.Result)
     </div>
-        @*<div class="tab-pane" id="login">
-            <form class="form-signin col-lg-4 col-lg-offset-4">
-                <img id="profile-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" /><br>
-                <input type="email" class="form-control" placeholder="Email address" required autofocus><br>
-                <input type="password" class="form-control" placeholder="Password" required>
-                <div id="remember" class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
-                <button class="btn btn-primary btn-signin" type="submit">Sign in</button><br />
-                <a href="#" class="forgot-password">Forgot the password?</a>
-                <a>@Html.ActionLink("Log In as Admin", "Index", "Admin")</a>
-            </form>
-        </div>*@
-        <p class="text-success">
-            @Html.Raw(ViewBag.FakeConfirmation)
-        </p>
     </div>
 </div>

@@ -121,6 +121,10 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Recaptcha, Version=1.0.5.0, Culture=neutral, PublicKeyToken=9afc4d65b28c38c2, processorArchitecture=MSIL">
+      <HintPath>..\packages\recaptcha.1.0.5.0\lib\.NetFramework 4.0\Recaptcha.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
@@ -186,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Master SQL\MasterSQLOneListCA.sql" />
+    <Content Include="App_Data\Select SQL\Select.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -340,9 +345,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Repositories\ItemRepo.cs" />
+    <Compile Include="Repositories\SubscriberRepo.cs" />
     <Compile Include="Retail.cs">
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
+    <Compile Include="Service\CaptchaHelper.cs" />
     <Compile Include="Service\SandGrid.cs" />
     <Compile Include="Startup1.cs" />
     <Compile Include="SuscriberGroup.cs">
@@ -362,6 +369,8 @@
     <Compile Include="ViewModels\ItemVM.cs" />
     <Compile Include="ViewModels\ListItemVM.cs" />
     <Compile Include="ViewModels\ListVM.cs" />
+    <Compile Include="ViewModels\SubscriberGroupUserVM.cs" />
+    <Compile Include="ViewModels\SubscriberGroupVM.cs" />
     <Compile Include="ViewModels\UserVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -391,7 +400,6 @@
     <Content Include="Views\Home\Sidebar.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\ChangePassword.cshtml" />
-    <Content Include="Views\Profile\Edit.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Item\CreateItemGroup.cshtml" />
     <Content Include="Views\Item\ItemGroupManagement.cshtml" />
@@ -400,9 +408,7 @@
     <Content Include="Views\List\ShowCompleteList.cshtml" />
     <Content Include="Views\List\ShowListDetails.cshtml" />
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
-    <Content Include="Views\Subscriber\AddSubscriber.cshtml" />
     <Content Include="Views\Subscriber\EditSubGroup.cshtml" />
-    <Content Include="Views\Subscriber\SubGroupDetails.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
     <Content Include="Views\Item\ItemGroupDetail.cshtml" />
     <Content Include="Views\List\EditList.cshtml" />
@@ -449,6 +455,11 @@
     </Content>
     <Content Include="Views\Item\CreateItemCategory.cshtml" />
     <Content Include="Views\Item\ItemCategoryManagement.cshtml" />
+    <Content Include="Views\Subscriber\AddSubscriberGroup.cshtml" />
+    <Content Include="Views\Subscriber\SubscriberGroupManagement.cshtml" />
+    <Content Include="Views\Subscriber\EditSubscriberGroup.cshtml" />
+    <Content Include="Views\Subscriber\SubscribedUserList.cshtml" />
+    <Content Include="Views\Subscriber\_SubscriberTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

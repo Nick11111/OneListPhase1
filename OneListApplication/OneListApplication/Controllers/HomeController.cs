@@ -37,14 +37,15 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult Login(LoginVM login)
         {
+            ViewBag.ErrorMessage = "";
             // UserStore and UserManager manages data retreival.
             UserStore<IdentityUser> userStore = new UserStore<IdentityUser>();
             UserManager<IdentityUser> manager
             = new UserManager<IdentityUser>(userStore);
-            IdentityUser identityUser = manager.Find(login.UserName, login.Password);
 
             if (ModelState.IsValid)
             {
+                IdentityUser identityUser = manager.Find(login.UserName, login.Password);
                 if (ValidLogin(login))
                 {
                     IAuthenticationManager authenticationManager
@@ -64,6 +65,10 @@ namespace OneListApplication.Controllers
                         IsPersistent = false
                     }, identity);
                     return RedirectToAction("Home", "Home");
+                }
+                else {
+                    ViewBag.ErrorMessage = "Login failed, please try again!";
+
                 }
             }
             return View();
@@ -127,40 +132,53 @@ namespace OneListApplication.Controllers
             {
                 UserLockoutEnabledByDefault = true,
                 DefaultAccountLockoutTimeSpan = new TimeSpan(0, 10, 0),
-                MaxFailedAccessAttemptsBeforeLockout = 3
+                MaxFailedAccessAttemptsBeforeLockout = 5
             };
             var identityUser = new IdentityUser()
             {
                 UserName = newUser.UserName,
                 Email = newUser.Email
             };
-            IdentityResult result = manager.Create(identityUser, newUser.Password);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
+                CaptchaHelper captchaHelper = new CaptchaHelper();
+                string captchaResponse = captchaHelper.CheckRecaptcha();
+                if (captchaResponse == "Valid")
+                {
+                    ViewBag.CaptchaResponse = captchaResponse;
+                    IdentityResult result = manager.Create(identityUser, newUser.Password);
+                    if (result.Succeeded)
+                    {
 
-                OneListCAEntities context = new OneListCAEntities();
-                AspNetUser user = context.AspNetUsers
-                                    .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
-                AspNetRole role = new AspNetRole();
-                role.Id = "User";
-                role.Name = "User";
+                        OneListCAEntities context = new OneListCAEntities();
+                        AspNetUser user = context.AspNetUsers
+                                            .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
+                        AspNetRole role = new AspNetRole();
+                        role.Id = "User";
+                        role.Name = "User";
 
-                user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
-                context.SaveChanges();
-                //add information of user and password to table users in core
-                CreateTokenProvider(manager, EMAIL_CONFIRMATION);
+                        user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
+                        context.SaveChanges();
+                        //add information of user and password to table users in core
+                        CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
-                var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
-                var callbackUrl = Url.Action("ConfirmEmail", "Home",
-                                                new { userId = identityUser.Id, code = code },
-                                                    protocol: Request.Url.Scheme);
+                        var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Home",
+                                                        new { userId = identityUser.Id, code = code },
+                                                            protocol: Request.Url.Scheme);
 
-                string email = "Please confirm your account by clicking this link: <a href=\""
-                                + callbackUrl + "\">Confirm Registration</a>";
-                SendGrid.sendEmail(newUser, callbackUrl);
-                //ViewBag.FakeConfirmation = email;
+                        string email = "Please confirm your account by clicking this link: <a href=\""
+                                        + callbackUrl + "\">Confirm Registration</a>";
+                        SendGrid.sendEmail(newUser, callbackUrl);
+                        ViewBag.Result = "Please check your email to activate your account!";
+                    }
+
+                }
+                else {
+                    ViewBag.Result = "Registration failed!";
+                }     
             }
+            
             return View();
         }
         public ActionResult ConfirmEmail(string userID, string code)
@@ -254,15 +272,22 @@ namespace OneListApplication.Controllers
             var userStore = new UserStore<IdentityUser>();
             UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
             var user = manager.FindByEmail(email);
-            CreateTokenProvider(manager, PASSWORD_RESET);
+            if (user != null)
+            {
+                CreateTokenProvider(manager, PASSWORD_RESET);
 
-            var code = manager.GeneratePasswordResetToken(user.Id);
-            var callbackUrl = Url.Action("ResetPassword", "Home",
-                                         new { userId = user.Id, code = code },
-                                         protocol: Request.Url.Scheme);
-            ViewBag.FakeEmailMessage = "Please reset your password by clicking <a href=\""
-                                     + callbackUrl + "\">here</a>";
-            SendGrid.sendResetEmail(user.Email, user.UserName, callbackUrl);
+                var code = manager.GeneratePasswordResetToken(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Home",
+                                             new { userId = user.Id, code = code },
+                                             protocol: Request.Url.Scheme);
+                ViewBag.FakeEmailMessage = "Please reset your password by clicking <a href=\""
+                                         + callbackUrl + "\">here</a>";
+                SendGrid.sendResetEmail(user.Email, user.UserName, callbackUrl);
+                ViewBag.Success = "Please check your email to complete!";
+            }
+            else {
+                ViewBag.Fail = "Email not found!";
+            }
             return View();
         }
 
@@ -274,30 +299,37 @@ namespace OneListApplication.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult ResetPassword(string password, string passwordConfirm,
+        public ActionResult ResetPassword(RegisteredUserVM currentUser, 
                                           string passwordToken, string userID)
         {
+                CaptchaHelper captchaHelper = new CaptchaHelper();
+                string captchaResponse = captchaHelper.CheckRecaptcha();
+                ViewBag.CaptchaResponse = captchaResponse;
 
-            var userStore = new UserStore<IdentityUser>();
-            UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
-            var user = manager.FindById(userID);
-            CreateTokenProvider(manager, PASSWORD_RESET);
-
-            if (password == passwordConfirm)
+            if (captchaResponse == "Valid")
             {
-                IdentityResult result = manager.ResetPassword(userID, passwordToken, password);
-                if (result.Succeeded)
-                {
-                    ViewBag.Result = "The password has been reset.";
-                }
-                else
-                {
-                    ViewBag.Result = "The password has not been reset.";
-                }
-            }
+                var userStore = new UserStore<IdentityUser>();
+                UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
+                var user = manager.FindById(userID);
+                CreateTokenProvider(manager, PASSWORD_RESET);
 
-            else
-                ViewBag.Result = "Two passwords don't match!";
+                if (currentUser.Password == currentUser.ConfirmPassword)
+                {
+                    IdentityResult result = manager.ResetPassword(userID, passwordToken, currentUser.Password);
+                    if (result.Succeeded)
+                    {
+                        ViewBag.Result = "The password has been reset.";
+                    }
+                    else
+                    {
+                        ViewBag.Result = "The password has not been reset.";
+                    }
+                }
+
+            }
+            else {
+                ViewBag.Result = "The password has not been reset.";
+            }
             return View();
         }
 
