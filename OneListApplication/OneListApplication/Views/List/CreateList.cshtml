@@ -1,67 +1,72 @@
-﻿
+﻿@model OneListApplication.ViewModels.ListVM
+
 @{
     ViewBag.Title = "CreateList";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("~/Views/List/_ListSideBar.cshtml")
-<div class="col-md-10">
-    <h2>CreateList</h2>
-    <form>
-        <div class="form-group row">
-            <label for="list-title" class="col-xs-2 col-form-label">Title</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="list-title" aria-describedby="emailHelp" placeholder="Enter title">
-                <small id="titleHelp" class="form-text text-muted">You may change the title later.</small>
+
+<h2>CreateList</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>ListVM</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ListID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ListID, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group row">
-            <label for="selectListType" class="col-xs-2 col-form-label">Select List Type</label>
-            <div class="col-xs-10">
-                <select class="form-control" id="selectListType">
-                    <option>Basic</option>
-                    <option>Grocery</option>
-                    <option>To Do</option>
-                    <option>Task</option>
-                </select>
-                <small id="titleHelp" class="form-text text-muted">*Required</small>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreatorID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreatorID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreatorID, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group row">
-            <label for="selectItemGroup" class="col-xs-2 col-form-label">Select Item Group</label>
-            <div class="col-xs-10">
-                <select class="form-control" id="selectItemGroup">
-                    <option>Grocery Items</option>
-                    <option>Stationary</option>
-                    <option>Bill Items</option>
-                </select>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ListName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ListName, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group row">
-            <label for="selectSubscriberGroup" class="col-xs-2 col-form-label">Select Subscriber Group</label>
-            <div class="col-xs-10">
-                <select multiple class="form-control" id="selectSubscriberGroup">
-                    <option>Family</option>
-                    <option>Friends</option>
-                    <option>Co-workers</option>
-                    <option>Students</option>
-                </select>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group row">
-            <label for="subscriberTextarea" class="col-xs-2 col-form-label">Subscribers</label>
-            <div class="col-xs-10">
-                <textarea class="form-control" id="subscriberTextarea" rows="4"></textarea>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ListStatusID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ListStatusID, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ListStatusID, "", new { @class = "text-danger" })
             </div>
         </div>
-        <div class="form-group row">
-            <label for="itemTextarea" class="col-xs-2 col-form-label">Items</label>
-            <div class="col-xs-10">
-                <textarea class="form-control" id="itemTextarea" rows="4"></textarea>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
-        <label for="itemTextarea" class="col-xs-2 col-form-label"></label>
-        <div class="col-xs-10">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

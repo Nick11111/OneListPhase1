@@ -160,6 +160,50 @@ CREATE TABLE [dbo].[UserType](
 ) ON [PRIMARY]
 
 GO
+
+CREATE TABLE [dbo].[ListUser](
+	[ListUserID]  [int] IDENTITY(1,1) NOT NULL,
+	[ListID] int NOT NULL,
+	[SuscriberGroupID] int NOT NULL,
+	[SuscriptionDate] [nchar](10) NOT NULL,
+ CONSTRAINT [PK_ListUser] PRIMARY KEY CLUSTERED 
+(
+	[ListUserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+ALTER TABLE [dbo].[ListUser]  WITH CHECK ADD  CONSTRAINT [FK_ListUser_SuscriberGroup] FOREIGN KEY([SuscriberGroupID])
+REFERENCES [dbo].[SuscriberGroup] ([SuscriberGroupID])
+GO
+ALTER TABLE [dbo].[ListUser]  WITH CHECK ADD  CONSTRAINT [FK_ListUser_List] FOREIGN KEY([ListID])
+REFERENCES [dbo].[List] ([ListID])
+GO
+
+drop table [dbo].[SuscriberGroup];
+CREATE TABLE [dbo].[SuscriberGroup](
+	[SuscriberGroupID] [int] IDENTITY(1,1) NOT NULL,
+	[SuscriberGroupName] [nvarchar](100) NOT NULL,
+	[UserID] [nvarchar](200) NOT NULL,
+ CONSTRAINT [PK_SuscriberGroup] PRIMARY KEY CLUSTERED 
+(
+	[SuscriberGroupID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+ALTER TABLE [dbo].[SuscriberGroup]  WITH CHECK ADD  CONSTRAINT [FK_SuscriberGroup_OwnerUser] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([UserID])
+GO
+
+--recreate FK
+ALTER TABLE [dbo].[SuscriberGroupUser]  WITH CHECK ADD  CONSTRAINT [FK_Suscribergroupuser_GroupID] FOREIGN KEY([SuscriberGroupID])
+REFERENCES [dbo].[SuscriberGroup] ([SuscriberGroupID])
+GO
+
+ALTER TABLE [dbo].[ListUser]  WITH CHECK ADD  CONSTRAINT [FK_ListUser_SuscriberGroup] FOREIGN KEY([SuscriberGroupID])
+REFERENCES [dbo].[SuscriberGroup] ([SuscriberGroupID])
+GO
+
+
 ALTER TABLE [dbo].[Item]  WITH CHECK ADD  CONSTRAINT [FK_Item_Item] FOREIGN KEY([UserID])
 REFERENCES [dbo].[User] ([UserID])
 GO
