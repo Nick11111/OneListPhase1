@@ -16,7 +16,7 @@ namespace OneListApplication.ViewModels
         [DisplayName("Subscriber Group Title")]
         public string SubscriberGroupName { get; set; }
 
-        public string publisherUserId { get; set; }
+        public string UserID { get; set; }
 
         public IEnumerable<SelectListItem> UserList { get; set; }
 

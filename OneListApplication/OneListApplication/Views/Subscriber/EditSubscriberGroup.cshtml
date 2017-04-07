@@ -8,6 +8,9 @@
 @Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
 <div class="col-md-10">
     <h2>Edit Subscriber Group</h2>
+    <p>@Html.Raw(ViewBag.ErrorMsg)</p>
+
+
     <!-- Form for New Group Title-->
     @using (Html.BeginForm("EditSubscriberGroup", "Subscriber", FormMethod.Post,
         new { enctype = "multipart/form-data" }))

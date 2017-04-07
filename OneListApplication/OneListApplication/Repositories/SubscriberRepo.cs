@@ -24,26 +24,40 @@ namespace OneListApplication.Repositories
         * Parameter: Int subscriberGroupId
         * Return: out errMsg (string)
         ********************************************************/
-        public void DeleteGroup(int subscriberGroupId, out string errMsg)
+        public void DeleteGroup(string publisherID, int subscriberGroupId, out string errMsg)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            SuscriberGroup groupToBeUpdated = db.SuscriberGroups.Where(s => s.SuscriberGroupID == subscriberGroupId).FirstOrDefault();
-            if (groupToBeUpdated != null)
+            SuscriberGroup groupToBeUpdated = db.SuscriberGroups
+                                            .Where(s => 
+                                                s.SuscriberGroupID == subscriberGroupId &&
+                                                s.UserID == publisherID
+                                            ).FirstOrDefault();
+            int numOfSubscribers = db.SuscriberGroupUsers
+                                            .Where(s =>
+                                                s.SuscriberGroupID == subscriberGroupId
+                                            ).Count();
+            if (numOfSubscribers > 0)
             {
-                db.SuscriberGroups.Remove(groupToBeUpdated);
-                db.SaveChanges();
-                errMsg = "Group Deleted";
+                errMsg = "Group has subscribers and cannot be deleted";
             }
-            else
-            {
-                errMsg = "Group could not be deleted.";
+            else {
+                if (groupToBeUpdated != null)
+                {
+                    db.SuscriberGroups.Remove(groupToBeUpdated);
+                    db.SaveChanges();
+                    errMsg = "Group Deleted";
+                }
+                else
+                {
+                    errMsg = "Group could not be deleted.";
+                }
             }
         }
         /* *******************************************************
         * AddUserToGroup
         * Parameter: string userID
         ********************************************************/
-        public void AddUserToGroup(SubscriberGroupVM subGroup, string publisherUserId) {
+        public void AddUserToGroup(SubscriberGroupVM subGroup) {
             // TO DO: server side validation & client side validation
             var now = DateTime.UtcNow;
             const string DEFAULT_STATUS = "Active";
@@ -52,8 +66,7 @@ namespace OneListApplication.Repositories
 
             SuscriberGroup sGroup = db.SuscriberGroups.Where(a => a.SuscriberGroupID == subGroup.SubscriberGroupID).FirstOrDefault();
             SuscriberGroupUser newGroupUser = new SuscriberGroupUser();
-            newGroupUser.SuscriberGroupUserID = subGroup.subscribedUser.UserID;
-            newGroupUser.UserID = publisherUserId;
+            newGroupUser.UserID = subGroup.subscribedUser.UserID;
             newGroupUser.SuscriberGroupID = subGroup.SubscriberGroupID;
             newGroupUser.UserTypeID = DEFAULT_TYPE;
             newGroupUser.ListUserStatus = DEFAULT_STATUS;
@@ -140,14 +153,16 @@ namespace OneListApplication.Repositories
         }
         /* *******************************************************
         * DeleteSubscriber
-        * Return: void
+        * Void
         ********************************************************/
         public void DeleteSubscriber(string userId, int id, out string errMsg) {
             OneListEntitiesCore db = new OneListEntitiesCore();
             SuscriberGroupUser groupToBeUpdated =  db.SuscriberGroupUsers
-                                                    .Where(s => s.SuscriberGroupUserID == id
-                                                        && s.SuscriberGroupID == id
-                                                    ).FirstOrDefault();
+                                                    .Where(s=>
+                                                        s.UserID == userId && 
+                                                        s.SuscriberGroupID == id
+                                                    )
+                                                    .FirstOrDefault();
 
             if (groupToBeUpdated != null)
             {

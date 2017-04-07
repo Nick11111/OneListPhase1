@@ -31,12 +31,14 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult AddSubscriberGroup(SubscriberGroupVM subscriberGroup)
         {
+            subscriberGroup.UserID = FindUserID();
+
             if (ModelState.IsValid)
             {
-                //TO DO: currently allowing duplicate subscriber group name.
-                //TO DO: typo for the database model 
+                //TO DO: typo for Database
                 SuscriberGroup sg = new SuscriberGroup();
                 sg.SuscriberGroupName = subscriberGroup.SubscriberGroupName;
+                sg.UserID = subscriberGroup.UserID;
                 //sg.SuscriberGroupID = 0;
                 OneListEntitiesCore Core = new OneListEntitiesCore();
                 Core.SuscriberGroups.Add(sg);
@@ -54,27 +56,29 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult SubscriberGroupManagement()
         {
+            ViewBag.ActionMsg = TempData["ActionMsg"];
             SubscriberRepo subscriberRepo = new SubscriberRepo();
             IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups();
             return View(subscriberGroups);
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult DeleteSubscriberGroup(int id)
         {
             string errMsg = "";
+            string publisherID = FindUserID();
             SubscriberRepo subscriberRepo = new SubscriberRepo();
-            subscriberRepo.DeleteGroup(id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
+            subscriberRepo.DeleteGroup(publisherID, id, out errMsg);
+            TempData["ActionMsg"] = errMsg;
             return RedirectToAction("SubscriberGroupManagement");
         }
         [HttpPost]
         public ActionResult AddSubscriberToGroup(SubscriberGroupVM subGroup) {
-            subGroup.publisherUserId = FindUserID();
+            
             string errMsg = "";
             SubscriberRepo subscriberRepo = new SubscriberRepo();
             if (ModelState.IsValid)
             { 
-                subscriberRepo.AddUserToGroup(subGroup, publisherUserId);
+                subscriberRepo.AddUserToGroup(subGroup);
                 ViewBag.ErrorMsg = errMsg;
             }
             else
