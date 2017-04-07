@@ -40,31 +40,42 @@ namespace OneListApplication.Controllers
             ViewBag.ErrorMessage = "";
             // UserStore and UserManager manages data retreival.
             UserStore<IdentityUser> userStore = new UserStore<IdentityUser>();
-            UserManager<IdentityUser> manager
-            = new UserManager<IdentityUser>(userStore);
+            UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
+            OneListCAEntities context = new OneListCAEntities();
 
             if (ModelState.IsValid)
             {
                 IdentityUser identityUser = manager.Find(login.UserName, login.Password);
+                var user = context.AspNetUsers.Find(identityUser.Id);
+
                 if (ValidLogin(login))
                 {
-                    IAuthenticationManager authenticationManager
-                                           = HttpContext.GetOwinContext()
-                                            .Authentication;
-                    authenticationManager
-                   .SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                    if (user.PhoneNumberConfirmed == true)
+                    {
+                        ViewBag.ErrorMessage = "Your account has been banned,please contact admin for further actions!";
+                        return View();
+                    }
+                    else {
 
-                    var identity = new ClaimsIdentity(new[] {
+                        IAuthenticationManager authenticationManager
+                       = HttpContext.GetOwinContext()
+                        .Authentication;
+                        authenticationManager
+                       .SignOut(DefaultAuthenticationTypes.ExternalCookie);
+
+                        var identity = new ClaimsIdentity(new[] {
                                             new Claim(ClaimTypes.Name, login.UserName),
                                         },
-                                        DefaultAuthenticationTypes.ApplicationCookie,
-                                        ClaimTypes.Name, ClaimTypes.Role);
-                    // SignIn() accepts ClaimsIdentity and issues logged in cookie. 
-                    authenticationManager.SignIn(new AuthenticationProperties
-                    {
-                        IsPersistent = false
-                    }, identity);
-                    return RedirectToAction("Home", "Home");
+                                            DefaultAuthenticationTypes.ApplicationCookie,
+                                            ClaimTypes.Name, ClaimTypes.Role);
+                        // SignIn() accepts ClaimsIdentity and issues logged in cookie. 
+                        authenticationManager.SignIn(new AuthenticationProperties
+                        {
+                            IsPersistent = false
+                        }, identity);
+                        return RedirectToAction("Home", "Home");
+                    }
+
                 }
                 else {
                     ViewBag.ErrorMessage = "Login failed, please try again!";
@@ -245,6 +256,114 @@ namespace OneListApplication.Controllers
             }
             return View();
         }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult DeleteUser(DeleteUserVM deletedUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var userStore = new UserStore<IdentityUser>();
+                UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
+                var currentUser = manager.FindByEmail(deletedUser.Email);
+                OneListCAEntities context = new OneListCAEntities();
+
+                if (currentUser != null)
+                {
+                    var user = context.AspNetUsers.Find(currentUser.Id);
+                    context.AspNetUsers.Remove(user);
+                    context.SaveChanges();
+                    ViewBag.Success = "User has been deleted successfully!";
+                }
+                else
+                {
+                    ViewBag.Fail = "User not found!";
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult BanUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult BanUser(DeleteUserVM deletedUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var userStore = new UserStore<IdentityUser>();
+                UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
+                var currentUser = manager.FindByEmail(deletedUser.Email);
+                OneListCAEntities context = new OneListCAEntities();
+
+                if (currentUser != null)
+                {
+                    var user = context.AspNetUsers.Find(currentUser.Id);
+                    user.PhoneNumberConfirmed = true;
+                    context.SaveChanges();
+                    ViewBag.Success = "User has been banned successfully!";
+                }
+                else
+                {
+                    ViewBag.Fail = "User not found!";
+                }
+            }
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult UnbanUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Administrator")]
+        public ActionResult UnbanUser(DeleteUserVM deletedUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var userStore = new UserStore<IdentityUser>();
+                UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
+                var currentUser = manager.FindByEmail(deletedUser.Email);
+                OneListCAEntities context = new OneListCAEntities();
+
+                if (currentUser != null)
+                {
+                    var user = context.AspNetUsers.Find(currentUser.Id);
+                    if (user.PhoneNumberConfirmed == true)
+                    {
+                        user.PhoneNumberConfirmed = false;
+                        context.SaveChanges();
+                        ViewBag.Success = "User has been unbanned successfully!";
+                    }
+
+                    else {
+                        ViewBag.Fail = "This user is not banned!";
+                    }
+                }
+                else
+                {
+                    ViewBag.Fail = "User not found!";
+                }
+            }
+            return View();
+        }
+
         //[Authorize(Roles = "Administrator")]
         // To allow more than one role access use syntax like the following:
         // [Authorize(Roles="Admin, Staff")]
