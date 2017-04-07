@@ -13,10 +13,15 @@ namespace OneListApplication.Repositories
         * Get all subscriber Group
         * Return: void
         ********************************************************/
-        public IEnumerable<SubscriberGroupVM> GetSubscriberGroups()
+        public IEnumerable<SubscriberGroupVM> GetSubscriberGroups(string publisherID)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            IEnumerable<SubscriberGroupVM> subscriberGroups = db.SuscriberGroups.Select(s => new SubscriberGroupVM() { SubscriberGroupID = s.SuscriberGroupID, SubscriberGroupName = s.SuscriberGroupName });
+            IEnumerable<SubscriberGroupVM> subscriberGroups = db.SuscriberGroups
+                                                .Where(a=>a.UserID == publisherID)
+                                                .Select(s => new SubscriberGroupVM()
+                                                    { SubscriberGroupID = s.SuscriberGroupID,
+                                                        SubscriberGroupName = s.SuscriberGroupName
+                                                });
             return subscriberGroups;
         }
         /* *******************************************************
@@ -135,7 +140,10 @@ namespace OneListApplication.Repositories
         public bool UpdateGroup(SubscriberGroupVM subscriberGroup)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            SuscriberGroup groupUpdated = db.SuscriberGroups.Where(a => a.SuscriberGroupID == subscriberGroup.SubscriberGroupID).FirstOrDefault();
+            SuscriberGroup groupUpdated = db.SuscriberGroups
+                                        .Where(a => 
+                                            a.SuscriberGroupID == subscriberGroup.SubscriberGroupID
+                                        ).FirstOrDefault();
             groupUpdated.SuscriberGroupName = subscriberGroup.SubscriberGroupName;
 
             db.SaveChanges();

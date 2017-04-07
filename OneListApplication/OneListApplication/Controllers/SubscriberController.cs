@@ -56,9 +56,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult SubscriberGroupManagement()
         {
+            string publisherID = FindUserID();
             ViewBag.ActionMsg = TempData["ActionMsg"];
             SubscriberRepo subscriberRepo = new SubscriberRepo();
-            IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups();
+            IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups(publisherID);
             return View(subscriberGroups);
         }
         [HttpGet]
