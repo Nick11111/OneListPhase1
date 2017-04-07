@@ -50,7 +50,5 @@ namespace OneListApplication
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("UpdateInfousers");
         }
-
-        public System.Data.Entity.DbSet<OneListApplication.ViewModels.SubscriberGroupVM> SubscriberGroupVMs { get; set; }
     }
 }

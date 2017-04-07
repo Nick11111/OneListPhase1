@@ -18,6 +18,7 @@ namespace OneListApplication
         public SuscriberGroup()
         {
             this.ListUsers = new HashSet<ListUser>();
+            this.SuscriberGroupUsers = new HashSet<SuscriberGroupUser>();
         }
     
         public int SuscriberGroupID { get; set; }
@@ -25,6 +26,7 @@ namespace OneListApplication
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ListUser> ListUsers { get; set; }
-        public virtual SuscriberGroupUser SuscriberGroupUser { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SuscriberGroupUser> SuscriberGroupUsers { get; set; }
     }
 }

@@ -14,6 +14,7 @@ namespace OneListApplication
     
     public partial class SuscriberGroupUser
     {
+        public int SuscriberGroupUserID { get; set; }
         public int SuscriberGroupID { get; set; }
         public string UserID { get; set; }
         public int UserTypeID { get; set; }
@@ -21,5 +22,6 @@ namespace OneListApplication
         public string SuscriptionDate { get; set; }
     
         public virtual SuscriberGroup SuscriberGroup { get; set; }
+        public virtual User User { get; set; }
     }
 }
