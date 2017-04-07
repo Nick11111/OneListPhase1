@@ -35,7 +35,7 @@ namespace OneListApplication.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(LoginVM login)
+        public ActionResult Login(LoginVM login, string rememberMe)
         {
             ViewBag.ErrorMessage = "";
             // UserStore and UserManager manages data retreival.
@@ -69,10 +69,19 @@ namespace OneListApplication.Controllers
                                             DefaultAuthenticationTypes.ApplicationCookie,
                                             ClaimTypes.Name, ClaimTypes.Role);
                         // SignIn() accepts ClaimsIdentity and issues logged in cookie. 
-                        authenticationManager.SignIn(new AuthenticationProperties
+                        if (rememberMe == "true")
                         {
-                            IsPersistent = false
-                        }, identity);
+                            authenticationManager.SignIn(new AuthenticationProperties
+                            {
+                                IsPersistent = true
+                            }, identity);
+                        }
+                        else {
+                            authenticationManager.SignIn(new AuthenticationProperties
+                            {
+                                IsPersistent = false
+                            }, identity);
+                        }
                         return RedirectToAction("Home", "Home");
                     }
 
