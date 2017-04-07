@@ -10,6 +10,15 @@ namespace OneListApplication.Controllers
 {
     public class SubscriberController : Controller
     {
+        public string FindUserID()
+        {
+            string name = User.Identity.Name;
+            OneListCAEntities context = new OneListCAEntities();
+            AspNetUser user = context.AspNetUsers
+                    .Where(u => u.UserName == name).FirstOrDefault();
+            string userId = user.Id;
+            return userId;
+        }
         /* *******************************************************
         * Add Subscriber Group
         * Get & Post
@@ -60,11 +69,12 @@ namespace OneListApplication.Controllers
         }
         [HttpPost]
         public ActionResult AddSubscriberToGroup(SubscriberGroupVM subGroup) {
+            subGroup.publisherUserId = FindUserID();
             string errMsg = "";
             SubscriberRepo subscriberRepo = new SubscriberRepo();
             if (ModelState.IsValid)
             { 
-                subscriberRepo.AddUserToGroup(subGroup);
+                subscriberRepo.AddUserToGroup(subGroup, publisherUserId);
                 ViewBag.ErrorMsg = errMsg;
             }
             else

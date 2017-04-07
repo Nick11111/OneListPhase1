@@ -43,7 +43,7 @@ namespace OneListApplication.Repositories
         * AddUserToGroup
         * Parameter: string userID
         ********************************************************/
-        public void AddUserToGroup(SubscriberGroupVM subGroup) {
+        public void AddUserToGroup(SubscriberGroupVM subGroup, string publisherUserId) {
             // TO DO: server side validation & client side validation
             var now = DateTime.UtcNow;
             const string DEFAULT_STATUS = "Active";
@@ -52,7 +52,8 @@ namespace OneListApplication.Repositories
 
             SuscriberGroup sGroup = db.SuscriberGroups.Where(a => a.SuscriberGroupID == subGroup.SubscriberGroupID).FirstOrDefault();
             SuscriberGroupUser newGroupUser = new SuscriberGroupUser();
-            newGroupUser.UserID = subGroup.subscribedUser.UserID;
+            newGroupUser.SuscriberGroupUserID = subGroup.subscribedUser.UserID;
+            newGroupUser.UserID = publisherUserId;
             newGroupUser.SuscriberGroupID = subGroup.SubscriberGroupID;
             newGroupUser.UserTypeID = DEFAULT_TYPE;
             newGroupUser.ListUserStatus = DEFAULT_STATUS;
@@ -143,8 +144,8 @@ namespace OneListApplication.Repositories
         ********************************************************/
         public void DeleteSubscriber(string userId, int id, out string errMsg) {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            SuscriberGroupUser groupToBeUpdated = db.SuscriberGroupUsers
-                                                    .Where(s => s.UserID == userId
+            SuscriberGroupUser groupToBeUpdated =  db.SuscriberGroupUsers
+                                                    .Where(s => s.SuscriberGroupUserID == id
                                                         && s.SuscriberGroupID == id
                                                     ).FirstOrDefault();
 
