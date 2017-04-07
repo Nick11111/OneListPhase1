@@ -135,11 +135,12 @@
         </EntityType>
         <EntityType Name="ListUser">
           <Key>
-            <PropertyRef Name="ListID" />
+            <PropertyRef Name="ListUserID" />
           </Key>
+          <Property Name="ListUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ListID" Type="int" Nullable="false" />
           <Property Name="SuscriberGroupID" Type="int" Nullable="false" />
-          <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" />
+          <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Retail">
           <Key>
@@ -156,12 +157,14 @@
             <PropertyRef Name="SuscriberGroupID" />
           </Key>
           <Property Name="SuscriberGroupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SuscriberGroupName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SuscriberGroupName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="SuscriberGroupUser">
           <Key>
-            <PropertyRef Name="SuscriberGroupID" />
+            <PropertyRef Name="SuscriberGroupUserID" />
           </Key>
+          <Property Name="SuscriberGroupUserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SuscriberGroupID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="UserTypeID" Type="int" Nullable="false" />
@@ -341,7 +344,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListUser_UserType">
+        <Association Name="FK_ListUser_List">
+          <End Role="List" Type="Self.List" Multiplicity="1" />
+          <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="List">
+              <PropertyRef Name="ListID" />
+            </Principal>
+            <Dependent Role="ListUser">
+              <PropertyRef Name="ListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListUser_SuscriberGroup">
           <End Role="SuscriberGroup" Type="Self.SuscriberGroup" Multiplicity="1" />
           <End Role="ListUser" Type="Self.ListUser" Multiplicity="*" />
           <ReferentialConstraint>
@@ -353,15 +368,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Suscriber_SuscriberUser">
+        <Association Name="FK_SuscriberGroup_OwnerUser">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SuscriberGroup" Type="Self.SuscriberGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SuscriberGroup">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suscribergroupuser_GroupID">
           <End Role="SuscriberGroup" Type="Self.SuscriberGroup" Multiplicity="1" />
-          <End Role="SuscriberGroupUser" Type="Self.SuscriberGroupUser" Multiplicity="0..1" />
+          <End Role="SuscriberGroupUser" Type="Self.SuscriberGroupUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SuscriberGroup">
               <PropertyRef Name="SuscriberGroupID" />
             </Principal>
             <Dependent Role="SuscriberGroupUser">
               <PropertyRef Name="SuscriberGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suscribergroupuser_UserID">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="SuscriberGroupUser" Type="Self.SuscriberGroupUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SuscriberGroupUser">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -434,12 +473,24 @@
             <End Role="List" EntitySet="List" />
             <End Role="ListItem" EntitySet="ListItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_ListUser_UserType" Association="Self.FK_ListUser_UserType">
+          <AssociationSet Name="FK_ListUser_List" Association="Self.FK_ListUser_List">
+            <End Role="List" EntitySet="List" />
+            <End Role="ListUser" EntitySet="ListUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListUser_SuscriberGroup" Association="Self.FK_ListUser_SuscriberGroup">
             <End Role="SuscriberGroup" EntitySet="SuscriberGroup" />
             <End Role="ListUser" EntitySet="ListUser" />
           </AssociationSet>
-          <AssociationSet Name="FK_Suscriber_SuscriberUser" Association="Self.FK_Suscriber_SuscriberUser">
+          <AssociationSet Name="FK_SuscriberGroup_OwnerUser" Association="Self.FK_SuscriberGroup_OwnerUser">
+            <End Role="User" EntitySet="User" />
             <End Role="SuscriberGroup" EntitySet="SuscriberGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suscribergroupuser_GroupID" Association="Self.FK_Suscribergroupuser_GroupID">
+            <End Role="SuscriberGroup" EntitySet="SuscriberGroup" />
+            <End Role="SuscriberGroupUser" EntitySet="SuscriberGroupUser" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suscribergroupuser_UserID" Association="Self.FK_Suscribergroupuser_UserID">
+            <End Role="User" EntitySet="User" />
             <End Role="SuscriberGroupUser" EntitySet="SuscriberGroupUser" />
           </AssociationSet>
         </EntityContainer>
@@ -448,6 +499,7 @@
     <edmx:ConceptualModels>
       <Schema Namespace="DB_110660_onelistcaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="OneListCAEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="UpdateInfousers" />
           <EntitySet Name="C__MigrationHistory" EntityType="DB_110660_onelistcaModel.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="DB_110660_onelistcaModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="DB_110660_onelistcaModel.AspNetUserClaim" />
@@ -506,19 +558,30 @@
             <End Role="List" EntitySet="Lists" />
             <End Role="ListItem" EntitySet="ListItems" />
           </AssociationSet>
-          <AssociationSet Name="FK_ListUser_UserType" Association="DB_110660_onelistcaModel.FK_ListUser_UserType">
+          <AssociationSet Name="FK_ListUser_List" Association="DB_110660_onelistcaModel.FK_ListUser_List">
+            <End Role="List" EntitySet="Lists" />
+            <End Role="ListUser" EntitySet="ListUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ListUser_SuscriberGroup" Association="DB_110660_onelistcaModel.FK_ListUser_SuscriberGroup">
             <End Role="SuscriberGroup" EntitySet="SuscriberGroups" />
             <End Role="ListUser" EntitySet="ListUsers" />
           </AssociationSet>
-          <AssociationSet Name="FK_Suscriber_SuscriberUser" Association="DB_110660_onelistcaModel.FK_Suscriber_SuscriberUser">
+          <AssociationSet Name="FK_SuscriberGroup_OwnerUser" Association="DB_110660_onelistcaModel.FK_SuscriberGroup_OwnerUser">
+            <End Role="User" EntitySet="Users" />
             <End Role="SuscriberGroup" EntitySet="SuscriberGroups" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suscribergroupuser_GroupID" Association="DB_110660_onelistcaModel.FK_Suscribergroupuser_GroupID">
+            <End Role="SuscriberGroup" EntitySet="SuscriberGroups" />
+            <End Role="SuscriberGroupUser" EntitySet="SuscriberGroupUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Suscribergroupuser_UserID" Association="DB_110660_onelistcaModel.FK_Suscribergroupuser_UserID">
+            <End Role="User" EntitySet="Users" />
             <End Role="SuscriberGroupUser" EntitySet="SuscriberGroupUsers" />
           </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="DB_110660_onelistcaModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <FunctionImport Name="UpdateInfousers" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -627,6 +690,7 @@
           <NavigationProperty Name="ListStatu" Relationship="DB_110660_onelistcaModel.FK_List_ListStatus" FromRole="List" ToRole="ListStatu" />
           <NavigationProperty Name="User" Relationship="DB_110660_onelistcaModel.FK_List_User" FromRole="List" ToRole="User" />
           <NavigationProperty Name="ListItems" Relationship="DB_110660_onelistcaModel.FK_ListItem_List" FromRole="List" ToRole="ListItem" />
+          <NavigationProperty Name="ListUsers" Relationship="DB_110660_onelistcaModel.FK_ListUser_List" FromRole="List" ToRole="ListUser" />
         </EntityType>
         <EntityType Name="ListItem">
           <Key>
@@ -661,12 +725,14 @@
         </EntityType>
         <EntityType Name="ListUser">
           <Key>
-            <PropertyRef Name="ListID" />
+            <PropertyRef Name="ListUserID" />
           </Key>
+          <Property Name="ListUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ListID" Type="Int32" Nullable="false" />
           <Property Name="SuscriberGroupID" Type="Int32" Nullable="false" />
-          <Property Name="SuscriptionDate" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="SuscriberGroup" Relationship="DB_110660_onelistcaModel.FK_ListUser_UserType" FromRole="ListUser" ToRole="SuscriberGroup" />
+          <Property Name="SuscriptionDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="List" Relationship="DB_110660_onelistcaModel.FK_ListUser_List" FromRole="ListUser" ToRole="List" />
+          <NavigationProperty Name="SuscriberGroup" Relationship="DB_110660_onelistcaModel.FK_ListUser_SuscriberGroup" FromRole="ListUser" ToRole="SuscriberGroup" />
         </EntityType>
         <EntityType Name="Retail">
           <Key>
@@ -684,20 +750,24 @@
             <PropertyRef Name="SuscriberGroupID" />
           </Key>
           <Property Name="SuscriberGroupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SuscriberGroupName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ListUsers" Relationship="DB_110660_onelistcaModel.FK_ListUser_UserType" FromRole="SuscriberGroup" ToRole="ListUser" />
-          <NavigationProperty Name="SuscriberGroupUser" Relationship="DB_110660_onelistcaModel.FK_Suscriber_SuscriberUser" FromRole="SuscriberGroup" ToRole="SuscriberGroupUser" />
+          <Property Name="SuscriberGroupName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ListUsers" Relationship="DB_110660_onelistcaModel.FK_ListUser_SuscriberGroup" FromRole="SuscriberGroup" ToRole="ListUser" />
+          <NavigationProperty Name="User" Relationship="DB_110660_onelistcaModel.FK_SuscriberGroup_OwnerUser" FromRole="SuscriberGroup" ToRole="User" />
+          <NavigationProperty Name="SuscriberGroupUsers" Relationship="DB_110660_onelistcaModel.FK_Suscribergroupuser_GroupID" FromRole="SuscriberGroup" ToRole="SuscriberGroupUser" />
         </EntityType>
         <EntityType Name="SuscriberGroupUser">
           <Key>
-            <PropertyRef Name="SuscriberGroupID" />
+            <PropertyRef Name="SuscriberGroupUserID" />
           </Key>
+          <Property Name="SuscriberGroupUserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SuscriberGroupID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UserTypeID" Type="Int32" Nullable="false" />
           <Property Name="ListUserStatus" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="SuscriptionDate" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="SuscriberGroup" Relationship="DB_110660_onelistcaModel.FK_Suscriber_SuscriberUser" FromRole="SuscriberGroupUser" ToRole="SuscriberGroup" />
+          <NavigationProperty Name="SuscriberGroup" Relationship="DB_110660_onelistcaModel.FK_Suscribergroupuser_GroupID" FromRole="SuscriberGroupUser" ToRole="SuscriberGroup" />
+          <NavigationProperty Name="User" Relationship="DB_110660_onelistcaModel.FK_Suscribergroupuser_UserID" FromRole="SuscriberGroupUser" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -714,6 +784,8 @@
           <Property Name="ProfilePic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Items" Relationship="DB_110660_onelistcaModel.FK_Item_Item" FromRole="User" ToRole="Item" />
           <NavigationProperty Name="Lists" Relationship="DB_110660_onelistcaModel.FK_List_User" FromRole="User" ToRole="List" />
+          <NavigationProperty Name="SuscriberGroups" Relationship="DB_110660_onelistcaModel.FK_SuscriberGroup_OwnerUser" FromRole="User" ToRole="SuscriberGroup" />
+          <NavigationProperty Name="SuscriberGroupUsers" Relationship="DB_110660_onelistcaModel.FK_Suscribergroupuser_UserID" FromRole="User" ToRole="SuscriberGroupUser" />
         </EntityType>
         <EntityType Name="UserType">
           <Key>
@@ -846,7 +918,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ListUser_UserType">
+        <Association Name="FK_ListUser_List">
+          <End Type="DB_110660_onelistcaModel.List" Role="List" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.ListUser" Role="ListUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="List">
+              <PropertyRef Name="ListID" />
+            </Principal>
+            <Dependent Role="ListUser">
+              <PropertyRef Name="ListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ListUser_SuscriberGroup">
           <End Type="DB_110660_onelistcaModel.SuscriberGroup" Role="SuscriberGroup" Multiplicity="1" />
           <End Type="DB_110660_onelistcaModel.ListUser" Role="ListUser" Multiplicity="*" />
           <ReferentialConstraint>
@@ -858,15 +942,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Suscriber_SuscriberUser">
+        <Association Name="FK_SuscriberGroup_OwnerUser">
+          <End Type="DB_110660_onelistcaModel.User" Role="User" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.SuscriberGroup" Role="SuscriberGroup" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SuscriberGroup">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suscribergroupuser_GroupID">
           <End Type="DB_110660_onelistcaModel.SuscriberGroup" Role="SuscriberGroup" Multiplicity="1" />
-          <End Type="DB_110660_onelistcaModel.SuscriberGroupUser" Role="SuscriberGroupUser" Multiplicity="0..1" />
+          <End Type="DB_110660_onelistcaModel.SuscriberGroupUser" Role="SuscriberGroupUser" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="SuscriberGroup">
               <PropertyRef Name="SuscriberGroupID" />
             </Principal>
             <Dependent Role="SuscriberGroupUser">
               <PropertyRef Name="SuscriberGroupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Suscribergroupuser_UserID">
+          <End Type="DB_110660_onelistcaModel.User" Role="User" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel.SuscriberGroupUser" Role="SuscriberGroupUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="SuscriberGroupUser">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -880,6 +988,7 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DB_110660_onelistcaModelStoreContainer" CdmEntityContainer="OneListCAEntities">
+          <FunctionImportMapping FunctionImportName="UpdateInfousers" FunctionName="DB_110660_onelistcaModel.Store.UpdateInfousers" />
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">
@@ -1014,6 +1123,7 @@
                 <ScalarProperty Name="SuscriptionDate" ColumnName="SuscriptionDate" />
                 <ScalarProperty Name="SuscriberGroupID" ColumnName="SuscriberGroupID" />
                 <ScalarProperty Name="ListID" ColumnName="ListID" />
+                <ScalarProperty Name="ListUserID" ColumnName="ListUserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1031,6 +1141,7 @@
           <EntitySetMapping Name="SuscriberGroups">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel.SuscriberGroup">
               <MappingFragment StoreEntitySet="SuscriberGroup">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SuscriberGroupName" ColumnName="SuscriberGroupName" />
                 <ScalarProperty Name="SuscriberGroupID" ColumnName="SuscriberGroupID" />
               </MappingFragment>
@@ -1044,6 +1155,7 @@
                 <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="SuscriberGroupID" ColumnName="SuscriberGroupID" />
+                <ScalarProperty Name="SuscriberGroupUserID" ColumnName="SuscriberGroupUserID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1078,8 +1190,7 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
-          <FunctionImportMapping FunctionImportName="UpdateInfousers" FunctionName="DB_110660_onelistcaModel.Store.UpdateInfousers" />
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
