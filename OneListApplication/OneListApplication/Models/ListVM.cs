@@ -23,5 +23,7 @@ namespace OneListApplication.Models
         [Required]
         [Display(Name = "List Status ID")]
         public string ListStatusID { get; set; }
+        [Required]
+        public List<SuscriberGroup> SuscriberGroupID { get; set; }
     }
 }

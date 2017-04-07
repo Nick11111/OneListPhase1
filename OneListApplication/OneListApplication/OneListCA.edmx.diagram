@@ -14,12 +14,12 @@
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.Item" Width="2.5" PointX="3" PointY="4.25" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ItemCategory" Width="2.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.List" Width="2.5" PointX="6" PointY="4.125" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListItem" Width="2.5" PointX="8.25" PointY="4.125" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListItem" Width="2.5" PointX="8.625" PointY="4.125" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListStatu" Width="2.5" PointX="3.75" PointY="7.875" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListType" Width="2.5" PointX="3.75" PointY="1.625" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.ListUser" Width="2.5" PointX="13" PointY="5.125" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.Retail" Width="2.5" PointX="0.75" PointY="13.375" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.SuscriberGroup" Width="2.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel1.SuscriberGroup" Width="2.5" PointX="10.625" PointY="2.25" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.SuscriberGroupUser" Width="2.5" PointX="13.5" PointY="2.25" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.User" Width="2.5" PointX="0.75" PointY="4" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel1.UserType" Width="2.5" PointX="0.75" PointY="10.875" />
