@@ -319,6 +319,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DeleteUserVM.cs" />
     <Compile Include="Models\LoginVM.cs" />
     <Compile Include="Models\RegisteredUserVM.cs" />
     <Compile Include="Models\RoleVM.cs" />
@@ -461,6 +462,9 @@
     <Content Include="Views\Subscriber\EditSubscriberGroup.cshtml" />
     <Content Include="Views\Subscriber\SubscribedUserList.cshtml" />
     <Content Include="Views\Subscriber\_SubscriberTable.cshtml" />
+    <Content Include="Views\Home\DeleteUser.cshtml" />
+    <Content Include="Views\Home\BanUser.cshtml" />
+    <Content Include="Views\Home\UnbanUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

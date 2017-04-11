@@ -9,14 +9,26 @@ namespace OneListApplication.Repositories
 {
     public class SubscriberRepo
     {
+
+        const int USER_TYPE_COLLABORATOR_INDEX  = 2;
+        const int USER_TYPE_SUBSCRIBER_INDEX    = 3;
+        const int DEFAULT_USER_TYPE             = 3;
+        const string DEFAULT_STATUS             = "Active";
+        const string DISABLED_STATUS            = "Disabled";
+
         /* *******************************************************
         * Get all subscriber Group
         * Return: void
         ********************************************************/
-        public IEnumerable<SubscriberGroupVM> GetSubscriberGroups()
+        public IEnumerable<SubscriberGroupVM> GetSubscriberGroups(string publisherID)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            IEnumerable<SubscriberGroupVM> subscriberGroups = db.SuscriberGroups.Select(s => new SubscriberGroupVM() { SubscriberGroupID = s.SuscriberGroupID, SubscriberGroupName = s.SuscriberGroupName });
+            IEnumerable<SubscriberGroupVM> subscriberGroups = db.SuscriberGroups
+                                                .Where(a=>a.UserID == publisherID)
+                                                .Select(s => new SubscriberGroupVM()
+                                                    { SubscriberGroupID = s.SuscriberGroupID,
+                                                        SubscriberGroupName = s.SuscriberGroupName
+                                                });
             return subscriberGroups;
         }
         /* *******************************************************
@@ -24,45 +36,69 @@ namespace OneListApplication.Repositories
         * Parameter: Int subscriberGroupId
         * Return: out errMsg (string)
         ********************************************************/
-        public void DeleteGroup(int subscriberGroupId, out string errMsg)
+        public void DeleteGroup(string publisherID, int subscriberGroupId, out string errMsg)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            SuscriberGroup groupToBeUpdated = db.SuscriberGroups.Where(s => s.SuscriberGroupID == subscriberGroupId).FirstOrDefault();
-            if (groupToBeUpdated != null)
+            SuscriberGroup groupToBeUpdated = db.SuscriberGroups
+                                            .Where(s => 
+                                                s.SuscriberGroupID == subscriberGroupId &&
+                                                s.UserID == publisherID
+                                            ).FirstOrDefault();
+            int numOfSubscribers = db.SuscriberGroupUsers
+                                            .Where(s =>
+                                                s.SuscriberGroupID == subscriberGroupId
+                                            ).Count();
+            if (numOfSubscribers > 0)
             {
-                db.SuscriberGroups.Remove(groupToBeUpdated);
-                db.SaveChanges();
-                errMsg = "Group Deleted";
+                errMsg = "Group has subscribers and cannot be deleted";
             }
-            else
-            {
-                errMsg = "Group could not be deleted.";
+            else {
+                if (groupToBeUpdated != null)
+                {
+                    db.SuscriberGroups.Remove(groupToBeUpdated);
+                    db.SaveChanges();
+                    errMsg = "Group Deleted";
+                }
+                else
+                {
+                    errMsg = "Group could not be deleted.";
+                }
             }
         }
         /* *******************************************************
         * AddUserToGroup
         * Parameter: string userID
         ********************************************************/
-        public void AddUserToGroup(SubscriberGroupVM subGroup, string publisherUserId) {
+        public void AddUserToGroup(SubscriberGroupVM subGroup, out string errMsg) {
             // TO DO: server side validation & client side validation
             var now = DateTime.UtcNow;
-            const string DEFAULT_STATUS = "Active";
-            const int DEFAULT_TYPE = 2;
             OneListEntitiesCore db = new OneListEntitiesCore();
 
             SuscriberGroup sGroup = db.SuscriberGroups.Where(a => a.SuscriberGroupID == subGroup.SubscriberGroupID).FirstOrDefault();
             SuscriberGroupUser newGroupUser = new SuscriberGroupUser();
-          //  newGroupUser.SuscriberGroupUserID = subGroup.subscribedUser.UserID;
-            newGroupUser.UserID = publisherUserId;
+            newGroupUser.UserID = subGroup.UserID;
             newGroupUser.SuscriberGroupID = subGroup.SubscriberGroupID;
-            newGroupUser.UserTypeID = DEFAULT_TYPE;
+            newGroupUser.UserTypeID = DEFAULT_USER_TYPE;
             newGroupUser.ListUserStatus = DEFAULT_STATUS;
             newGroupUser.SuscriptionDate = now.ToShortDateString();
             newGroupUser.SuscriberGroup = sGroup; //Add subscriberGroup property !important
 
             var query = db.SuscriberGroupUsers.Add(newGroupUser);
+            SuscriberGroupUser existingUser = db.SuscriberGroupUsers
+                                    .Where(a =>
+                                        a.SuscriberGroupID == subGroup.SubscriberGroupID &&
+                                        a.UserID == subGroup.UserID
+                                    ).FirstOrDefault();
 
-            db.SaveChanges();
+            // Check if the user currently exist in the table
+            if (existingUser == null)
+            {
+                db.SaveChanges();
+                errMsg = "User Added.";
+            }
+            else {
+                errMsg = "User Already Exist.";
+            }
         }
 
         /* *******************************************************
@@ -72,7 +108,10 @@ namespace OneListApplication.Repositories
         ********************************************************/
         public SubscriberGroupVM GetGroupDetails(int id) {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            SuscriberGroup groupToBeUpdated = db.SuscriberGroups.Where(a => a.SuscriberGroupID == id).FirstOrDefault();
+            SuscriberGroup groupToBeUpdated = db.SuscriberGroups
+                                            .Where(a => 
+                                                a.SuscriberGroupID == id
+                                            ).FirstOrDefault();
             SubscriberGroupVM sg = new SubscriberGroupVM();
             sg.SubscriberGroupID = groupToBeUpdated.SuscriberGroupID;
             sg.SubscriberGroupName = groupToBeUpdated.SuscriberGroupName;
@@ -86,17 +125,23 @@ namespace OneListApplication.Repositories
         ********************************************************/
         public IEnumerable<SubscriberGroupUserVM> GetAllSubscribedUsers(int id)
         {
+           // IEnumerable<SubscriberGroupUserVM> groupUserList;
             OneListEntitiesCore db = new OneListEntitiesCore();
-            var subscribedUsers = db.SuscriberGroupUsers
-                                    .Where(a=>a.SuscriberGroupID ==id )
-                                    .Select(x =>
+
+            var groupUserList = db.SuscriberGroups
+                            .Where(a => a.SuscriberGroupID == id)
+                            .SelectMany(groups =>
+                                    groups.SuscriberGroupUsers.Select(
+                                        x =>
                                             new SubscriberGroupUserVM
                                             {
                                                 UserID = x.UserID,
                                                 ListUserStatus = x.ListUserStatus,
                                                 UserTypeID = x.UserTypeID,
-                                            });
-            return subscribedUsers;
+                                                Email = x.User.Email
+                                                //TO DO, add UserTypeName from table, fix table, fix partialview
+                                    }));
+            return groupUserList;
         }
 
         /* *******************************************************
@@ -119,14 +164,30 @@ namespace OneListApplication.Repositories
         * UpdateGroup
         * Return: bool
         ********************************************************/
-        public bool UpdateGroup(SubscriberGroupVM subscriberGroup)
+        public void UpdateGroup(SubscriberGroupVM subscriberGroup, out string errMsg)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            SuscriberGroup groupUpdated = db.SuscriberGroups.Where(a => a.SuscriberGroupID == subscriberGroup.SubscriberGroupID).FirstOrDefault();
+            SuscriberGroup groupUpdated = db.SuscriberGroups
+                                        .Where(a => 
+                                            a.SuscriberGroupID == subscriberGroup.SubscriberGroupID
+                                        ).FirstOrDefault();
             groupUpdated.SuscriberGroupName = subscriberGroup.SubscriberGroupName;
 
-            db.SaveChanges();
-            return true;
+            if (String.IsNullOrEmpty(subscriberGroup.SubscriberGroupName))
+            {
+                errMsg = "Name cannot be empty";
+            }
+            else {
+                if (subscriberGroup.SubscriberGroupName.Trim() == "")
+                {
+                    errMsg = "Name cannot be empty";
+
+                }
+                else {
+                    db.SaveChanges();
+                    errMsg = "Group name updated";
+                }
+            }
         }
         /* *******************************************************
         * GetSubscriberGroupUsers
@@ -135,23 +196,32 @@ namespace OneListApplication.Repositories
         public IEnumerable<SubscriberGroupUserVM> GetSubscriberGroupUsers(int id)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            IEnumerable<SubscriberGroupUserVM> subscriberGroupUsers = db.SuscriberGroupUsers.Select(a => new SubscriberGroupUserVM() { SubscriberGroupID = id, UserID = a.UserID, ListUserStatus = a.ListUserStatus, UserTypeID = a.UserTypeID, SubscriptionDate = a.SuscriptionDate });
+            IEnumerable<SubscriberGroupUserVM> subscriberGroupUsers = db.SuscriberGroupUsers.Select(a =>
+                                                        new SubscriberGroupUserVM()
+                                                        { SubscriberGroupID = id,
+                                                          UserID = a.UserID,
+                                                          ListUserStatus = a.ListUserStatus,
+                                                          UserTypeID = a.UserTypeID,
+                                                          SubscriptionDate = a.SuscriptionDate
+                                                        });
             return subscriberGroupUsers;
         }
         /* *******************************************************
         * DeleteSubscriber
-        * Return: void
+        * Void
         ********************************************************/
         public void DeleteSubscriber(string userId, int id, out string errMsg) {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            SuscriberGroupUser groupToBeUpdated =  db.SuscriberGroupUsers
-                                                    .Where(s => s.SuscriberGroupUserID == id
-                                                        && s.SuscriberGroupID == id
-                                                    ).FirstOrDefault();
+            SuscriberGroupUser subscriberToBeDeleted =  db.SuscriberGroupUsers
+                                                    .Where(s=>
+                                                        s.UserID == userId && 
+                                                        s.SuscriberGroupID == id
+                                                    )
+                                                    .FirstOrDefault();
 
-            if (groupToBeUpdated != null)
+            if (subscriberToBeDeleted != null)
             {
-                db.SuscriberGroupUsers.Remove(groupToBeUpdated);
+                db.SuscriberGroupUsers.Remove(subscriberToBeDeleted);
                 db.SaveChanges();
                 errMsg = "Subscriber Deleted";
             }
@@ -159,6 +229,79 @@ namespace OneListApplication.Repositories
             {
                 errMsg = "Subscriber could not be deleted.";
             }
+        }
+        /* *******************************************************
+        * Change Subscriber Type
+        * Void
+        ********************************************************/
+        public void ChangeSubscriberType(string userId, int id, out string errMsg)
+        {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            SuscriberGroupUser subscriberTypeToBeChanged = db.SuscriberGroupUsers
+                                                    .Where(s =>
+                                                        s.UserID == userId &&
+                                                        s.SuscriberGroupID == id 
+                                                    )
+                                                    .FirstOrDefault();
+
+            if (subscriberTypeToBeChanged != null)
+            {
+                subscriberTypeToBeChanged.UserTypeID = GetTypeToBeChanged(subscriberTypeToBeChanged.UserTypeID);
+                db.SaveChanges();
+                errMsg = "Subscriber Type Changed";
+            }
+            else
+            {
+                errMsg = "Subscriber type could not be changed.";
+            }
+        }
+
+        public int GetTypeToBeChanged(int typeID) {
+            if (typeID == USER_TYPE_COLLABORATOR_INDEX)
+            {
+                typeID = USER_TYPE_SUBSCRIBER_INDEX;
+            }
+            else {
+                typeID = USER_TYPE_COLLABORATOR_INDEX;
+            }
+            return typeID;
+        }
+        /* *******************************************************
+        * Change Subscriber Status
+        * Void
+        ********************************************************/
+        public void ChangeSubscriberStatus(string userId, int id, out string errMsg)
+        {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            SuscriberGroupUser subscriberStatusToBeChanged = db.SuscriberGroupUsers
+                                                    .Where(s =>
+                                                        s.UserID == userId &&
+                                                        s.SuscriberGroupID == id
+                                                    )
+                                                    .FirstOrDefault();
+
+            if (subscriberStatusToBeChanged != null)
+            {
+                subscriberStatusToBeChanged.ListUserStatus = GetStatusToBeChanged(subscriberStatusToBeChanged.ListUserStatus);
+                db.SaveChanges();
+                errMsg = "Subscriber Type Changed";
+            }
+            else
+            {
+                errMsg = "Subscriber type could not be changed.";
+            }
+        }
+        public string GetStatusToBeChanged(string listUserStatus)
+        {
+            if (listUserStatus.Trim() == DEFAULT_STATUS)
+            {
+                listUserStatus = DISABLED_STATUS;
+            }
+            else
+            {
+                listUserStatus = DEFAULT_STATUS;
+            }
+            return listUserStatus;
         }
     }
 }

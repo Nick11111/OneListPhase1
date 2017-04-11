@@ -1,0 +1,44 @@
+﻿@model OneListApplication.Models.DeleteUserVM
+
+@{
+    ViewBag.Title = "Unban User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Unban User</h2>
+
+@using (Html.BeginForm("UnbanUser", "Home", new { ReturnUrl = ViewBag.ReturnUrl },
+                                                            FormMethod.Post, new { @class = "col-lg-4 col-lg-offset-4" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Unban" class="btn btn-default" />
+            </div>
+            @{
+                if (ViewBag.Fail != null)
+                {
+                    <div class="text-danger col-md-offset-2 col-md-10">
+                        @Html.Raw(ViewBag.Fail)
+                    </div>
+                }
+                else
+                {
+                    <div class="text-success col-md-offset-2 col-md-10">
+                        @Html.Raw(ViewBag.Success)
+                    </div>
+                }
+            }
+        </div>
+    </div>
+                }

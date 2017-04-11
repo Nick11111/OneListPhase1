@@ -8,6 +8,7 @@
 @Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
 <div class="col-md-10">
     <h2>Edit Subscriber Group</h2>
+
     <!-- Form for New Group Title-->
     @using (Html.BeginForm("EditSubscriberGroup", "Subscriber", FormMethod.Post,
         new { enctype = "multipart/form-data" }))
@@ -40,12 +41,15 @@
             <div class="form-group">
                 <label class="control-label col-md-2">Add Users to Group</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.subscribedUser.UserID, Model.UserList, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.UserID, Model.UserList, htmlAttributes: new { @class = "" })
                     <input type="submit" value="Add" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
+    <p class="text-danger">
+        @Html.Raw(ViewBag.EditMsg)
+    </p>
     <!-- Display subscribed users if any-->
 @if (Model.allSubscribedUsers.Count() > 0)
 {

@@ -31,13 +31,13 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult AddSubscriberGroup(SubscriberGroupVM subscriberGroup)
         {
+            subscriberGroup.UserID = FindUserID();
+
             if (ModelState.IsValid)
             {
-                //TO DO: currently allowing duplicate subscriber group name.
-                //TO DO: typo for the database model 
                 SuscriberGroup sg = new SuscriberGroup();
                 sg.SuscriberGroupName = subscriberGroup.SubscriberGroupName;
-                //sg.SuscriberGroupID = 0;
+                sg.UserID = subscriberGroup.UserID;
                 OneListEntitiesCore Core = new OneListEntitiesCore();
                 Core.SuscriberGroups.Add(sg);
                 Core.SaveChanges();
@@ -54,32 +54,35 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult SubscriberGroupManagement()
         {
+            string publisherID = FindUserID();
+            ViewBag.ActionMsg = TempData["ActionMsg"];
             SubscriberRepo subscriberRepo = new SubscriberRepo();
-            IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups();
+            IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups(publisherID);
             return View(subscriberGroups);
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult DeleteSubscriberGroup(int id)
         {
             string errMsg = "";
+            string publisherID = FindUserID();
             SubscriberRepo subscriberRepo = new SubscriberRepo();
-            subscriberRepo.DeleteGroup(id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
+            subscriberRepo.DeleteGroup(publisherID, id, out errMsg);
+            TempData["ActionMsg"] = errMsg;
             return RedirectToAction("SubscriberGroupManagement");
         }
         [HttpPost]
         public ActionResult AddSubscriberToGroup(SubscriberGroupVM subGroup) {
-            subGroup.publisherUserId = FindUserID();
+            
             string errMsg = "";
             SubscriberRepo subscriberRepo = new SubscriberRepo();
             if (ModelState.IsValid)
             { 
-               // subscriberRepo.AddUserToGroup(subGroup, publisherUserId);
-                ViewBag.ErrorMsg = errMsg;
+                subscriberRepo.AddUserToGroup(subGroup,out errMsg);
+                TempData["EditMsg"] = errMsg;
             }
             else
             {
-                ViewBag.ErrorMsg = "Cannot add user to group.";
+                TempData["EditMsg"] = "Cannot add user to group.";
             }
             SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(subGroup.SubscriberGroupID);
             return RedirectToAction("EditSubscriberGroup", new { id = subGroup.SubscriberGroupID });
@@ -93,6 +96,24 @@ namespace OneListApplication.Controllers
             return RedirectToAction("EditSubscriberGroup", new { id = id});
         }
 
+        public ActionResult ChangeSubscriberType(string userId, int id)
+        {
+            string errMsg = "";
+            SubscriberRepo subscriberRepo = new SubscriberRepo();
+            subscriberRepo.ChangeSubscriberType(userId, id, out errMsg);
+            ViewBag.ErrorMsg = errMsg;
+            return RedirectToAction("EditSubscriberGroup", new { id = id });
+        }
+        [HttpGet]
+        public ActionResult ChangeSubscriberStatus(string userId, int id)
+        {
+            string errMsg = "";
+            SubscriberRepo subscriberRepo = new SubscriberRepo();
+            subscriberRepo.ChangeSubscriberStatus(userId, id, out errMsg);
+            ViewBag.ErrorMsg = errMsg;
+            return RedirectToAction("EditSubscriberGroup", new { id = id });
+        }
+
         [HttpGet]
         public ActionResult EditSubscriberGroup(int id)
         {
@@ -104,21 +125,15 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult EditSubscriberGroup(SubscriberGroupVM group)
         {
-            bool ItemUpdated;
+            string errMsg = "";
+            ViewBag.EditMsg = TempData["EditMsg"];
             if (ModelState.IsValid)
             {
                 SubscriberRepo subscriberRepo = new SubscriberRepo();
-                ItemUpdated = subscriberRepo.UpdateGroup(group);
-                if (ItemUpdated)
-                {
-                    //return RedirectToAction("ItemDetail", new { id = group.ItemID });
-                }
-                else
-                {
-                    ViewBag.ErrorMsg = "Updated failed";
-                }
+                subscriberRepo.UpdateGroup(group, out errMsg);
+                ViewBag.ErrorMsg = errMsg;
             }
-            return View();
+            return RedirectToAction("EditSubscriberGroup", new { id = group.SubscriberGroupID });
         }
 
     }
