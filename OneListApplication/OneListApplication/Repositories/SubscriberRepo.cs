@@ -52,7 +52,7 @@ namespace OneListApplication.Repositories
 
             SuscriberGroup sGroup = db.SuscriberGroups.Where(a => a.SuscriberGroupID == subGroup.SubscriberGroupID).FirstOrDefault();
             SuscriberGroupUser newGroupUser = new SuscriberGroupUser();
-            newGroupUser.SuscriberGroupUserID = subGroup.subscribedUser.UserID;
+          //  newGroupUser.SuscriberGroupUserID = subGroup.subscribedUser.UserID;
             newGroupUser.UserID = publisherUserId;
             newGroupUser.SuscriberGroupID = subGroup.SubscriberGroupID;
             newGroupUser.UserTypeID = DEFAULT_TYPE;

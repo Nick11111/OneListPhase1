@@ -14,10 +14,12 @@ namespace OneListApplication
     
     public partial class ListUser
     {
+        public int ListUserID { get; set; }
         public int ListID { get; set; }
         public int SuscriberGroupID { get; set; }
         public string SuscriptionDate { get; set; }
     
+        public virtual List List { get; set; }
         public virtual SuscriberGroup SuscriberGroup { get; set; }
     }
 }

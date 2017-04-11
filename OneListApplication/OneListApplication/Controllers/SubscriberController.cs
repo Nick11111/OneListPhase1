@@ -74,7 +74,7 @@ namespace OneListApplication.Controllers
             SubscriberRepo subscriberRepo = new SubscriberRepo();
             if (ModelState.IsValid)
             { 
-                subscriberRepo.AddUserToGroup(subGroup, publisherUserId);
+               // subscriberRepo.AddUserToGroup(subGroup, publisherUserId);
                 ViewBag.ErrorMsg = errMsg;
             }
             else
