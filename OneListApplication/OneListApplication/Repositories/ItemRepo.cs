@@ -134,16 +134,35 @@ namespace OneListApplication.Repositories
         public void DeleteItem(int itemId, out string errMsg)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            Item itemToBeUpdated = db.Items.Where(a => a.ItemID == itemId).FirstOrDefault();
-            if(itemToBeUpdated != null)
+            Item itemToBeDeleted = db.Items.Where(a => a.ItemID == itemId).FirstOrDefault();
+            if(itemToBeDeleted != null)
             {
-                db.Items.Remove(itemToBeUpdated);
+                db.Items.Remove(itemToBeDeleted);
                 db.SaveChanges();
                 errMsg = "Item Deleted";
             }else
             {
                 errMsg = "Item could not be deleted.";
             }
+        }
+
+        public void DeleteItemCategory() {
+            //OneListEntitiesCore db = new OneListEntitiesCore();
+            //Item itemToBeUpdated = db.ItemCategory
+            //                        .Where(a => a.ItemID == itemId)
+            //                        .FirstOrDefault();
+
+            //if (itemToBeUpdated != null)
+            //{
+            //    db.Items.Remove(itemToBeUpdated);
+            //    db.SaveChanges();
+            //    errMsg = "Item Deleted";
+            //}
+            //else
+            //{
+            //    errMsg = "Item could not be deleted.";
+            //}
+
         }
     }
 }

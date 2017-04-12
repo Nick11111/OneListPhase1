@@ -171,5 +171,13 @@ namespace OneListApplication.Controllers
             return View();
         }
         //TO DO: delete category --- how to delete if some items belong to this category
+        [HttpGet]
+        public ActionResult DeleteItemCategory(int id) {
+            string errMsg = "";
+            ItemRepo itemRepo = new ItemRepo();
+            itemRepo.DeleteItemCategory(id, out errMsg);
+            ViewBag.ErrorMsg = errMsg;
+            return RedirectToAction("ItemCategoryManagement");
+        }
     }
 }

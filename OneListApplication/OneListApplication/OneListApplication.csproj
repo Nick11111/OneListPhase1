@@ -421,7 +421,7 @@
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
     <Content Include="Views\Subscriber\EditSubGroup.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
-    <Content Include="Views\Item\ItemGroupDetail.cshtml" />
+    <Content Include="Views\Item\old\ItemGroupDetail.cshtml" />
     <Content Include="Views\List\EditList.cshtml" />
     <Content Include="Views\Home\SubscriberManagement.cshtml" />
     <Content Include="Views\Admin\_SidebarAdmin.cshtml" />
@@ -475,6 +475,7 @@
     <Content Include="Views\Home\BanUser.cshtml" />
     <Content Include="Views\Home\UnbanUser.cshtml" />
     <Content Include="Views\Item\EditItemCategory.cshtml" />
+    <Content Include="Views\Item\ItemCategoryDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
