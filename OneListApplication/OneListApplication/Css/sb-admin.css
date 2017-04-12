@@ -118,22 +118,22 @@ ul.alert-dropdown {
 @media(min-width:768px) {
     .side-nav {
         width: 200px;
+            float: right;
+    margin-right: 30px;
     }
-
     .side-nav>li>a {
         padding: 0 8px;
         margin-bottom: 10px;
         text-align:center;
         border-radius: 10px;
-        line-height: 1.6;
         font-size: 1.1em;
+        height: 40px;
+        line-height:40px;
     }
 
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: steelblue;
-        color: white;
     }
 }
 

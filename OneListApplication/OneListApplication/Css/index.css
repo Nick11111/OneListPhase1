@@ -21,6 +21,10 @@ h1, h2, h3, h4, h5, p, a, label, button {
     font-family: 'Rubik', sans-serif;
 }
 
+#coupon h3 {
+    text-align: center;
+}
+
 input {
     font-family: 'Rubik', sans-serif;
 }
@@ -51,8 +55,16 @@ footer {
     margin-top: 20px;
 }
 
-/* forms */
+/* coupons */
+#coupon > ul > div {
+    background-color: #ededed;
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
 
+/* forms */
 .form-control {
     height: 45px !important;
     border-radius: 15px;
@@ -73,8 +85,10 @@ body {
     box-shadow: 1px 1px 3px #777777;
 }
 #coupon {
-     border-left:1px solid grey;
+     /*border-left:1px solid #ededed;*/
 }
+
+
 li.nav-item {
     background-color: #222222;
     border-right:1px solid white;
@@ -250,4 +264,22 @@ footer {
 
 .project-description table td {
     color:slategrey;
+}
+
+@media(max-width:768px) {
+    #coupons {
+        padding-left: 0 !important;
+    }
+}
+
+.container > .col-md-8 {
+    background-color: white !important;
+    border-radius: 15px;
+    box-shadow: 1px 1px 3px #999;
+    padding: 15px;
+}
+
+/* individual backend pages */
+.container {
+    max-width: 1200px;
 }

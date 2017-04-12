@@ -34,7 +34,7 @@ function callback(val) {
     $('<p/>', { text: Description }).appendTo($('#cup' + couponID + ''));
     $('<p/>', { text: begintring }).appendTo($('#cup' + couponID + ''));
     $('<p/>', { text: datestring }).appendTo($('#cup' + couponID + ''));
-    $('<hr/>').appendTo($('#coupons'));
+    //$('<hr/>').appendTo($('#coupons'));
 
 }
 
