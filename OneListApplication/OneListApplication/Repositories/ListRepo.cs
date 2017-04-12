@@ -15,7 +15,7 @@ namespace OneListApplication.Repositories
             ListVM cleanList = new ListVM(); 
             cleanList.ListType = db.ListTypes.Select(s => s);
             cleanList.ItemCategory = db.ItemCategories.Select(s => s);
-            cleanList.SuscriberGroup = db.SuscriberGroups.Select(s => s);
+            cleanList.SuscriberGroup = db.SuscriberGroups.Where( group => group.UserID=="").Select(s => s);
             return cleanList;
         }
 
