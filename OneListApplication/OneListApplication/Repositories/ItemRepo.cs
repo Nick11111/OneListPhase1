@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace OneListApplication.Repositories
 {
@@ -25,11 +26,16 @@ namespace OneListApplication.Repositories
                  
             return itemList;
         }
-        public IEnumerable<ItemCategoryVM> GetItemCategories()
+        public IEnumerable<ItemCategoryVM> GetItemCategories(string userID)
         {
 
             OneListEntitiesCore db = new OneListEntitiesCore();
-            IEnumerable<ItemCategoryVM> itemList = db.ItemCategories.Select(p =>  new ItemCategoryVM() { ItemCategoryID = p.ItemCategoryID, ItemCategoryName= p.ItemCategoryName });
+            IEnumerable<ItemCategoryVM> itemList = db.ItemCategories
+                                                    .Where(a=>a.UserID == userID)
+                                                    .Select(p =>  new ItemCategoryVM()
+                                                    { ItemCategoryID = p.ItemCategoryID,
+                                                      ItemCategoryName = p.ItemCategoryName
+                                                    });
             return itemList;
         }
         public void CreateItem(ItemVM item, out string errMsg)
@@ -50,8 +56,32 @@ namespace OneListApplication.Repositories
                 db.SaveChanges();
                 errMsg = "item added";
             }
+        }
+
+        public IEnumerable<SelectListItem> GetCategories(string userId) {
+
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            var categories = db.ItemCategories
+                            .Where(a => a.UserID == userId)
+                            .Select(x => new SelectListItem
+                            {
+                                Value = x.ItemCategoryID.ToString(),
+                                Text = x.ItemCategoryName
+                            });
+            return categories;
+        }
+
+        public void CreateItemCategory(ItemCategoryVM itemCategory, string userID) {
+            ItemCategory c = new ItemCategory();
+            c.ItemCategoryName = itemCategory.ItemCategoryName;
+            c.ItemCategoryID = 0;
+            c.UserID = userID;
+            OneListEntitiesCore Core = new OneListEntitiesCore();
+            Core.ItemCategories.Add(c);
+            Core.SaveChanges();
 
         }
+
 
         public ItemVM GetDetails(int itemId)
         {

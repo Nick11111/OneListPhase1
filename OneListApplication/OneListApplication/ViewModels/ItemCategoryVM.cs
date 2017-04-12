@@ -13,5 +13,7 @@ namespace OneListApplication.ViewModels
         public int ItemCategoryID { get; set; }
         [DisplayName("Item Category Name")]
         public string ItemCategoryName { get; set; }
+
+        public string UserID { get; set; }
     }
 }
