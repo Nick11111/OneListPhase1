@@ -5,25 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="f89a270080834c8ab462cc2ea5680ec4" Name="Diagram1">
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.C__MigrationHistory" Width="1.5" PointX="9.75" PointY="6.75" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetRole" Width="1.5" PointX="7.75" PointY="2.5" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUserClaim" Width="1.5" PointX="12.25" PointY="3.625" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUserLogin" Width="1.5" PointX="12.25" PointY="1" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUser" Width="1.5" PointX="10" PointY="1.375" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Coupon" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Item" Width="1.5" PointX="5.25" PointY="6.25" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ItemCategory" Width="1.5" PointX="3" PointY="5.375" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.List" Width="1.5" PointX="3" PointY="8.25" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListItem" Width="1.5" PointX="7.5" PointY="7.375" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListStatu" Width="1.5" PointX="0.75" PointY="13.125" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListType" Width="1.5" PointX="0.75" PointY="10.875" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListUser" Width="1.5" PointX="5.25" PointY="13.75" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Retail" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.SuscriberGroup" Width="1.5" PointX="3" PointY="15.25" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.SuscriberGroupUser" Width="1.5" PointX="5.25" PointY="10.375" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.sysdiagram" Width="1.5" PointX="9.75" PointY="9.75" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.C__MigrationHistory" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetRole" Width="1.5" PointX="9.75" PointY="2.5" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUserClaim" Width="1.5" PointX="14.25" PointY="3.625" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUserLogin" Width="1.5" PointX="14.25" PointY="1" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.AspNetUser" Width="1.5" PointX="12" PointY="1.375" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Coupon" Width="1.5" PointX="13" PointY="7" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Item" Width="1.5" PointX="5.25" PointY="7.125" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ItemCategory" Width="1.5" PointX="3" PointY="8.75" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.List" Width="1.5" PointX="3" PointY="4.375" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListItem" Width="1.5" PointX="7.5" PointY="3.5" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListStatu" Width="1.5" PointX="0.75" PointY="11.25" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListType" Width="1.5" PointX="0.75" PointY="2.875" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.ListUser" Width="1.5" PointX="8.25" PointY="7.875" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.Retail" Width="1.5" PointX="10.75" PointY="7.125" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.SuscriberGroup" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.SuscriberGroupUser" Width="1.5" PointX="5.25" PointY="10.625" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="DB_110660_onelistcaModel.User" Width="1.5" PointX="0.75" PointY="6" />
-        <EntityTypeShape EntityType="DB_110660_onelistcaModel.UserType" Width="1.5" PointX="11.75" PointY="6.75" />
+        <EntityTypeShape EntityType="DB_110660_onelistcaModel.UserType" Width="1.5" PointX="6.75" PointY="0.75" />
         <AssociationConnector Association="DB_110660_onelistcaModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="DB_110660_onelistcaModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="DB_110660_onelistcaModel.FK_Coupon_Retail" />

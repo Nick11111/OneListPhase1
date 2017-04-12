@@ -9,13 +9,13 @@ namespace OneListApplication.Repositories
 {
     public class ListRepo
     {
-        public ListVM CreateList()
+        public ListVM CreateList(string UserID)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
             ListVM cleanList = new ListVM(); 
             cleanList.ListType = db.ListTypes.Select(s => s);
-            cleanList.ItemCategory = db.ItemCategories.Select(s => s);
-            cleanList.SuscriberGroup = db.SuscriberGroups.Where( group => group.UserID=="").Select(s => s);
+            cleanList.ItemCategory = db.ItemCategories.Where(cat => cat.UserID==UserID).Select(s => s);
+            cleanList.SuscriberGroup = db.SuscriberGroups.Where( group => group.UserID==UserID).Select(s => s);
             return cleanList;
         }
 
@@ -56,7 +56,10 @@ namespace OneListApplication.Repositories
                     ListItem lItem = new ListItem();
                     lItem.ItemID = sel.ItemID;
                     lItem.ListID = createdList.ListID;
+                    lItem.ListItemSolved = false;
+                    lItem.ListItemSolvingDate = DateTime.Today;
                     db.ListItems.Add(lItem);
+                    
                 }
                 db.SaveChanges();
                 return true;

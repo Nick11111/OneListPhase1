@@ -14,6 +14,7 @@ namespace OneListApplication
     
     public partial class ListItem
     {
+        public int ListItemID { get; set; }
         public int ListID { get; set; }
         public int ItemID { get; set; }
         public bool ListItemSolved { get; set; }

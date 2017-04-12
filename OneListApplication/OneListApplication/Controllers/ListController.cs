@@ -23,7 +23,8 @@ namespace OneListApplication.Controllers
         public ActionResult CreateList()
         {
             ListRepo rep = new ListRepo();
-            ListVM cleanList = rep.CreateList();
+            string userID = FindUserID();
+            ListVM cleanList = rep.CreateList(userID);
             return View(cleanList);
         }
 
@@ -73,7 +74,8 @@ namespace OneListApplication.Controllers
                 ViewBag.ErrorMsg = "Cannot add List.";
             }
             ListRepo repw = new ListRepo();
-            ListVM cleanList = repw.CreateList();
+            string userID = FindUserID();
+            ListVM cleanList = repw.CreateList(userID);
             return View(cleanList);
         }
 
