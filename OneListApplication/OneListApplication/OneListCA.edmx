@@ -94,6 +94,7 @@
           </Key>
           <Property Name="ItemCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ItemCategoryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="200" Nullable="false" />
         </EntityType>
         <EntityType Name="List">
           <Key>
@@ -170,6 +171,16 @@
           <Property Name="UserTypeID" Type="int" Nullable="false" />
           <Property Name="ListUserStatus" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="SuscriptionDate" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -281,6 +292,18 @@
             </Principal>
             <Dependent Role="Item">
               <PropertyRef Name="ItemCategory" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemCategory_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="ItemCategory" Type="Self.ItemCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ItemCategory">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -404,6 +427,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UpdateInfousers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DB_110660_onelistcaModel1StoreContainer">
           <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
@@ -423,6 +477,7 @@
           <EntitySet Name="Retail" EntityType="Self.Retail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuscriberGroup" EntityType="Self.SuscriberGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SuscriberGroupUser" EntityType="Self.SuscriberGroupUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Coupon_Retail" Association="Self.FK_Coupon_Retail">
@@ -452,6 +507,10 @@
           <AssociationSet Name="FK_Item_ItemCategory" Association="Self.FK_Item_ItemCategory">
             <End Role="ItemCategory" EntitySet="ItemCategory" />
             <End Role="Item" EntitySet="Item" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemCategory_User" Association="Self.FK_ItemCategory_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="ItemCategory" EntitySet="ItemCategory" />
           </AssociationSet>
           <AssociationSet Name="FK_List_List" Association="Self.FK_List_List">
             <End Role="ListType" EntitySet="ListType" />
@@ -516,6 +575,7 @@
           <EntitySet Name="Retails" EntityType="DB_110660_onelistcaModel1.Retail" />
           <EntitySet Name="SuscriberGroups" EntityType="DB_110660_onelistcaModel1.SuscriberGroup" />
           <EntitySet Name="SuscriberGroupUsers" EntityType="DB_110660_onelistcaModel1.SuscriberGroupUser" />
+          <EntitySet Name="sysdiagrams" EntityType="DB_110660_onelistcaModel1.sysdiagram" />
           <EntitySet Name="Users" EntityType="DB_110660_onelistcaModel1.User" />
           <EntitySet Name="UserTypes" EntityType="DB_110660_onelistcaModel1.UserType" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="DB_110660_onelistcaModel1.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
@@ -541,6 +601,10 @@
           <AssociationSet Name="FK_ListItem_Item" Association="DB_110660_onelistcaModel1.FK_ListItem_Item">
             <End Role="Item" EntitySet="Items" />
             <End Role="ListItem" EntitySet="ListItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemCategory_User" Association="DB_110660_onelistcaModel1.FK_ItemCategory_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ItemCategory" EntitySet="ItemCategories" />
           </AssociationSet>
           <AssociationSet Name="FK_List_List" Association="DB_110660_onelistcaModel1.FK_List_List">
             <End Role="ListType" EntitySet="ListTypes" />
@@ -582,6 +646,36 @@
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DB_110660_onelistcaModel1.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DB_110660_onelistcaModel1.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
         <EntityType Name="C__MigrationHistory">
           <Key>
@@ -674,7 +768,9 @@
           </Key>
           <Property Name="ItemCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ItemCategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Items" Relationship="DB_110660_onelistcaModel1.FK_Item_ItemCategory" FromRole="ItemCategory" ToRole="Item" />
+          <NavigationProperty Name="User" Relationship="DB_110660_onelistcaModel1.FK_ItemCategory_User" FromRole="ItemCategory" ToRole="User" />
         </EntityType>
         <EntityType Name="List">
           <Key>
@@ -769,6 +865,16 @@
           <NavigationProperty Name="SuscriberGroup" Relationship="DB_110660_onelistcaModel1.FK_Suscribergroupuser_GroupID" FromRole="SuscriberGroupUser" ToRole="SuscriberGroup" />
           <NavigationProperty Name="User" Relationship="DB_110660_onelistcaModel1.FK_Suscribergroupuser_UserID" FromRole="SuscriberGroupUser" ToRole="User" />
         </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserID" />
@@ -783,6 +889,7 @@
           <Property Name="ActiveUser" Type="Boolean" Nullable="false" />
           <Property Name="ProfilePic" Type="Binary" MaxLength="Max" FixedLength="false" />
           <NavigationProperty Name="Items" Relationship="DB_110660_onelistcaModel1.FK_Item_Item" FromRole="User" ToRole="Item" />
+          <NavigationProperty Name="ItemCategories" Relationship="DB_110660_onelistcaModel1.FK_ItemCategory_User" FromRole="User" ToRole="ItemCategory" />
           <NavigationProperty Name="Lists" Relationship="DB_110660_onelistcaModel1.FK_List_User" FromRole="User" ToRole="List" />
           <NavigationProperty Name="SuscriberGroups" Relationship="DB_110660_onelistcaModel1.FK_SuscriberGroup_OwnerUser" FromRole="User" ToRole="SuscriberGroup" />
           <NavigationProperty Name="SuscriberGroupUsers" Relationship="DB_110660_onelistcaModel1.FK_Suscribergroupuser_UserID" FromRole="User" ToRole="SuscriberGroupUser" />
@@ -867,6 +974,18 @@
             </Principal>
             <Dependent Role="ListItem">
               <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemCategory_User">
+          <End Type="DB_110660_onelistcaModel1.User" Role="User" Multiplicity="1" />
+          <End Type="DB_110660_onelistcaModel1.ItemCategory" Role="ItemCategory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ItemCategory">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -982,6 +1101,17 @@
           <End Type="DB_110660_onelistcaModel1.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="DB_110660_onelistcaModel1.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1071,6 +1201,7 @@
           <EntitySetMapping Name="ItemCategories">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.ItemCategory">
               <MappingFragment StoreEntitySet="ItemCategory">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="ItemCategoryName" ColumnName="ItemCategoryName" />
                 <ScalarProperty Name="ItemCategoryID" ColumnName="ItemCategoryID" />
               </MappingFragment>
@@ -1159,6 +1290,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="DB_110660_onelistcaModel1.User">
               <MappingFragment StoreEntitySet="User">
@@ -1190,6 +1332,30 @@
               <ScalarProperty Name="Id" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="DB_110660_onelistcaModel1.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="DB_110660_onelistcaModel1.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="DB_110660_onelistcaModel1.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="DB_110660_onelistcaModel1.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_110660_onelistcaModel1.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="DB_110660_onelistcaModel1.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DB_110660_onelistcaModel1.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="DB_110660_onelistcaModel1.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="DB_110660_onelistcaModel1.Store.sp_upgraddiagrams" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
