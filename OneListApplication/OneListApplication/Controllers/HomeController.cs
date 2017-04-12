@@ -166,8 +166,7 @@ namespace OneListApplication.Controllers
                 string captchaResponse = captchaHelper.CheckRecaptcha();
                 if (captchaResponse == "Valid")
                 {
-                    var existUser = context.AspNetUsers.Where(u => u.Email == newUser.Email);
-                    if (existUser == null)
+                    if (manager.FindByEmail(newUser.Email) == null)
                     {
                         ViewBag.CaptchaResponse = captchaResponse;
                         IdentityResult result = manager.Create(identityUser, newUser.Password);
