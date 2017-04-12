@@ -110,6 +110,7 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemCategoryManagement()
         {
+            ViewBag.ItemCategoryActionMsg = TempData["ItemCategoryActionMsg"];
             string userId = FindUserID();
             ItemRepo itemRepo = new ItemRepo();
             IEnumerable<ItemCategoryVM> items = itemRepo.GetItemCategories(userId);
@@ -131,9 +132,9 @@ namespace OneListApplication.Controllers
             }
             else
             {
-                ViewBag.ErrorMsg = "Cannot add Item Category.";
+                TempData["ItemCategoryActionMsg"] = "Cannot add Item Category.";
             }
-            return View();
+            return RedirectToAction("ItemCategoryManagement");
         }
 
         [HttpGet]
@@ -176,7 +177,7 @@ namespace OneListApplication.Controllers
             string errMsg = "";
             ItemRepo itemRepo = new ItemRepo();
             itemRepo.DeleteItemCategory(id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
+            TempData["ItemCategoryActionMsg"] = errMsg;
             return RedirectToAction("ItemCategoryManagement");
         }
     }

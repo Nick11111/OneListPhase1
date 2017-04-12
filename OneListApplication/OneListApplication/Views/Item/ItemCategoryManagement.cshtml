@@ -7,7 +7,9 @@
 @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
 <div class="col-md-10">
     <h2>All Categories</h2>
-
+    <p class="text-danger">
+        @Html.Raw(ViewBag.ItemCategoryActionMsg)
+    </p>
     <table class="table">
         <tr>
             <th>
@@ -25,7 +27,7 @@
                 <td>
                     @Html.ActionLink("Edit", "EditItemCategory", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-primary" }) |
                     @Html.ActionLink("Details", "ItemCategoryDetail", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-primary" }) |
-                    <a class="btn btn-danger" href="@Url.Action("DeleteItem","Item")"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteItemCategory","Item", new { id = item.ItemCategoryID})")"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
         }

@@ -146,23 +146,32 @@ namespace OneListApplication.Repositories
             }
         }
 
-        public void DeleteItemCategory() {
-            //OneListEntitiesCore db = new OneListEntitiesCore();
-            //Item itemToBeUpdated = db.ItemCategory
-            //                        .Where(a => a.ItemID == itemId)
-            //                        .FirstOrDefault();
-
-            //if (itemToBeUpdated != null)
-            //{
-            //    db.Items.Remove(itemToBeUpdated);
-            //    db.SaveChanges();
-            //    errMsg = "Item Deleted";
-            //}
-            //else
-            //{
-            //    errMsg = "Item could not be deleted.";
-            //}
-
+        public void DeleteItemCategory(int categoryID, out string errMsg) {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            ItemCategory itemCategoryToBeDeleted = db.ItemCategories
+                                    .Where(a => a.ItemCategoryID == categoryID)
+                                    .FirstOrDefault();
+            Item firstItemInCategory = db.Items
+                                       .Where(a => a.ItemCategory == categoryID)
+                                       .FirstOrDefault();
+        
+            if (itemCategoryToBeDeleted != null)
+            {
+                // check if there are items in this category
+                if (firstItemInCategory != null)
+                {
+                    errMsg = "Item Category has items associated, cannot be deleted";
+                }
+                else {
+                    db.ItemCategories.Remove(itemCategoryToBeDeleted);
+                    db.SaveChanges();
+                    errMsg = "Item Category Deleted";
+                }
+            }
+            else
+            {
+                errMsg = "Item Category could not be deleted.";
+            }
         }
     }
 }
