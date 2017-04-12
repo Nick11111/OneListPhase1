@@ -65,7 +65,7 @@ namespace OneListApplication.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMsg = "List Added Successfully.";
+                    ViewBag.ActionMsg = "List Added Successfully.";
                 }
 
             }
