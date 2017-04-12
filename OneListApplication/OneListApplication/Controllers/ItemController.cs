@@ -39,6 +39,8 @@ namespace OneListApplication.Controllers
 
         private IEnumerable<SelectListItem> GetCategories()
         {
+            string userId = FindUserID();
+            //TO DO, add userID in Where
             OneListEntitiesCore db = new OneListEntitiesCore();
             var categories = db.ItemCategories
                         .Select(x =>
