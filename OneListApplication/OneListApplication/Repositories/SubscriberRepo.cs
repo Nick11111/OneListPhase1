@@ -146,8 +146,8 @@ namespace OneListApplication.Repositories
                                                 UserID = x.UserID,
                                                 ListUserStatus = x.ListUserStatus,
                                                 UserTypeID = x.UserTypeID,
-                                                Email = x.User.Email
-                                                //TO DO, add UserTypeName from table, fix table, fix partialview
+                                                Email = x.User.Email,
+                                                FullName = x.User.FirstName + " " + x.User.LastName
                                     }));
             return groupUserList;
         }

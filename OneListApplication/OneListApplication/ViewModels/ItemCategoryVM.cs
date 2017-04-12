@@ -15,5 +15,7 @@ namespace OneListApplication.ViewModels
         public string ItemCategoryName { get; set; }
 
         public string UserID { get; set; }
+
+        public IEnumerable<ItemVM> allItemsInCategory { get; set; }
     }
 }

@@ -8,7 +8,8 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
+    /*background-image: url("../images/geometry2.png");*/
+    background-color: lightgray;
 }
 
 @media(min-width:768px) {

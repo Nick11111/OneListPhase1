@@ -92,10 +92,18 @@ namespace OneListApplication.Repositories
             ItemCategory category = db.ItemCategories
                            .Where(ic => ic.ItemCategoryID == itemCategoryID)
                            .FirstOrDefault();
+            IEnumerable<ItemVM> allItems = db.Items
+                           .Where(i => i.ItemCategory == itemCategoryID)
+                           .Select(item => new ItemVM
+                           {
+                               ItemName = item.ItemName,
+                               ItemDescription = item.ItemDescription
+                           });
             ItemCategoryVM categoryVM = new ItemCategoryVM();
             categoryVM.ItemCategoryName = category.ItemCategoryName;
             categoryVM.UserID = category.UserID;
             categoryVM.ItemCategoryID = itemCategoryID;
+            categoryVM.allItemsInCategory = allItems;
             return categoryVM;
         }
 
