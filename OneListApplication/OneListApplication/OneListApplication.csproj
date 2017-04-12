@@ -474,6 +474,7 @@
     <Content Include="Views\Home\DeleteUser.cshtml" />
     <Content Include="Views\Home\BanUser.cshtml" />
     <Content Include="Views\Home\UnbanUser.cshtml" />
+    <Content Include="Views\Item\EditItemCategory.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

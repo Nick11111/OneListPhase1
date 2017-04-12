@@ -79,10 +79,31 @@ namespace OneListApplication.Repositories
             OneListEntitiesCore Core = new OneListEntitiesCore();
             Core.ItemCategories.Add(c);
             Core.SaveChanges();
-
         }
 
+        public ItemCategoryVM GetCategoryDetails(int itemCategoryID) {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            ItemCategory category = db.ItemCategories
+                           .Where(ic => ic.ItemCategoryID == itemCategoryID)
+                           .FirstOrDefault();
+            ItemCategoryVM categoryVM = new ItemCategoryVM();
+            categoryVM.ItemCategoryName = category.ItemCategoryName;
+            categoryVM.UserID = category.UserID;
+            categoryVM.ItemCategoryID = itemCategoryID;
+            return categoryVM;
+        }
 
+        public bool UpdateItemCategory(ItemCategoryVM itemCategory) {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            ItemCategory itemCategoryUpdated = db.ItemCategories
+                                                .Where(a => 
+                                                    a.ItemCategoryID == itemCategory.ItemCategoryID
+                                                 )
+                                                .FirstOrDefault();
+            itemCategoryUpdated.ItemCategoryName = itemCategory.ItemCategoryName;
+            db.SaveChanges();
+            return true;
+        }
         public ItemVM GetDetails(int itemId)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();

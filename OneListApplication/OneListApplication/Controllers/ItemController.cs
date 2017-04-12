@@ -135,19 +135,41 @@ namespace OneListApplication.Controllers
             }
             return View();
         }
+
         [HttpGet]
-        public ActionResult ItemCategoryDetail()
+        public ActionResult ItemCategoryDetail(int id)
         {
+            ItemRepo itemRepo = new ItemRepo();
+            return View(itemRepo.GetCategoryDetails(id));
+        }
+
+        [HttpGet]
+        public ActionResult EditItemCategory(int id)
+        {
+            ItemRepo itemRepo = new ItemRepo();
+            ItemCategoryVM itemCategory = itemRepo.GetCategoryDetails(id);
+            return View(itemCategory);
+        }
+
+        [HttpPost]
+        public ActionResult EditItemCategory(ItemCategoryVM itemCategory)
+        {
+            bool CategoryUpdated;
+            if (ModelState.IsValid)
+            {
+                ItemRepo itemRepo = new ItemRepo();
+                CategoryUpdated = itemRepo.UpdateItemCategory(itemCategory);
+                if (CategoryUpdated)
+                {
+                    return RedirectToAction("ItemCategoryDetail", new { id = itemCategory.ItemCategoryID });
+                }
+                else
+                {
+                    ViewBag.ErrorMsg = "Updated item category failed";
+                }
+            }
             return View();
         }
-        //TO DO: create post action for editItemCategory()
-        //[HttpGet]
-        //public ActionResult EditItemCategory() {
-        //}
-
-        //[HttpPost]
-        //public ActionResult EditItemCategory() {
-        //}
         //TO DO: delete category --- how to delete if some items belong to this category
     }
 }
