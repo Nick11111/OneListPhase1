@@ -192,6 +192,9 @@ namespace OneListApplication.Controllers
                         SendGrid.sendEmail(newUser, callbackUrl);
                         ViewBag.Result = "Please check your email to activate your account!";
                     }
+                    else {
+                        ViewBag.Result = "User already exist!";
+                    }
 
                 }
                 else {
@@ -288,7 +291,9 @@ namespace OneListApplication.Controllers
                 if (currentUser != null)
                 {
                     var user = context.AspNetUsers.Find(currentUser.Id);
+                    var userProfile = context.Users.Find(currentUser.Id);
                     context.AspNetUsers.Remove(user);
+                    context.Users.Remove(userProfile);
                     context.SaveChanges();
                     ViewBag.Success = "User has been deleted successfully!";
                 }

@@ -9,7 +9,6 @@ namespace OneListApplication.Repositories
 {
     public class SubscriberRepo
     {
-
         const int USER_TYPE_COLLABORATOR_INDEX  = 2;
         const int USER_TYPE_SUBSCRIBER_INDEX    = 3;
         const int DEFAULT_USER_TYPE             = 3;
@@ -155,7 +154,7 @@ namespace OneListApplication.Repositories
                                 new SelectListItem
                                 {
                                     Value = x.UserID.ToString(),
-                                    Text = x.UserName
+                                    Text = x.Email
                                 });
 
             return new SelectList(categories, "Value", "Text");
