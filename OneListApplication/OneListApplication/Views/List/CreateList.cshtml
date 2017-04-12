@@ -6,8 +6,10 @@
 }
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
 
-<h2>CreateList</h2>
-
+<h2>Create List</h2>
+<p class="text-danger">
+    @Html.Raw(ViewBag.ActionMsg)
+</p>
 <div class="col-md-10">
     @using (Html.BeginForm())
     {

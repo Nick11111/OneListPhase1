@@ -11,7 +11,15 @@ namespace OneListApplication.Controllers
     public class ListController : Controller
     {
         // GET: List
-
+        public string FindUserID()
+        {
+            string name = User.Identity.Name;
+            OneListCAEntities context = new OneListCAEntities();
+            AspNetUser user = context.AspNetUsers
+                    .Where(u => u.UserName == name).FirstOrDefault();
+            string userId = user.Id;
+            return userId;
+        }
         public ActionResult CreateList()
         {
             ListRepo rep = new ListRepo();
@@ -22,12 +30,51 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult CreateList(FormCollection formCollection)
         {
-            foreach (string _formData in formCollection)
+            if (ModelState.IsValid)
             {
-                ViewData[_formData] = formCollection[_formData];
-            }
+                ListRepo rep = new ListRepo();
+                ListVM NewList = new ListVM();
+                foreach (string key in formCollection.AllKeys)
+                {
+                    switch (key)
+                    {
+                        case "ListName":
+                            NewList.ListName = formCollection[key];
+                            break;
+                        case "ListType":
+                            NewList.ListTypeID = int.Parse(formCollection[key]);
+                            break;
+                        case "ItemCategory":
+                            NewList.ItemCategoryID = int.Parse(formCollection[key]);
+                            break;
+                        case "SuscriberGroup":
+                            NewList.SuscribergroupID = int.Parse(formCollection[key]);
+                            break;
+                    }
 
-            return View();
+                }
+
+                NewList.CreatorID = FindUserID();
+                NewList.CreationDate = DateTime.Now;
+                bool resp = rep.CreateList(NewList);
+
+                if (resp == false)
+                {
+                    ViewBag.ErrorMsg = "Cannot add List.";
+                }
+                else
+                {
+                    ViewBag.ErrorMsg = "List Added Successfully.";
+                }
+
+            }
+            else
+            {
+                ViewBag.ErrorMsg = "Cannot add List.";
+            }
+            ListRepo repw = new ListRepo();
+            ListVM cleanList = repw.CreateList();
+            return View(cleanList);
         }
 
         public ActionResult EditList()

@@ -13,7 +13,7 @@ namespace OneListApplication.ViewModels
         public int ListID { get; set; }
 
         [HiddenInput(DisplayValue = false)]
-        public int CreatorID { get; set; }
+        public string CreatorID { get; set; }
 
         [DisplayName("List Name")]
         public string ListName { get; set; }
@@ -29,5 +29,11 @@ namespace OneListApplication.ViewModels
         public DateTime CreationDate { get; set; }
         [HiddenInput(DisplayValue = false)]
         public int ListStatusID { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public int ListTypeID { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public int ItemCategoryID { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public int SuscribergroupID { get; set; }
     }
 }
