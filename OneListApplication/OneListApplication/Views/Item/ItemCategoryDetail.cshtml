@@ -1,0 +1,36 @@
+﻿@model OneListApplication.ViewModels.ItemCategoryVM
+
+@{
+    ViewBag.Title = "ItemCategoryDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
+<div class="col-md-10">
+    <h2>ItemCategoryDetail</h2>
+
+    <div>
+        <h4>ItemCategoryVM</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemCategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ItemCategoryName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserID)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserID)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "EditItemCategory", new { id = Model.ItemCategoryID }) |
+        @Html.ActionLink("Back to List", "ItemCategoryManagement", "Item")

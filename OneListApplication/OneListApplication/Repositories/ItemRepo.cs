@@ -52,9 +52,15 @@ namespace OneListApplication.Repositories
                 itemAdded.ItemDescription = item.ItemDescription;
                 itemAdded.ItemCategory = (int)item.ItemCategory;
 
-                db.Items.Add(itemAdded);
-                db.SaveChanges();
-                errMsg = "item added";
+                if (itemAdded.ItemCategory == 0)
+                {
+                    errMsg = "Items must belong to a category";
+                }
+                else {
+                    db.Items.Add(itemAdded);
+                    db.SaveChanges();
+                    errMsg = "Item successfully added";
+                }
             }
         }
 
@@ -134,15 +140,43 @@ namespace OneListApplication.Repositories
         public void DeleteItem(int itemId, out string errMsg)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            Item itemToBeUpdated = db.Items.Where(a => a.ItemID == itemId).FirstOrDefault();
-            if(itemToBeUpdated != null)
+            Item itemToBeDeleted = db.Items.Where(a => a.ItemID == itemId).FirstOrDefault();
+            if(itemToBeDeleted != null)
             {
-                db.Items.Remove(itemToBeUpdated);
+                db.Items.Remove(itemToBeDeleted);
                 db.SaveChanges();
                 errMsg = "Item Deleted";
             }else
             {
                 errMsg = "Item could not be deleted.";
+            }
+        }
+
+        public void DeleteItemCategory(int categoryID, out string errMsg) {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            ItemCategory itemCategoryToBeDeleted = db.ItemCategories
+                                    .Where(a => a.ItemCategoryID == categoryID)
+                                    .FirstOrDefault();
+            Item firstItemInCategory = db.Items
+                                       .Where(a => a.ItemCategory == categoryID)
+                                       .FirstOrDefault();
+        
+            if (itemCategoryToBeDeleted != null)
+            {
+                // check if there are items in this category
+                if (firstItemInCategory != null)
+                {
+                    errMsg = "Item Category has items associated, cannot be deleted";
+                }
+                else {
+                    db.ItemCategories.Remove(itemCategoryToBeDeleted);
+                    db.SaveChanges();
+                    errMsg = "Item Category Deleted";
+                }
+            }
+            else
+            {
+                errMsg = "Item Category could not be deleted.";
             }
         }
     }

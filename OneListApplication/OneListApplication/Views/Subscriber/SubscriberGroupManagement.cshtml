@@ -28,7 +28,6 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditSubscriberGroup", new { id = item.SubscriberGroupID }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "Details", new { id = item.SubscriberGroupID }, new { @class = "btn btn-primary" })
                     <a class="btn btn-danger" href="@Url.Action("DeleteSubscriberGroup","Subscriber", new { id = item.SubscriberGroupID })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
