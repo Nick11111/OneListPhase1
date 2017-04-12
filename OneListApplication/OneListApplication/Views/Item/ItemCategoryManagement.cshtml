@@ -23,8 +23,8 @@
                     @Html.DisplayFor(modelItem => item.ItemCategoryName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ItemCategoryID }, new { @class = "btn btn-primary" }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ItemCategoryID }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Edit", "EditItemCategory", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Details", "ItemCategoryDetail", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-primary" }) |
                     <a class="btn btn-danger" href="@Url.Action("DeleteItem","Item")"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>

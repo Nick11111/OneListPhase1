@@ -11,7 +11,7 @@
       <Value Profile="(Default)">Data Source=DESKTOP-NOCU4I8\SQLEXPRESS;Initial Catalog=OneListCA;Integrated Security=True</Value>
     </Setting>
     <Setting Name="LastBuildtime" Type="System.DateTime" Scope="Application">
-      <Value Profile="(Default)">02/28/2017 14:14:00</Value>
+      <Value Profile="(Default)">2017-04-12</Value>
     </Setting>
   </Settings>
 </SettingsFile>
