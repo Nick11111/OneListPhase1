@@ -32,11 +32,16 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             return View();
         }
         [HttpPost]
         public ActionResult Login(LoginVM login, string rememberMe)
         {
+
             ViewBag.ErrorMessage = "";
             // UserStore and UserManager manages data retreival.
             UserStore<IdentityUser> userStore = new UserStore<IdentityUser>();
@@ -141,6 +146,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -406,6 +415,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ForgotPassword()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -436,6 +449,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ResetPassword(string userID, string code)
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             ViewBag.PasswordToken = code;
             ViewBag.UserID = userID;
             return View();
