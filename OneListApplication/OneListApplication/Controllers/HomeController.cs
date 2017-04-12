@@ -162,35 +162,43 @@ namespace OneListApplication.Controllers
             if (ModelState.IsValid)
             {
                 CaptchaHelper captchaHelper = new CaptchaHelper();
+                OneListCAEntities context = new OneListCAEntities();
                 string captchaResponse = captchaHelper.CheckRecaptcha();
                 if (captchaResponse == "Valid")
                 {
-                    ViewBag.CaptchaResponse = captchaResponse;
-                    IdentityResult result = manager.Create(identityUser, newUser.Password);
-                    if (result.Succeeded)
+                    var existUser = context.AspNetUsers.Where(u => u.Email == newUser.Email);
+                    if (existUser == null)
                     {
+                        ViewBag.CaptchaResponse = captchaResponse;
+                        IdentityResult result = manager.Create(identityUser, newUser.Password);
+                        if (result.Succeeded)
+                        {
 
-                        OneListCAEntities context = new OneListCAEntities();
-                        AspNetUser user = context.AspNetUsers
-                                            .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
-                        AspNetRole role = new AspNetRole();
-                        role.Id = "User";
-                        role.Name = "User";
+                            AspNetUser user = context.AspNetUsers
+                                                .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
+                            AspNetRole role = new AspNetRole();
+                            role.Id = "User";
+                            role.Name = "User";
 
-                        user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
-                        context.SaveChanges();
-                        //add information of user and password to table users in core
-                        CreateTokenProvider(manager, EMAIL_CONFIRMATION);
+                            user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
+                            context.SaveChanges();
+                            //add information of user and password to table users in core
+                            CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
-                        var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
-                        var callbackUrl = Url.Action("ConfirmEmail", "Home",
-                                                        new { userId = identityUser.Id, code = code },
-                                                            protocol: Request.Url.Scheme);
+                            var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
+                            var callbackUrl = Url.Action("ConfirmEmail", "Home",
+                                                            new { userId = identityUser.Id, code = code },
+                                                                protocol: Request.Url.Scheme);
 
-                        string email = "Please confirm your account by clicking this link: <a href=\""
-                                        + callbackUrl + "\">Confirm Registration</a>";
-                        SendGrid.sendEmail(newUser, callbackUrl);
-                        ViewBag.Result = "Please check your email to activate your account!";
+                            string email = "Please confirm your account by clicking this link: <a href=\""
+                                            + callbackUrl + "\">Confirm Registration</a>";
+                            SendGrid.sendEmail(newUser, callbackUrl);
+                            ViewBag.Result = "Please check your email to activate your account!";
+                        }
+                        else
+                        {
+                            ViewBag.Result = "User already exist!";
+                        }
                     }
                     else {
                         ViewBag.Result = "User already exist!";
