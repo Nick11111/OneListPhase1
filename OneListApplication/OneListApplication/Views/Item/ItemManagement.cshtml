@@ -8,6 +8,9 @@
 @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
 <div class="col-md-10">
     <h2>All Items</h2>
+    <p class="text-danger">
+        @Html.Raw(ViewBag.ItemActionMsg)
+    </p>
     <table class="table">
         <tr>
             <th>

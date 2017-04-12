@@ -22,6 +22,7 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemManagement()
         {
+            ViewBag.ItemActionMsg = TempData["ItemActionMsg"];
             string userId = FindUserID();
             ItemRepo itemRepo = new ItemRepo();
             IEnumerable<ItemVM> items = itemRepo.GetAll(userId);
@@ -53,12 +54,12 @@ namespace OneListApplication.Controllers
             {
                 ItemRepo itemRepo = new ItemRepo();
                 itemRepo.CreateItem(item, out errMsg);
-                ViewBag.ErrorMsg = errMsg;
+                TempData["ItemActionMsg"] = errMsg;
                 return RedirectToAction("ItemManagement");
             }
             else
             {
-                ViewBag.ErrorMsg = "Cannot add item.";
+                TempData["ItemCategoryActionMsg"] = "Cannot add item.";
             }
             return View();
         }

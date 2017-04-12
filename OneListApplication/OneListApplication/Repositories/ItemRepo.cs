@@ -52,9 +52,15 @@ namespace OneListApplication.Repositories
                 itemAdded.ItemDescription = item.ItemDescription;
                 itemAdded.ItemCategory = (int)item.ItemCategory;
 
-                db.Items.Add(itemAdded);
-                db.SaveChanges();
-                errMsg = "item added";
+                if (itemAdded.ItemCategory == 0)
+                {
+                    errMsg = "Items must belong to a category";
+                }
+                else {
+                    db.Items.Add(itemAdded);
+                    db.SaveChanges();
+                    errMsg = "Item successfully added";
+                }
             }
         }
 
