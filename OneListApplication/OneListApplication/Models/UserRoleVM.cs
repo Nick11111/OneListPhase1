@@ -9,10 +9,10 @@ namespace OneListApplication.Models
     public class UserRoleVM
     {
         [Required]
-        [Display(Name = "Login Name")]
-        public string UserName { get; set; }
+        [Display(Name = "user email")]
+        public string Email { get; set; }
         [Required]
-        [Display(Name = "Role Name")]
+        [Display(Name = "role name")]
         public string RoleName { get; set; }
     }
 }

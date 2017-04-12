@@ -45,11 +45,11 @@ namespace OneListApplication.Controllers
 
             if (ModelState.IsValid)
             {
-                IdentityUser identityUser = manager.Find(login.UserName, login.Password);
-                var user = context.AspNetUsers.Find(identityUser.Id);
-
                 if (ValidLogin(login))
                 {
+                    IdentityUser identityUser = manager.Find(login.UserName, login.Password);
+                    var user = context.AspNetUsers.Find(identityUser.Id);
+
                     if (user.PhoneNumberConfirmed == true)
                     {
                         ViewBag.ErrorMessage = "Your account has been banned,please contact admin for further actions!";
@@ -266,7 +266,7 @@ namespace OneListApplication.Controllers
             {
                 OneListCAEntities context = new OneListCAEntities();
                 AspNetUser user = context.AspNetUsers
-                                    .Where(u => u.UserName == userRoleVM.UserName).FirstOrDefault();
+                                    .Where(u => u.Email == userRoleVM.Email).FirstOrDefault();
                 AspNetRole role = context.AspNetRoles
                                     .Where(r => r.Name == userRoleVM.RoleName).FirstOrDefault();
 
@@ -335,6 +335,7 @@ namespace OneListApplication.Controllers
                     var user = context.AspNetUsers.Find(currentUser.Id);
                     user.PhoneNumberConfirmed = true;
                     context.SaveChanges();
+                    SendGrid.sendBanUserEmail(currentUser.Email, currentUser.UserName);
                     ViewBag.Success = "User has been banned successfully!";
                 }
                 else
@@ -370,6 +371,7 @@ namespace OneListApplication.Controllers
                     {
                         user.PhoneNumberConfirmed = false;
                         context.SaveChanges();
+                        SendGrid.sendUnbanUserEmail(currentUser.Email, currentUser.UserName);
                         ViewBag.Success = "User has been unbanned successfully!";
                     }
 
