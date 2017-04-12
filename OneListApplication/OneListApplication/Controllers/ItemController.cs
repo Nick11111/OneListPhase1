@@ -40,16 +40,8 @@ namespace OneListApplication.Controllers
         private IEnumerable<SelectListItem> GetCategories()
         {
             string userId = FindUserID();
-            //TO DO, add userID in Where
-            OneListEntitiesCore db = new OneListEntitiesCore();
-            var categories = db.ItemCategories
-                        .Select(x =>
-                                new SelectListItem
-                                {
-                                    Value = x.ItemCategoryID.ToString(),
-                                    Text = x.ItemCategoryName
-                                });
-
+            ItemRepo itemRepo = new ItemRepo();
+            var categories = itemRepo.GetCategories(userId);
             return new SelectList(categories, "Value", "Text");
         }
         [HttpPost]
@@ -59,7 +51,6 @@ namespace OneListApplication.Controllers
             string errMsg = "";
             if (ModelState.IsValid)
             {
-                //currently allowing duplicate item name.
                 ItemRepo itemRepo = new ItemRepo();
                 itemRepo.CreateItem(item, out errMsg);
                 ViewBag.ErrorMsg = errMsg;
@@ -121,7 +112,7 @@ namespace OneListApplication.Controllers
         {
             string userId = FindUserID();
             ItemRepo itemRepo = new ItemRepo();
-            IEnumerable<ItemCategoryVM> items = itemRepo.GetItemCategories();
+            IEnumerable<ItemCategoryVM> items = itemRepo.GetItemCategories(userId);
             return View(items);
         }
         [HttpGet]
@@ -132,15 +123,11 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult CreateItemCategory(ItemCategoryVM itemCategory)
         {
+            string userID = FindUserID();
             if (ModelState.IsValid)
             {
-                //currently allowing duplicate item name.
-                ItemCategory c = new ItemCategory();
-                c.ItemCategoryName = itemCategory.ItemCategoryName;
-                c.ItemCategoryID = 0;
-                OneListEntitiesCore Core = new OneListEntitiesCore();
-                Core.ItemCategories.Add(c);
-                Core.SaveChanges();
+                ItemRepo itemRepo = new ItemRepo();
+                itemRepo.CreateItemCategory(itemCategory, userID);
             }
             else
             {
@@ -148,14 +135,19 @@ namespace OneListApplication.Controllers
             }
             return View();
         }
-        //TO DO: create post action for CreateItemGroup()
         [HttpGet]
         public ActionResult ItemCategoryDetail()
         {
             return View();
         }
-        //TO DO: create post action for updateItemGroup()
+        //TO DO: create post action for editItemCategory()
+        //[HttpGet]
+        //public ActionResult EditItemCategory() {
+        //}
 
+        //[HttpPost]
+        //public ActionResult EditItemCategory() {
+        //}
         //TO DO: delete category --- how to delete if some items belong to this category
     }
 }
