@@ -27,7 +27,7 @@
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
                 @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Comfirm Password" } })
                 @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger col-lg-10 col-lg-offset-2" })
-                <div class="g-recaptcha inp50 col-lg-10 col-lg-offset-1" data-sitekey="6LeQxhsUAAAAAFWNEvxImWCM-lb6o0LCquBoT_1O"></div>
+                <div class="g-recaptcha" data-sitekey="6LeQxhsUAAAAAFWNEvxImWCM-lb6o0LCquBoT_1O"></div>
                 <div class="text-center">
                     <button class="btn btn-primary btn-register" type="submit">Register</button><br />
                 </div>
