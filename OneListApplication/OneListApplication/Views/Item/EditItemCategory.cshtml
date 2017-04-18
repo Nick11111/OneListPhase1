@@ -6,14 +6,16 @@
 }
 
 @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
-<div class="col-md-8">
-    <h2>Edit Item Category</h2>
+<div class="col-md-8 col-sm-12">
+    <h2>EditItemCategory</h2>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
+            <h4>ItemCategoryVM</h4>
+            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.ItemCategoryID)
             @Html.HiddenFor(model => model.UserID)
@@ -28,7 +30,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-bk" />
                 </div>
             </div>
         </div>

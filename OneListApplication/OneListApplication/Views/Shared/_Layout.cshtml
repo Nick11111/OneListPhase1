@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     @{if (Request.IsAuthenticated)
                         {
-                            <li class="active">@Html.ActionLink("List", "ListManagement", "Home")</li>
+                            <li>@Html.ActionLink("List", "ListManagement", "Home")</li>
                             <li>@Html.ActionLink("Item", "ItemManagement", "Item")</li>
                             <li>@Html.ActionLink("Subscriber", "SubscriberGroupManagement", "Subscriber")</li>
                         }

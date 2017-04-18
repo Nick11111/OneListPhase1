@@ -16,3 +16,9 @@ textarea {
     max-width: 280px;
 }
 
+@media(max-width:992px) {
+    input,
+    textarea {
+        max-width: none;
+    }
+}

@@ -6,7 +6,7 @@
 }
 
 @Html.Partial("~/Views/Subscriber/_SubscriberSideBar.cshtml")
-<div class="col-md-8">
+<div class="col-md-8 col-sm-12">
     <h2>Edit Subscriber Group</h2>
 
     <!-- Form for New Group Title-->
@@ -22,7 +22,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.SubscriberGroupName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.SubscriberGroupName, new { htmlAttributes = new { @class = "" } })
+                    @Html.EditorFor(model => model.SubscriberGroupName, new { htmlAttributes = new { @class = "subscriber-input" } })
                     @Html.ValidationMessageFor(model => model.SubscriberGroupName, "", new { @class = "text-danger" })
                     <input type="submit" value="Update" class="btn btn-default" />
                 </div>
@@ -41,7 +41,7 @@
             <div class="form-group">
                 <label class="control-label col-md-2">Add Users to Group</label>
                 <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.UserID, Model.UserList, htmlAttributes: new { @class = "" })
+                    @Html.DropDownListFor(m => m.UserID, Model.UserList, htmlAttributes: new { @class = "subscriber-input" })
                     <input type="submit" value="Add" class="btn btn-default" />
                 </div>
             </div>

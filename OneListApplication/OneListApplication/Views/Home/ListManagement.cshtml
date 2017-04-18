@@ -6,7 +6,7 @@
 }
 
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
-<div class="col-md-10">
+<div class="col-md-8">
     <h2>List Management</h2>
     <p class="text-danger">
         @Html.Raw(ViewBag.ErrorMsg)
@@ -14,7 +14,7 @@
     <p class="text-info">
         @Html.Raw(ViewBag.ActionMsg)
     </p>
-    <table class="table">
+    <table class="table table-collapse">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.ListName)
@@ -28,7 +28,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.SuscriberGroup)
             </th>
-            
+
             <th></th>
         </tr>
 
@@ -47,14 +47,14 @@
                 <td>
                     <ul id="suscribers">
                         @foreach (var groups in item.SuscriberGroup)
-                            {
+                        {
                             <li>@groups.SuscriberGroupName</li>
                         }
-                    </ul> 
+                    </ul>
                 </td>
-               
+
                 <td>
-                   @Html.ActionLink("EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
                     <a class="btn btn-danger" href="@Url.Action("DeleteList","List",  new { id = item.ListID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
