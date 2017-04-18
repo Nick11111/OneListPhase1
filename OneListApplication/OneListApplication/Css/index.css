@@ -272,6 +272,7 @@ footer {
     }
 }
 
+
 .container > .col-md-8 {
     background-color: white !important;
     border-radius: 15px;
@@ -283,3 +284,60 @@ footer {
 .container {
     max-width: 1200px;
 }
+
+@media(max-width:992px) {
+
+    .side-nav {
+        width: 100%;
+        background-color: transparent !important;
+        box-shadow: none !important;
+        padding-left: 15px !important;
+        margin-bottom: 15px;
+    }
+}
+/* --------------table styles-------------------*/
+td .btn {
+    margin-bottom: 7px;
+}
+@media only screen and (max-width: 1000px) {
+	
+	.table-collapse, 
+	.table-collapse thead, 
+	.table-collapse tbody, 
+	.table-collapse th, 
+	.table-collapse td, 
+	.table-collapse tr { 
+		display: block; 
+	}
+ 
+	.table-collapse thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	.table-collapse tr { border: 1px solid #ccc; }
+ 
+	.table-collapse td { 
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 100px !important; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	.table-collapse td:before { 
+		position: absolute;
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	.table-collapse td:before { content: attr(data-title); }
+}
+
