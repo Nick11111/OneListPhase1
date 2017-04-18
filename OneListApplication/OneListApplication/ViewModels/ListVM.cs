@@ -23,8 +23,8 @@ namespace OneListApplication.ViewModels
         public IEnumerable<ItemCategory> ItemCategory { get; set; }
         [DisplayName("Suscriber Group(hold shift to select more than one)")]
         public IEnumerable<SuscriberGroup> SuscriberGroup { get; set; }
-        [DisplayName("Items")]
-        public IEnumerable<Item> items { get; set; }
+        [DisplayName("List Tasks")]
+        public IEnumerable<ListItem> items { get; set; }
         [HiddenInput(DisplayValue = false)]
         public DateTime CreationDate { get; set; }
         [HiddenInput(DisplayValue = false)]

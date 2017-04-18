@@ -53,10 +53,10 @@
                 <td>
                     @if (item.UserType != 3)
                     {
-                        @Html.ActionLink("EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
                     }
                     
-                    <a class="btn btn-warning" href="@Url.Action("ViewList","List",  new { id = item.ListID})"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a class="btn btn-warning" href="@Url.Action("EditList","List",  new { id = item.ListID})"><i class="fa fa-eye" aria-hidden="true"></i></a>
                 </td>
             </tr>
         }

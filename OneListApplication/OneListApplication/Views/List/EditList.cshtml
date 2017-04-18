@@ -1,156 +1,92 @@
-﻿
+﻿@model OneListApplication.ViewModels.ListViewVM
+
 @{
     ViewBag.Title = "EditList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
 <div class="col-md-10">
     <h2>Edit List</h2>
-    <form>
-        <div class="form-group row">
-            <label for="list-title" class="col-xs-2 col-form-label">List Title</label>
-            <div class="col-xs-10">
-                <input type="text" class="form-control" id="list-title" aria-describedby="emailHelp" value="My Grocery">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="selectListType" class="col-xs-2 col-form-label">Creation Date</label>
-            <div class="col-xs-10">
-                <p>June 24, 2016</p>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="selectItemGroup" class="col-xs-2 col-form-label">List Type</label>
-            <div class="col-xs-10">
-                <select class="form-control" id="selectItemGroup">
-                    <option>Basic</option>
-                    <option>To Do</option>
-                    <option>Grocery</option>
-                    <option>Task</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="inviteTextarea" class="col-xs-2 col-form-label">Invite Subscriber</label>
-            <div class="col-xs-10">
-                <textarea class="form-control" id="inviteTextarea" rows="1" placeholder="Enter name or email address..."></textarea>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="note-detail" class="col-xs-2 col-form-label">Invitation Message</label>
-            <div class="col-xs-10">
-                <textarea class="form-control" id="note-detail" rows="2"></textarea>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="note-detail" class="col-xs-2 col-form-label">&nbsp;</label>
-            <div class="col-xs-10">
-                @Html.ActionLink("Send Invitation", "SubGroupDetails", "Subscriber", null, new { @class = "btn btn-primary" })
-            </div>
-        </div>
-        <div class="form-group row">
-            <table class="table">
-                <thead class="thead-default">
-                    <tr>
-                        <th>Subscriber</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Greg Willow</td>
-                        <td>Subscriber</td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-primary" href="#" role="button">Convert to Collaborator</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Alan Wong</td>
-                        <td>Subscriber</td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-primary" href="#" role="button">Convert to Collaborator</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Alice Smith</td>
-                        <td>Collaborator</td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-primary" href="#" role="button">Convert to Subscriber</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="form-group row">
-            <table class="table">
-                <thead class="thead-inverse">
-                    <tr>
-                        <th></th>
-                        <th>List Item</th>
-                        <th>Price</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input type="checkbox" value=""></td>
-                        <td>Avacado x 2</td>
-                        <td><input value="2.5"/></td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" value=""></td>
-                        <td>Paper towel x 9</td>
-                        <td><input value="2.5" /></td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" value=""></td>
-                        <td>Oranges</td>
-                        <td><input value="9.99" /></td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" value=""></td>
-                        <td>Cake Mix</td>
-                        <td><input value="13.5" /></td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" value=""></td>
-                        <td>Whip Cream</td>
-                        <td><input value="15" /></td>
-                        <td>
-                            <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                            <a class="btn btn-default"><em class="fa fa-pencil"></em></a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
 
-        <label for="itemTextarea" class="col-xs-2 col-form-label"></label>
-        <div class="col-xs-12">
-            <button type="submit" class="btn btn-primary">Save Changes</button>
-            <button type="submit" class="btn btn-success">Complete List</button>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+         
+                    <div class="col-md-6">
+                    @Html.LabelFor(model => model.ListName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.ListName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ListName, "", new { @class = "text-danger" })
+                    </div>
+         
+                   <div class="col-md-6">
+                    @Html.LabelFor(model => model.ListType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.ListType, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ListType, "", new { @class = "text-danger" })
+                    </div>
+               
+               
+                    <div class="col-md-6">
+                    @Html.LabelFor(model => model.suscriberRole, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.suscriberRole, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.suscriberRole, "", new { @class = "text-danger" })
+                    </div>
+               
+                    <div class="col-md-6">
+                    @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
+                    </div>
+           
+            <div class="form-group row">
+                <table class="table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th></th>
+                            <th>List Item</th>
+                            <th>Price</th>
+                            <th>Notes</th>
+                            <th>Solved By?</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.items)
+                        {
+                            <tr>
+                                <td><input type="checkbox" value="@item.ListItemSolved"></td>
+                                <td>@item.listItemName</td>
+                                <td><input value="@item.ListItemCost" /></td>
+                                <td><input value="@item.ListItemNotes" /></td>
+                                <td><input value="@item.ListItemSolverName" /></td>
+                                <td>
+                                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
+                                    
+                                </td>
+                            </tr>
+                        }
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
         </div>
-</form>
+    }
 
-</div>
-
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+  </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
