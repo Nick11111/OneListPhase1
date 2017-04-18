@@ -38,8 +38,8 @@
                     @Html.DisplayFor(modelItem => item.ItemCategoryName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-bk" })
+                    @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new { @class = "btn btn-bk" })
 
                     <a class="btn btn-danger" href="@Url.Action("DeleteItem","Item",  new { id = item.ItemID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>

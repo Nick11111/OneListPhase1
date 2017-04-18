@@ -115,7 +115,7 @@ ul.alert-dropdown {
 
 /* Side Navigation */
 
-@media(min-width:768px) {
+@media(min-width:992px) {
     .side-nav {
         background-color: white;
         padding: 15px;
@@ -123,21 +123,6 @@ ul.alert-dropdown {
         box-shadow: 1px 1px 2px #777;
         float: right;
         margin-right: 30px;
-    }
-    .side-nav>li>a {
-        padding: 0 8px;
-        margin-bottom: 10px;
-        border-radius: 10px;
-        font-size: 1.1em;
-        height: 40px;
-        line-height:40px;
-    }
-
-    .side-nav li a:hover,
-    .side-nav li a:focus {
-        outline: none;
-        color: orangered;
-        background-color:white;
     }
 }
 
@@ -238,4 +223,19 @@ ul.alert-dropdown {
 
 #listType {
     margin-bottom:70px;
+}
+
+/* ------ profile page ---------*/
+.profile-table {
+    float:left ; 
+    width:50%
+}
+@media(max-width: 610px) {
+    .profile-pic {
+        display: none;
+    }
+    .profile-table {
+        float: none !important;
+        width: 100%;
+    }
 }
