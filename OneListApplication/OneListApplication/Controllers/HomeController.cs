@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Security.Claims;
 using OneListApplication.Service;
+using OneListApplication.Repositories;
+using OneListApplication.ViewModels;
 
 namespace OneListApplication.Controllers
 {
@@ -497,10 +499,23 @@ namespace OneListApplication.Controllers
             ViewBag.UserName = User.Identity.Name;
             return View();
         }
-
+        public string FindUserID()
+        {
+            string name = User.Identity.Name;
+            OneListCAEntities context = new OneListCAEntities();
+            AspNetUser user = context.AspNetUsers
+                    .Where(u => u.UserName == name).FirstOrDefault();
+            string userId = user.Id;
+            return userId;
+        }
         public ActionResult ListManagement()
         {
-           return View();
+            //bring List per user
+            string UserID = FindUserID();
+            ListRepo r = new ListRepo();
+            IEnumerable<ListViewVM> listsummary = r.GetLists(UserID);
+            
+           return View(listsummary);
         }
 
         public ActionResult SubscriberManagement()

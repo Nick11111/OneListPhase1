@@ -23,8 +23,8 @@
 </head>
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav navbar-left">
                     @{if (Request.IsAuthenticated)
                         {
-                            <li>@Html.ActionLink("List", "ListManagement", "Home")</li>
+                            <li class="active">@Html.ActionLink("List", "ListManagement", "Home")</li>
                             <li>@Html.ActionLink("Item", "ItemManagement", "Item")</li>
                             <li>@Html.ActionLink("Subscriber", "SubscriberGroupManagement", "Subscriber")</li>
                         }
@@ -96,7 +96,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </nav>
 
     <div class="container body-content">
         @RenderBody()

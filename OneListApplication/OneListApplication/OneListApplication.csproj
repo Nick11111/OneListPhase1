@@ -380,6 +380,7 @@
     <Compile Include="ViewModels\ItemCategoryVM.cs" />
     <Compile Include="ViewModels\ItemVM.cs" />
     <Compile Include="ViewModels\ListItemVM.cs" />
+    <Compile Include="ViewModels\ListViewVM.cs" />
     <Compile Include="ViewModels\ListVM.cs" />
     <Compile Include="ViewModels\SubscriberGroupUserVM.cs" />
     <Compile Include="ViewModels\SubscriberGroupVM.cs" />

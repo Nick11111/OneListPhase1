@@ -57,17 +57,22 @@ namespace OneListApplication.Controllers
 
                 NewList.CreatorID = FindUserID();
                 NewList.CreationDate = DateTime.Now;
-                bool resp = rep.CreateList(NewList);
-
-                if (resp == false)
+                if (NewList.ListName.Length < 2)
                 {
-                    ViewBag.ErrorMsg = "Cannot add List.";
+                    ViewBag.InputErrorMsg = "List name must be at least 2 characters.";
                 }
-                else
-                {
-                    ViewBag.ActionMsg = "List Added Successfully.";
-                }
+                else {
+                    bool resp = rep.CreateList(NewList);
 
+                    if (resp == false)
+                    {
+                        ViewBag.ErrorMsg = "Cannot add List.";
+                    }
+                    else
+                    {
+                        ViewBag.ActionMsg = "List Added Successfully.";
+                    }
+                }
             }
             else
             {
@@ -84,6 +89,35 @@ namespace OneListApplication.Controllers
             return View();
         }
 
+        public ActionResult EditList(ListViewVM list)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteList(int id)
+        {
+            //delete the list
+            try
+            {
+                ListRepo repw = new ListRepo();
+                string userID = FindUserID();
+                bool cleanList = repw.DeleteList(id);
+                if (cleanList == true)
+                {
+                    ViewBag.ActionMsg = "List Deleted Successfully.";
+                }
+                else
+                {
+                    ViewBag.ErrorMsg = "Cannot Delete List.";
+                }
+            }
+            catch
+            {
+                ViewBag.ErrorMsg = "Cannot Delete List.";
+            }
+            return RedirectToAction("ListManagement", "Home");
+        }
+
         public ActionResult ShowListDetails()
         {
             return View();
@@ -91,7 +125,11 @@ namespace OneListApplication.Controllers
 
         public ActionResult ShowSubscribedList()
         {
-            return View();
+            string UserID = FindUserID();
+            ListRepo r = new ListRepo();
+            IEnumerable<ListViewVM> listsummary = r.GetSuscribedLists(UserID);
+
+            return View(listsummary);
         }
 
         public ActionResult ShowCompleteList()
