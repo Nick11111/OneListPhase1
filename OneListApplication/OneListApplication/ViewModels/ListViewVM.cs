@@ -24,6 +24,8 @@ namespace OneListApplication.ViewModels
         public IEnumerable<SuscriberGroup> SuscriberGroup { get; set; }
         [DisplayName("List Role")]
         public string suscriberRole { get; set; }
+        [DisplayName("List Tasks")]
+        public IEnumerable<ListItemVM> items { get; set; }
         [DisplayName("Creation Date")]
         public string CreationDate { get; set; }
         [HiddenInput(DisplayValue = false)]

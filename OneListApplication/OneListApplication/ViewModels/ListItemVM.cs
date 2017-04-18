@@ -11,8 +11,10 @@ namespace OneListApplication.ViewModels
         public int ListID { get; set; }
         public int ItemID { get; set; }
         public bool ListItemSolved { get; set; }
-        public int ListItemSolver { get; set; }
-
+        public string ListItemSolverID { get; set; }
+        public string ListItemSolverName { get; set; }
+        [DisplayName("Task Name")]
+        public string listItemName { get; set; }
         [DisplayName("List Solved Date")]
         public DateTime ListItemSolvingDate { get; set; }
 

@@ -84,14 +84,25 @@ namespace OneListApplication.Controllers
             return View(cleanList);
         }
 
-        public ActionResult EditList()
+        public ActionResult EditList(int id)
         {
-            return View();
-        }
+            //send the information to get the list and the user type
+            string userID = FindUserID();
+            ListRepo repw = new ListRepo();
+            ListViewVM list = repw.getList(id, userID);
+            if (list.ListID == 0)
+            {
+                //that list doesnt exist or he has no rights for that list, return to list management
+                ViewBag.ErrorMsg = "The selected list  doesn't exist or you have no acces to it.";
+                return RedirectToAction("ListManagement", "Home");
 
-        public ActionResult EditList(ListViewVM list)
-        {
-            return View();
+            }
+            else
+            {
+                //show list 
+                return View(list);
+            }
+            
         }
 
         public ActionResult DeleteList(int id)
