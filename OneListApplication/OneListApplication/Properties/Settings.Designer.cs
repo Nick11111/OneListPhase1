@@ -36,7 +36,7 @@ namespace OneListApplication.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2017-04-12")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2017-04-18")]
         public global::System.DateTime LastBuildtime {
             get {
                 return ((global::System.DateTime)(this["LastBuildtime"]));
