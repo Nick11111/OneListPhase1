@@ -5,71 +5,73 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-sm-offset-2">
-    @using (Html.BeginForm("Edit", "Profile"))
-    {
-        @Html.HiddenFor(model => model.UserName)
-        <h3 for="selectItemGroup" style="float:left; width:100%; text-align:center">User Profile</h3>
-        <img class="profile-pic" src="https://kenanfellows.org/wp-content/uploads/2016/02/blank-profile-picture-973460_960_720.png" style="float:left ; width:50%; width:200px; height:200px;" />
-        <table class="table profile-table table-inverse">
-            <thead>
-                <tr>
-                    <th>Details</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        @Html.DisplayNameFor(model => model.UserName)
-                    </td>
+<main>
+    <div class="col-sm-offset-2">
+        @using (Html.BeginForm("Edit", "Profile"))
+        {
+            @Html.HiddenFor(model => model.UserName)
+            <h3 for="selectItemGroup" style="float:left; width:100%; text-align:center">User Profile</h3>
+            <img class="profile-pic" src="https://kenanfellows.org/wp-content/uploads/2016/02/blank-profile-picture-973460_960_720.png" style="float:left ; width:50%; width:200px; height:200px;" />
+            <table class="table profile-table table-inverse">
+                <thead>
+                    <tr>
+                        <th>Details</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.UserName)
+                        </td>
 
-                    <td>
-                        @Html.DisplayFor(model => model.UserName)
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayNameFor(model => model.FirstName)
-                    </td>
+                        <td>
+                            @Html.DisplayFor(model => model.UserName)
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </td>
 
-                    <td>
-                        @Html.EditorFor(model => model.FirstName)
-                    </td>
-                    <td>
-                        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayNameFor(model => model.LastName)
-                    </td>
+                        <td>
+                            @Html.EditorFor(model => model.FirstName)
+                        </td>
+                        <td>
+                            <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </td>
 
-                    <td>
-                        @Html.EditorFor(model => model.LastName)
-                    </td>
-                    <td>
-                        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </td>
+                        <td>
+                            @Html.EditorFor(model => model.LastName)
+                        </td>
+                        <td>
+                            <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </td>
 
-                    <td>
-                        @Html.DisplayFor(model => model.Email)
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Password</td>
-                    <td><button class="btn btn-bk" onclick="location.href='@Url.Action("ChangePassword", "Profile")';return false;">Change Password</button></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
-    }
-</div>
+                        <td>
+                            @Html.DisplayFor(model => model.Email)
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td><button class="btn btn-bk" onclick="location.href='@Url.Action("ChangePassword", "Profile")';return false;">Change Password</button></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    </div>
+</main>

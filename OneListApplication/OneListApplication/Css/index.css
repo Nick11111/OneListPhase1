@@ -117,7 +117,9 @@ footer {
     box-shadow: 1px 1px 3px #777777;
 }
 
-
+main {
+  min-height: calc(100vh - 220px);
+}
 
 li.nav-item {
     background-color: #222222;
@@ -242,7 +244,7 @@ footer {
         border-bottom: 1px solid white !important;
     }
     .side-nav > li a:hover {
-        background-color: #444 !important;
+        background-color: slategray !important;
     }
     .col-md-4 {
         padding: 0 !important;
@@ -343,7 +345,7 @@ footer {
 }
 
 
-.container > .col-md-8 {
+.container .col-md-8 {
     background-color: white !important;
     border-radius: 15px;
     box-shadow: 1px 1px 3px #999;
