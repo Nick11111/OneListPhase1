@@ -1,82 +1,64 @@
-﻿
+﻿@model IEnumerable<OneListApplication.ViewModels.ListViewVM>
+
 @{
     ViewBag.Title = "ListManagement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
-
 <div class="col-md-10">
     <h2>List Management</h2>
+    <p class="text-danger">
+        @Html.Raw(ViewBag.ErrorMsg)
+    </p>
+    <p class="text-info">
+        @Html.Raw(ViewBag.ActionMsg)
+    </p>
     <table class="table">
-        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ListName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ListType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SuscriberGroup)
+            </th>
+            
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
             <tr>
-                <th>List ID</th>
-                <th>List Name</th>
-                <th>Date</th>
-                <th>List Type</th>
-                <th>Subscribers</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>My Grocery</td>
-                <td>June 24, 2016</td>
-                <td>Grocery</td>
-                <td>Greg, Alan ...</td>
                 <td>
-                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                    @Html.ActionLink("Edit", "EditList", "List", null, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "ShowListDetails", "List", null, new { @class = "btn btn-primary" })
+                    @Html.DisplayFor(modelItem => item.ListName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ListType)
+                </td>
+                <td>
+                    <ul id="suscribers">
+                        @foreach (var groups in item.SuscriberGroup)
+                            {
+                            <li>@groups.SuscriberGroupName</li>
+                        }
+                    </ul> 
+                </td>
+               
+                <td>
+                   @Html.ActionLink("EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
+                    <a class="btn btn-danger" href="@Url.Action("DeleteList","List",  new { id = item.ListID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>House Repair</td>
-                <td>Sep 24, 2016</td>
-                <td>To Do</td>
-                <td>Alice, Alan ...</td>
-                <td>
-                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                    @Html.ActionLink("Edit", "EditList", "List", null, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "ShowListDetails", "List", null, new { @class = "btn btn-primary" })
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Science Project</td>
-                <td>Dec 24, 2016</td>
-                <td>Task</td>
-                <td>Greg, Alan ...</td>
-                <td>
-                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                    @Html.ActionLink("Edit", "EditList", "List", new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Details", "ShowListDetails", "List", new { @class = "btn btn-primary" })
-                </td>
-            </tr>
-        </tbody>
+        }
+
     </table>
-
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-
 </div>

@@ -84,6 +84,35 @@ namespace OneListApplication.Controllers
             return View();
         }
 
+        public ActionResult EditList(ListViewVM list)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteList(int id)
+        {
+            //delete the list
+            try
+            {
+                ListRepo repw = new ListRepo();
+                string userID = FindUserID();
+                bool cleanList = repw.DeleteList(id);
+                if (cleanList == true)
+                {
+                    ViewBag.ActionMsg = "List Deleted Successfully.";
+                }
+                else
+                {
+                    ViewBag.ErrorMsg = "Cannot Delete List.";
+                }
+            }
+            catch
+            {
+                ViewBag.ErrorMsg = "Cannot Delete List.";
+            }
+            return RedirectToAction("ListManagement", "Home");
+        }
+
         public ActionResult ShowListDetails()
         {
             return View();
@@ -91,7 +120,11 @@ namespace OneListApplication.Controllers
 
         public ActionResult ShowSubscribedList()
         {
-            return View();
+            string UserID = FindUserID();
+            ListRepo r = new ListRepo();
+            IEnumerable<ListViewVM> listsummary = r.GetSuscribedLists(UserID);
+
+            return View(listsummary);
         }
 
         public ActionResult ShowCompleteList()
