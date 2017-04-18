@@ -38,13 +38,13 @@ namespace OneListApplication.Repositories
                                                     });
             return itemList;
         }
-        public void CreateItem(ItemVM item, out string errMsg)
+        public void CreateItem(ItemVM item)
         {
-            if (String.IsNullOrEmpty(item.ItemName))
-            {
-                errMsg = "name field empty";
-            }else
-            {
+            //if (String.IsNullOrEmpty(item.ItemName))
+            //{
+            //    errMsg = "name field empty";
+            //}else
+            //{
                 OneListEntitiesCore db = new OneListEntitiesCore();
                 Item itemAdded = new Item();
                 itemAdded.UserID = item.UserID;
@@ -52,16 +52,16 @@ namespace OneListApplication.Repositories
                 itemAdded.ItemDescription = item.ItemDescription;
                 itemAdded.ItemCategory = (int)item.ItemCategory;
 
-                if (itemAdded.ItemCategory == 0)
-                {
-                    errMsg = "Items must belong to a category";
-                }
-                else {
+                //if (itemAdded.ItemCategory == 0)
+                //{
+                //    errMsg = "Items must belong to a category";
+                //}
+                //else {
                     db.Items.Add(itemAdded);
                     db.SaveChanges();
-                    errMsg = "Item successfully added";
-                }
-            }
+                    //errMsg = "Item successfully added";
+                //}
+            //}
         }
 
         public IEnumerable<SelectListItem> GetCategories(string userId) {

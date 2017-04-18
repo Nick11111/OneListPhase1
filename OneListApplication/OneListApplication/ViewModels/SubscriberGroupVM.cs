@@ -14,6 +14,7 @@ namespace OneListApplication.ViewModels
         public int SubscriberGroupID { get; set; }
 
         [DisplayName("Subscriber Group Title")]
+        [Required]
         public string SubscriberGroupName { get; set; }
 
         public string UserID { get; set; }

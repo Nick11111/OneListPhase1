@@ -127,13 +127,18 @@ namespace OneListApplication.Controllers
         {
             string errMsg = "";
             ViewBag.EditMsg = TempData["EditMsg"];
+            SubscriberRepo subscriberRepo = new SubscriberRepo();
             if (ModelState.IsValid)
             {
-                SubscriberRepo subscriberRepo = new SubscriberRepo();
                 subscriberRepo.UpdateGroup(group, out errMsg);
-                ViewBag.ErrorMsg = errMsg;
+                return RedirectToAction("EditSubscriberGroup", new { id = group.SubscriberGroupID });
+
             }
-            return RedirectToAction("EditSubscriberGroup", new { id = group.SubscriberGroupID });
+            else {
+                SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(group.SubscriberGroupID);
+                return View(subscriberGroup);
+            }
+
         }
 
     }

@@ -39,7 +39,7 @@
                         @Html.EditorFor(model => model.FirstName)
                     </td>
                     <td>
-                        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("EditFirstName", "Profile")';">Update</button>
                     </td>
                 </tr>
                 <tr>
@@ -51,7 +51,7 @@
                         @Html.EditorFor(model => model.LastName)
                     </td>
                     <td>
-                        <button class="btn btn-default" onclick="location.href='@Url.Action("Edit", "Profile")';">Update</button>
+                        <button class="btn btn-default" onclick="location.href='@Url.Action("EditLastName", "Profile")';">Update</button>
                     </td>
                 </tr>
                 <tr>
@@ -68,6 +68,22 @@
                     <td>Password</td>
                     <td><button class="btn btn-primary" onclick="location.href='@Url.Action("ChangePassword", "Profile")';return false;">Change Password</button></td>
                     <td></td>
+                </tr>
+                <tr>
+                    @{
+                        if (@TempData["Success"] != null)
+                        {
+                            <td class="text-success">
+                                @Html.Raw(@TempData["Success"])
+                            </td>
+                        }
+                        else
+                        {
+                            <td class="text-danger">
+                                @Html.Raw(@TempData["Fail"])
+                            </td>
+                        }
+                    }
                 </tr>
             </tbody>
         </table>

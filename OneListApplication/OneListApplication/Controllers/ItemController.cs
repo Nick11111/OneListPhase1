@@ -49,19 +49,24 @@ namespace OneListApplication.Controllers
         public ActionResult CreateItem(ItemVM item)
         {
             item.UserID = FindUserID();
-            string errMsg = "";
+            //string errMsg = "";
             if (ModelState.IsValid)
             {
                 ItemRepo itemRepo = new ItemRepo();
-                itemRepo.CreateItem(item, out errMsg);
-                TempData["ItemActionMsg"] = errMsg;
+                itemRepo.CreateItem(item);
+                //TempData["ItemActionMsg"] = errMsg;
                 return RedirectToAction("ItemManagement");
             }
             else
             {
-                TempData["ItemCategoryActionMsg"] = "Cannot add item.";
+                //TempData["ItemCategoryActionMsg"] = "Cannot add item.";
+                var model = new ItemVM
+                {
+                    ItemCategoryList = GetCategories()
+                };
+                return View(model);
             }
-            return View();
+
         }
         [HttpGet]
         public ActionResult ItemDetail(int id)
@@ -95,7 +100,11 @@ namespace OneListApplication.Controllers
                     ViewBag.ErrorMsg = "Updated failed";
                 }
             }
-            return View();
+            ItemRepo itemRepo2 = new ItemRepo();
+            ItemVM item2 = itemRepo2.GetDetails(item.ItemID);
+            ViewBag.Categories = new SelectList(GetCategories(), "Value",
+                             "Text", item.ItemID);
+            return View(item2);
         }
 
         [HttpGet]
@@ -130,12 +139,13 @@ namespace OneListApplication.Controllers
             {
                 ItemRepo itemRepo = new ItemRepo();
                 itemRepo.CreateItemCategory(itemCategory, userID);
+                return RedirectToAction("ItemCategoryManagement");
             }
             else
             {
-                TempData["ItemCategoryActionMsg"] = "Cannot add Item Category.";
+                return View();
             }
-            return RedirectToAction("ItemCategoryManagement");
+            
         }
 
         [HttpGet]

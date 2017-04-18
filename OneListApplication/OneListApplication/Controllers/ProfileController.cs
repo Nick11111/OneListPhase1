@@ -56,7 +56,7 @@ namespace OneListApplication.Controllers
             var compareResult = manager.PasswordHasher.VerifyHashedPassword(user.PasswordHash, currentPassword);
             if (!(compareResult == PasswordVerificationResult.Success))
             {
-                ViewBag.Result = "The current password is incorrect.";
+                ViewBag.Fail = "The current password is incorrect.";
 
                 return View();
             }
@@ -66,27 +66,34 @@ namespace OneListApplication.Controllers
                 IdentityResult result = manager.ResetPassword(userID, passwordToken, password);
                 if (result.Succeeded)
                 {
-                    ViewBag.Result = "The password has been reset.";
+                    ViewBag.Success = "The password has been reset.";
                 }
                 else
                 {
-                    ViewBag.Result = "The password has not been reset.";
+                    ViewBag.Fail = "The password has not been reset.";
                 }
             }
 
             else
-                ViewBag.Result = "Two passwords don't match!";
+                ViewBag.Fail = "Two passwords don't match!";
             return View();
         }
 
         [HttpPost]
         public ActionResult Edit(UserVM userInput)
         {
-            OneListEntitiesCore db = new OneListEntitiesCore();
-            User user = db.Users.Where(a => a.UserName == User.Identity.Name).FirstOrDefault();
-            user.FirstName = userInput.FirstName;
-            user.LastName = userInput.LastName;
-            db.SaveChanges();
+            if (userInput.FirstName!=null && userInput.LastName!=null)
+            {
+                OneListEntitiesCore db = new OneListEntitiesCore();
+                User user = db.Users.Where(a => a.UserName == User.Identity.Name).FirstOrDefault();
+                user.FirstName = userInput.FirstName;
+                user.LastName = userInput.LastName;
+                db.SaveChanges();
+                TempData["Success"] = "Updated successfully!";
+            }
+            else {
+                TempData["Fail"] = "Failed to update!";
+            }
             return RedirectToAction("Index", "Profile");
         }
     }
