@@ -4,33 +4,36 @@
     ViewBag.Title = "ItemCategoryManagement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
-<div class="col-md-8 col-sm-12">
-    <h2>All Categories</h2>
-    <p class="text-danger">
-        @Html.Raw(ViewBag.ItemCategoryActionMsg)
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemCategoryName)
-            </th>
-            <th></th>
-        </tr>
 
-        @foreach (var item in Model)
-        {
+<main>
+    @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
+    <div class="col-md-8 col-sm-12">
+        <h2>All Categories</h2>
+        <p class="text-danger">
+            @Html.Raw(ViewBag.ItemCategoryActionMsg)
+        </p>
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemCategoryName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditItemCategory", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-bk" })
-                    @Html.ActionLink("Details", "ItemCategoryDetail", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-bk" })
-                    <a class="btn btn-danger" href="@Url.Action("DeleteItemCategory","Item", new { id = item.ItemCategoryID})")"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCategoryName)
+                </th>
+                <th></th>
             </tr>
-        }
 
-    </table>
-</div>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCategoryName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditItemCategory", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-bk" })
+                        @Html.ActionLink("Details", "ItemCategoryDetail", "Item", new { id = item.ItemCategoryID }, new { @class = "btn btn-bk" })
+                        <a class="btn btn-danger" href="@Url.Action("DeleteItemCategory","Item", new { id = item.ItemCategoryID})" )"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</main>

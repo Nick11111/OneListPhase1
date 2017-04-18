@@ -5,47 +5,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
-<div class="col-md-8 col-sm-12">
-    <h2>All Items</h2>
-    <p class="text-danger">
-        @Html.Raw(ViewBag.ItemActionMsg)
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ItemCategoryName)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+<main>
+    @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
+    <div class="col-md-8 col-sm-12">
+        <h2>All Items</h2>
+        <p class="text-danger">
+            @Html.Raw(ViewBag.ItemActionMsg)
+        </p>
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ItemCategoryName)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-bk" })
-                    @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new { @class = "btn btn-bk" })
-
-                    <a class="btn btn-danger" href="@Url.Action("DeleteItem","Item",  new { id = item.ItemID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCategoryName)
+                </th>
+                <th></th>
             </tr>
-        }
 
-    </table>
-    <p>@ViewBag.ErrorMsg</p>
-</div>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCategoryName)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "EditItem", new { id = item.ItemID }, new { @class = "btn btn-bk" })
+                        @Html.ActionLink("Details", "ItemDetail", new { id = item.ItemID }, new { @class = "btn btn-bk" })
+
+                        <a class="btn btn-danger" href="@Url.Action("DeleteItem","Item",  new { id = item.ItemID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+        <p>@ViewBag.ErrorMsg</p>
+    </div>
+</main>

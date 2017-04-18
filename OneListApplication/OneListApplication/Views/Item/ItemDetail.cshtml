@@ -5,47 +5,49 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
-<div class="col-md-8 col-sm-12">
-    <h2>Item Detail</h2>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.UserID)
-            </dt>
+<main>
+    @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
+    <div class="col-md-8 col-sm-12">
+        <h2>Item Detail</h2>
+        <div>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.UserID)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.UserID)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.UserID)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ItemName)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.ItemName)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ItemName)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ItemDescription)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ItemDescription)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.ItemDescription)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ItemDescription)
+                </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.ItemCategoryName)
-            </dt>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ItemCategoryName)
+                </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.ItemCategoryName)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.ItemCategoryName)
+                </dd>
 
-        </dl>
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Edit", "EditItem", new { id = Model.ItemID })
+        </p>
+        <p>@ViewBag.ErrorMsg</p>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "EditItem", new { id = Model.ItemID })
-    </p>
-    <p>@ViewBag.ErrorMsg</p>
-</div>
+</main>
