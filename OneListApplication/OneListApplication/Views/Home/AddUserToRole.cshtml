@@ -26,6 +26,11 @@
                         Value = "Administrator",
                         Selected = true
                     });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "User",
+                        Value = "User"
+                    });
                 }
 
                 @Html.DropDownListFor(model => model.RoleName, listItems, "-- Select Status --")
