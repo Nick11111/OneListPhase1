@@ -20,6 +20,9 @@ namespace OneListApplication.ViewModels
 
         public string Email { get; set; }
 
+        [DisplayName("Name")]
+        public string FullName { get; set; }
+
         public string UserTypeName { get; set; }
 
         [DisplayName("Subscriber Type")]

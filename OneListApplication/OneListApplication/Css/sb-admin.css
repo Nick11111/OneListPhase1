@@ -8,7 +8,8 @@
 
 body {
     margin-top: 100px;
-    background-color: #222;
+    /*background-image: url("../images/geometry2.png");*/
+    background-color: lightgray;
 }
 
 @media(min-width:768px) {
@@ -116,28 +117,36 @@ ul.alert-dropdown {
 
 @media(min-width:768px) {
     .side-nav {
-        width: 200px;
+        background-color: white;
+        padding: 15px;
+        border-radius: 15px;
+        box-shadow: 1px 1px 2px #777;
+        float: right;
+        margin-right: 30px;
     }
-
     .side-nav>li>a {
         padding: 0 8px;
         margin-bottom: 10px;
-        text-align:center;
         border-radius: 10px;
-        line-height: 1.6;
         font-size: 1.1em;
+        height: 40px;
+        line-height:40px;
     }
 
     .side-nav li a:hover,
     .side-nav li a:focus {
         outline: none;
-        background-color: steelblue;
-        color: white;
+        color: orangered;
+        background-color:white;
     }
 }
 
 .side-nav>li>ul {
     padding: 0;
+}
+
+.side-nav > li {
+    width: 100%;
 }
 
 .side-nav>li>ul>li>a {

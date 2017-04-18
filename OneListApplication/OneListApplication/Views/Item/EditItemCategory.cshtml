@@ -1,20 +1,25 @@
 ﻿@model OneListApplication.ViewModels.ItemCategoryVM
 
 @{
-    ViewBag.Title = "Create Item Category";
+    ViewBag.Title = "EditItemCategory";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
 <div class="col-md-8">
+    <h2>EditItemCategory</h2>
+
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <h4>Create Item Category</h4>
+            <h4>ItemCategoryVM</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ItemCategoryID)
+            @Html.HiddenFor(model => model.UserID)
+
             <div class="form-group">
                 @Html.LabelFor(model => model.ItemCategoryName, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
@@ -25,14 +30,14 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
 
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Back to List", "ItemCategoryManagement", "Item")
     </div>
 </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>

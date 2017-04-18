@@ -34,11 +34,16 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             return View();
         }
         [HttpPost]
         public ActionResult Login(LoginVM login, string rememberMe)
         {
+
             ViewBag.ErrorMessage = "";
             // UserStore and UserManager manages data retreival.
             UserStore<IdentityUser> userStore = new UserStore<IdentityUser>();
@@ -47,11 +52,11 @@ namespace OneListApplication.Controllers
 
             if (ModelState.IsValid)
             {
-                IdentityUser identityUser = manager.Find(login.UserName, login.Password);
-                var user = context.AspNetUsers.Find(identityUser.Id);
-
                 if (ValidLogin(login))
                 {
+                    IdentityUser identityUser = manager.Find(login.UserName, login.Password);
+                    var user = context.AspNetUsers.Find(identityUser.Id);
+
                     if (user.PhoneNumberConfirmed == true)
                     {
                         ViewBag.ErrorMessage = "Your account has been banned,please contact admin for further actions!";
@@ -143,6 +148,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult Register()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -164,35 +173,42 @@ namespace OneListApplication.Controllers
             if (ModelState.IsValid)
             {
                 CaptchaHelper captchaHelper = new CaptchaHelper();
+                OneListCAEntities context = new OneListCAEntities();
                 string captchaResponse = captchaHelper.CheckRecaptcha();
                 if (captchaResponse == "Valid")
                 {
-                    ViewBag.CaptchaResponse = captchaResponse;
-                    IdentityResult result = manager.Create(identityUser, newUser.Password);
-                    if (result.Succeeded)
+                    if (manager.FindByEmail(newUser.Email) == null)
                     {
+                        ViewBag.CaptchaResponse = captchaResponse;
+                        IdentityResult result = manager.Create(identityUser, newUser.Password);
+                        if (result.Succeeded)
+                        {
 
-                        OneListCAEntities context = new OneListCAEntities();
-                        AspNetUser user = context.AspNetUsers
-                                            .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
-                        AspNetRole role = new AspNetRole();
-                        role.Id = "User";
-                        role.Name = "User";
+                            AspNetUser user = context.AspNetUsers
+                                                .Where(u => u.UserName == newUser.UserName).FirstOrDefault();
+                            AspNetRole role = new AspNetRole();
+                            role.Id = "User";
+                            role.Name = "User";
 
-                        user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
-                        context.SaveChanges();
-                        //add information of user and password to table users in core
-                        CreateTokenProvider(manager, EMAIL_CONFIRMATION);
+                            user.AspNetRoles.Add(context.AspNetRoles.Find(role.Id));
+                            context.SaveChanges();
+                            //add information of user and password to table users in core
+                            CreateTokenProvider(manager, EMAIL_CONFIRMATION);
 
-                        var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
-                        var callbackUrl = Url.Action("ConfirmEmail", "Home",
-                                                        new { userId = identityUser.Id, code = code },
-                                                            protocol: Request.Url.Scheme);
+                            var code = manager.GenerateEmailConfirmationToken(identityUser.Id);
+                            var callbackUrl = Url.Action("ConfirmEmail", "Home",
+                                                            new { userId = identityUser.Id, code = code },
+                                                                protocol: Request.Url.Scheme);
 
-                        string email = "Please confirm your account by clicking this link: <a href=\""
-                                        + callbackUrl + "\">Confirm Registration</a>";
-                        SendGrid.sendEmail(newUser, callbackUrl);
-                        ViewBag.Result = "Please check your email to activate your account!";
+                            string email = "Please confirm your account by clicking this link: <a href=\""
+                                            + callbackUrl + "\">Confirm Registration</a>";
+                            SendGrid.sendEmail(newUser, callbackUrl);
+                            ViewBag.Result = "Please check your email to activate your account!";
+                        }
+                        else
+                        {
+                            ViewBag.Result = "User already exist!";
+                        }
                     }
                     else {
                         ViewBag.Result = "User already exist!";
@@ -261,7 +277,7 @@ namespace OneListApplication.Controllers
             {
                 OneListCAEntities context = new OneListCAEntities();
                 AspNetUser user = context.AspNetUsers
-                                    .Where(u => u.UserName == userRoleVM.UserName).FirstOrDefault();
+                                    .Where(u => u.Email == userRoleVM.Email).FirstOrDefault();
                 AspNetRole role = context.AspNetRoles
                                     .Where(r => r.Name == userRoleVM.RoleName).FirstOrDefault();
 
@@ -330,6 +346,7 @@ namespace OneListApplication.Controllers
                     var user = context.AspNetUsers.Find(currentUser.Id);
                     user.PhoneNumberConfirmed = true;
                     context.SaveChanges();
+                    SendGrid.sendBanUserEmail(currentUser.Email, currentUser.UserName);
                     ViewBag.Success = "User has been banned successfully!";
                 }
                 else
@@ -365,6 +382,7 @@ namespace OneListApplication.Controllers
                     {
                         user.PhoneNumberConfirmed = false;
                         context.SaveChanges();
+                        SendGrid.sendUnbanUserEmail(currentUser.Email, currentUser.UserName);
                         ViewBag.Success = "User has been unbanned successfully!";
                     }
 
@@ -399,6 +417,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ForgotPassword()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             return View();
         }
         [HttpPost]
@@ -429,6 +451,10 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ResetPassword(string userID, string code)
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Home", "Home");
+            }
             ViewBag.PasswordToken = code;
             ViewBag.UserID = userID;
             return View();

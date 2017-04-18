@@ -1,0 +1,50 @@
+﻿@model OneListApplication.ViewModels.ItemCategoryVM
+
+@{
+    ViewBag.Title = "ItemCategoryDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
+<div class="col-md-8">
+    <h2>ItemCategoryDetail</h2>
+
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ItemCategoryName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ItemCategoryName)
+            </dd>
+        </dl>
+    </div>
+    @if (Model.allItemsInCategory.Count() > 0)
+    {
+    <table class="table">
+        <tr>
+            <th>Item Name</th>
+            <th>Item Description</th>
+        </tr>
+
+        @foreach (var item in Model.allItemsInCategory)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemDescription)
+                </td>
+            </tr>
+        }
+    </table>
+    }
+    else {
+        <p class="text-danger">No items in this category</p>
+    }
+    <p>
+        @Html.ActionLink("Edit", "EditItemCategory", new { id = Model.ItemCategoryID }) |
+        @Html.ActionLink("Back to List", "ItemCategoryManagement", "Item")
+</div>

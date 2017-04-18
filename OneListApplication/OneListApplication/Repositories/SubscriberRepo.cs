@@ -40,27 +40,36 @@ namespace OneListApplication.Repositories
             OneListEntitiesCore db = new OneListEntitiesCore();
             SuscriberGroup groupToBeUpdated = db.SuscriberGroups
                                             .Where(s => 
-                                                s.SuscriberGroupID == subscriberGroupId &&
-                                                s.UserID == publisherID
+                                                s.SuscriberGroupID == subscriberGroupId
                                             ).FirstOrDefault();
             int numOfSubscribers = db.SuscriberGroupUsers
                                             .Where(s =>
                                                 s.SuscriberGroupID == subscriberGroupId
                                             ).Count();
+            int numOfLists = db.ListUsers
+                             .Where(l => l.SuscriberGroupID == subscriberGroupId)
+                             .Count();
+
             if (numOfSubscribers > 0)
             {
                 errMsg = "Group has subscribers and cannot be deleted";
             }
             else {
-                if (groupToBeUpdated != null)
+                if (numOfLists > 0)
                 {
-                    db.SuscriberGroups.Remove(groupToBeUpdated);
-                    db.SaveChanges();
-                    errMsg = "Group Deleted";
+                    errMsg = "Group could not be deleted because it's used in lists.";
                 }
-                else
-                {
-                    errMsg = "Group could not be deleted.";
+                else {
+                    if (groupToBeUpdated != null)
+                    {
+                        db.SuscriberGroups.Remove(groupToBeUpdated);
+                        db.SaveChanges();
+                        errMsg = "Group Deleted";
+                    }
+                    else
+                    {
+                        errMsg = "Group could not be deleted.";
+                    }
                 }
             }
         }
@@ -137,8 +146,8 @@ namespace OneListApplication.Repositories
                                                 UserID = x.UserID,
                                                 ListUserStatus = x.ListUserStatus,
                                                 UserTypeID = x.UserTypeID,
-                                                Email = x.User.Email
-                                                //TO DO, add UserTypeName from table, fix table, fix partialview
+                                                Email = x.User.Email,
+                                                FullName = x.User.FirstName + " " + x.User.LastName
                                     }));
             return groupUserList;
         }

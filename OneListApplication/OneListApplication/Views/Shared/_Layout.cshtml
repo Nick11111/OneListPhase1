@@ -13,6 +13,7 @@
     <!-- Morris Charts CSS -->
     <link href="~/Css/morris.css" rel="stylesheet" />
     <link href="~/Css/item.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Rubik" rel="stylesheet">
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
@@ -79,7 +80,16 @@
                     }
                     @{if (Request.IsAuthenticated)
                         {
-                            <li class="profile-icon"><a href="@Url.Action("Index", "Profile")"><span id="username">Hi, @Html.Raw(User.Identity.Name)</span></a></li>
+                            <li class="profile-icon">
+                                <a href="@Url.Action("Index", "Profile")">
+                                    <span class="hidden-sm hidden-xs"id="username">
+                                        Hi, @Html.Raw(User.Identity.Name)
+                                    </span>
+                                    <span class="visible-sm visible-xs">
+                                        My Profile
+                                    </span>
+                                </a>
+                            </li>
                             <li>@Html.ActionLink("Log Out", "Logout", "Home")</li>
                         }
                     }
@@ -92,6 +102,7 @@
         @RenderBody()
     </div>
     <footer>
+        <p>Created by:Xavier Mercado, Nick Liu and Max Wu</p>
         <p>&copy; @DateTime.Now.Year - All Rights Reserved OneList</p>
     </footer>
 </body>

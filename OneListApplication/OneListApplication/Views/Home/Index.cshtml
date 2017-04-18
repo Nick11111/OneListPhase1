@@ -5,29 +5,33 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="jumbotron">
+<div class="project-description">
     <div>
         <h1>Welcome to the OneList!</h1>
         <h4>Check Out Our<a href="~/Home/GetDesignDocument"> Design Document</a></h4>
     </div>
-    <p>Your ultimate solution to organize daily tasks, OneList can help increase efficency, register today for free.</p>
-    <table>
-        <tr>
-            <th>User Role</th>
-            <th>Username</th>
-            <th>Password</th>
-        </tr>
-        <tr>
-            <td>Admin</td>
-            <td>Max</td>
-            <td>111111</td>
-        </tr>
-        <tr>
-            <td>User</td>
-            <td>user</td>
-            <td>111111</td>
-        </tr>
+    <p>Task Managment web application built to help you organize daily tasks, increase efficency with OneList today.</p>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>User Role</th>
+                <th>Username</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Admin</td>
+                <td>Max</td>
+                <td>111111</td>
+            </tr>
+            <tr>
+                <td>User</td>
+                <td>user</td>
+                <td>111111</td>
+            </tr>
+        </tbody>
     </table>
-    <p><a class="btn btn-primary btn-lg" href="@Url.Action("Register", "Home")" role="button">Register Now</a></p>
-    <p class="text-success">Latest Build - @ViewBag.date</p>
+    <p><a class="btn btn-bk btn-lg" href="@Url.Action("Register", "Home")" role="button">Register Now</a></p>
+    <p class="text-red">Latest Build - @ViewBag.date</p>
 </div>

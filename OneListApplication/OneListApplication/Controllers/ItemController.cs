@@ -22,6 +22,7 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemManagement()
         {
+            ViewBag.ItemActionMsg = TempData["ItemActionMsg"];
             string userId = FindUserID();
             ItemRepo itemRepo = new ItemRepo();
             IEnumerable<ItemVM> items = itemRepo.GetAll(userId);
@@ -53,12 +54,12 @@ namespace OneListApplication.Controllers
             {
                 ItemRepo itemRepo = new ItemRepo();
                 itemRepo.CreateItem(item, out errMsg);
-                ViewBag.ErrorMsg = errMsg;
+                TempData["ItemActionMsg"] = errMsg;
                 return RedirectToAction("ItemManagement");
             }
             else
             {
-                ViewBag.ErrorMsg = "Cannot add item.";
+                TempData["ItemCategoryActionMsg"] = "Cannot add item.";
             }
             return View();
         }
@@ -110,6 +111,7 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemCategoryManagement()
         {
+            ViewBag.ItemCategoryActionMsg = TempData["ItemCategoryActionMsg"];
             string userId = FindUserID();
             ItemRepo itemRepo = new ItemRepo();
             IEnumerable<ItemCategoryVM> items = itemRepo.GetItemCategories(userId);
@@ -131,23 +133,53 @@ namespace OneListApplication.Controllers
             }
             else
             {
-                ViewBag.ErrorMsg = "Cannot add Item Category.";
+                TempData["ItemCategoryActionMsg"] = "Cannot add Item Category.";
+            }
+            return RedirectToAction("ItemCategoryManagement");
+        }
+
+        [HttpGet]
+        public ActionResult ItemCategoryDetail(int id)
+        {
+            ItemRepo itemRepo = new ItemRepo();
+            return View(itemRepo.GetCategoryDetails(id));
+        }
+
+        [HttpGet]
+        public ActionResult EditItemCategory(int id)
+        {
+            ItemRepo itemRepo = new ItemRepo();
+            ItemCategoryVM itemCategory = itemRepo.GetCategoryDetails(id);
+            return View(itemCategory);
+        }
+
+        [HttpPost]
+        public ActionResult EditItemCategory(ItemCategoryVM itemCategory)
+        {
+            bool CategoryUpdated;
+            if (ModelState.IsValid)
+            {
+                ItemRepo itemRepo = new ItemRepo();
+                CategoryUpdated = itemRepo.UpdateItemCategory(itemCategory);
+                if (CategoryUpdated)
+                {
+                    return RedirectToAction("ItemCategoryDetail", new { id = itemCategory.ItemCategoryID });
+                }
+                else
+                {
+                    ViewBag.ErrorMsg = "Updated item category failed";
+                }
             }
             return View();
         }
-        [HttpGet]
-        public ActionResult ItemCategoryDetail()
-        {
-            return View();
-        }
-        //TO DO: create post action for editItemCategory()
-        //[HttpGet]
-        //public ActionResult EditItemCategory() {
-        //}
-
-        //[HttpPost]
-        //public ActionResult EditItemCategory() {
-        //}
         //TO DO: delete category --- how to delete if some items belong to this category
+        [HttpGet]
+        public ActionResult DeleteItemCategory(int id) {
+            string errMsg = "";
+            ItemRepo itemRepo = new ItemRepo();
+            itemRepo.DeleteItemCategory(id, out errMsg);
+            TempData["ItemCategoryActionMsg"] = errMsg;
+            return RedirectToAction("ItemCategoryManagement");
+        }
     }
 }
