@@ -11,6 +11,7 @@ namespace OneListApplication.ViewModels
     {
         [Key]
         public int ItemCategoryID { get; set; }
+        [Required]
         [DisplayName("Item Category Name")]
         public string ItemCategoryName { get; set; }
 

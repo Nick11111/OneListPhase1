@@ -4,58 +4,56 @@
     ViewBag.Title = "EditItem";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
+<div class="col-md-8 col-sm-12">
+    <h2>EditItem</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<main>
-    @Html.Partial("~/Views/Item/_ItemPageTopNav.cshtml")
-    <div class="col-md-8 col-sm-12">
-        <h2>EditItem</h2>
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ItemID)
 
-            <div class="form-horizontal">
-                <h4>ItemVM</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.ItemID)
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
-                    </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserID, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserID, "", new { @class = "text-danger" })
                 </div>
+            </div>*@
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ItemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.ItemDescription, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.ItemCategory, ViewBag.Categories as SelectList)
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Save" class="btn btn-bk" />
-                    </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ItemName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = "text-danger" })
                 </div>
             </div>
-        }
-    </div>
-</main>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ItemDescription, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ItemDescription, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ItemCategory, ViewBag.Categories as SelectList)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-bk" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

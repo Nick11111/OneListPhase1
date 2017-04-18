@@ -13,7 +13,7 @@ namespace OneListApplication.ViewModels
  
         [Key]
         public int SubscriberGroupUserID { get; set; }
-
+        
         public int SubscriberGroupID { get; set; }
 
         public string UserID { get; set; }
