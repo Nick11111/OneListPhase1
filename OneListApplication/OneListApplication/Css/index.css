@@ -72,6 +72,11 @@ input {
     margin-bottom: 20px;
 }
 
+pre {
+    padding: 0;
+    padding: 10px 20px !important;
+}
+
 /*  footer */
 footer {
     margin-top: 30px;
