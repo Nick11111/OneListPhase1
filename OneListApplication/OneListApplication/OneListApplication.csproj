@@ -469,6 +469,7 @@
     <Content Include="Views\Item\EditItemCategory.cshtml" />
     <Content Include="Views\Item\ItemCategoryDetail.cshtml" />
     <Content Include="Views\Home\APIDocument.cshtml" />
+    <Content Include="Views\List\ShowAllList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

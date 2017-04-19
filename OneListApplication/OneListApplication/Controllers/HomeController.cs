@@ -499,7 +499,10 @@ namespace OneListApplication.Controllers
     public ActionResult Home()
         {
             ViewBag.UserName = User.Identity.Name;
-            return View();
+            ListRepo r = new ListRepo();
+            IEnumerable<ListViewVM> listsummary = r.GetLists(FindUserID());
+
+            return View(listsummary);
         }
         public string FindUserID()
         {

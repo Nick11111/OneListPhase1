@@ -192,6 +192,14 @@ namespace OneListApplication.Controllers
         {
             return View();
         }
+        public ActionResult ShowAllList()
+        {
+            string UserID = FindUserID();
+            ListRepo r = new ListRepo();
+            IEnumerable<ListViewVM> listsummary = r.GetLists(UserID);
+
+            return View(listsummary);
+        }
 
     }
 }
