@@ -15,50 +15,54 @@
         @Html.Raw(ViewBag.ActionMsg)
     </p>
     <table class="table table-collapse">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ListName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SuscriberGroup)
-            </th>
-
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ListName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ListType)
-                </td>
-                <td>
-                    <ul id="suscribers">
-                        @foreach (var groups in item.SuscriberGroup)
-                        {
-                            <li>@groups.SuscriberGroupName</li>
-                        }
-                    </ul>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SuscriberGroup)
+                </th>
 
-                <td>
-                    @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
-                    <a class="btn btn-danger" href="@Url.Action("DeleteList","List",  new { id = item.ListID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                </td>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
 
-    </table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Name">
+                        @Html.DisplayFor(modelItem => item.ListName)
+                    </td>
+                    <td data-title="Date">
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td data-title="Type">
+                        @Html.DisplayFor(modelItem => item.ListType)
+                    </td>
+                    <td data-title="Suscribers">
+                        <ul id="suscribers">
+                            @foreach (var groups in item.SuscriberGroup)
+                            {
+                                <li>@groups.SuscriberGroupName</li>
+                            }
+                        </ul>
+                    </td>
+
+                    <td data-title="Actions">
+                        @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
+                        <a class="btn btn-danger" href="@Url.Action("DeleteList","List",  new { id = item.ListID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+</table>
 </div>

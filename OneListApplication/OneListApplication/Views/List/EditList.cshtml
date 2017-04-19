@@ -6,7 +6,13 @@
 }
 
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
-<div class="col-md-10">
+<div class="col-md-8">
+    <p class="text-danger">
+        @Html.Raw(ViewBag.ErrorMsg)
+    </p>
+    <p class="text-info">
+        @Html.Raw(ViewBag.ActionMsg)
+    </p>
     <h2>Edit List</h2>
 
 
@@ -17,7 +23,7 @@
         <div class="form-horizontal">
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+                    <input type="hidden" value="@Model.ListID"/>
          
                     <div class="col-md-6">
                     @Html.LabelFor(model => model.ListName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -43,12 +49,12 @@
                     @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
                     </div>
-           
+           <h3 style="float:left; width:100%; text-align: center; ">Tasks on List</h3>
             <div class="form-group row">
-                <table class="table">
+                <table id="tableitems" class="table">
                     <thead class="thead-inverse">
                         <tr>
-                            <th></th>
+                            <th>Done</th>
                             <th>List Item</th>
                             <th>Price</th>
                             <th>Notes</th>
@@ -59,34 +65,62 @@
                     <tbody>
                         @foreach (var item in Model.items)
                         {
-                            <tr>
-                                <td><input type="checkbox" value="@item.ListItemSolved"></td>
+                          
+                            <tr id="@item.ItemID">
+                                <td ><input id="solved" type="checkbox" value="@item.ListItemSolved" checked="@item.ListItemSolved"/></td>
                                 <td>@item.listItemName</td>
-                                <td><input value="@item.ListItemCost" /></td>
-                                <td><input value="@item.ListItemNotes" /></td>
-                                <td><input value="@item.ListItemSolverName" /></td>
+                                @if (Model.ListType == "groseries")
+                                {
+                                    <td><input id="cost" @item.ItemID type="text" value="@item.ListItemCost" /></td>
+                                }
+                                else
+                                {
+                                    <td hidden="hidden"><input id="cost" @item.ItemID type="text" value="@item.ListItemCost" /></td>
+                                }
+                                <td><input id="notes" @item.ItemID type="text" value="@item.ListItemNotes" /></td>
+                                <td>@item.ListItemSolverName</td> 
                                 <td>
-                                    <a class="btn btn-danger"><em class="fa fa-trash"></em></a>
-                                    
+                                  @if (Model.UserType == 0 || Model.UserType ==2)
+                                  {
+                                    <a class="btn btn-info" onclick="removeRow(@item.ItemID,@item.ListID)"><i class="fa fa-check-circle-o" aria-hidden="true"></i></a>
+                                   
+                                  }
+                                  @if (Model.UserType == 0)
+                                  {
+                                    <a class="btn btn-danger" href="@Url.Action("DeleteItemList", "List", new { itemID = item.ItemID, id = Model.ListID })"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+
+                                  }
+
                                 </td>
                             </tr>
                         }
                         
                     </tbody>
                 </table>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
-                </div>
-            </div>
+            </div> 
         </div>
+      
     }
 
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
   </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        //function to remove row from table
+        function removeRow(id,listID)
+        {
+            var $row = $("#"+id).closest("tr"),        // Finds the closest row <tr> 
+            $tds = $row.find("td:nth-child(1)"); // Finds the 2nd <td> element
+            //check value in row
+            $tx=$("#"+id).closest('tr').find('input:checkbox');
+            alert($tx[0].checked);
+            //get values for cost
+            $txc=$("#"+id).closest('tr').find('input:text');
+            alert($txc[0].value);
+            alert($txc[1].value);
+            $.get("/List/UpdateItemList", {id:listID,itemID:parseInt(id),solved:$tx[0].checked,cost:$txc[0].value,notes:$txc[1].value}, function (data) {  
+                alert(data);  
+            });
+        }
+    </script>
