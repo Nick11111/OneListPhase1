@@ -6,7 +6,7 @@
 }
 
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
-<div class="col-md-8">
+<div class="col-md-8 col-sm-12">
     <h2>List Management</h2>
     <p class="text-danger">
         @Html.Raw(ViewBag.ErrorMsg)
@@ -57,7 +57,7 @@
                     </td>
 
                     <td data-title="Actions">
-                        @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
                         <a class="btn btn-danger" href="@Url.Action("DeleteList","List",  new { id = item.ListID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     </td>
                 </tr>

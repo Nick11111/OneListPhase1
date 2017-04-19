@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
-<div class="col-md-10">
+<div class="col-md-8 col-sm-12">
     <h2>Completed Lists</h2>
     <table class="table">
         <thead class="thead-inverse">
@@ -40,5 +40,5 @@
             </tr>
         </tbody>
     </table>
-    @Html.ActionLink("Back to Lists", "ListManagement", "Home", new { @class = "btn btn-primary" }, null)
+    @Html.ActionLink("Back to Lists", "ListManagement", "Home", new { @class = "btn btn-bk" }, null)
 </div>
