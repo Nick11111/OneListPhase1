@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "GetDesignDocument";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <section>
+        <h2>OneList Coupon API</h2>
+        <p>
+            Our coupon API is specifically designed to display promotions for local business.
+        </p>
+        <p>
+            A maximum of 20 coupons are display daily to help our users to make better decisions.
+        </p>
+    </section>
+    <section>
+        <h2>Implementation</h2>
+        <p>Easy implementation, minimum learning required. Follow the steps listed below:</p>
+        <ol>
+            <li>Be sure to include only valid coupons</li>
+            <li>Add/Update/Delete coupons using JavaScript code sample below</li>
+            <li>
+                Use PostMan to check results
+                http://takethisapart.com/onelist/api/coupons
+            </li>
+        </ol>
+    </section>
+    <section>
+        <h2>Add Coupon</h2>
+        <pre>
+        <code>            
+var service = &quot;http://takethisapart.com/onelist/api/coupons&quot;;
+function getCoupons() {
+    $(&quot;#coupons&quot;).replaceWith(&quot;&lt;span id=&apos;value1&apos;&gt;&lt;/span&gt;&quot;);
+    var method = $(&apos;#method&apos;).val();
+    $.ajax({
+        type: method,
+        url: serviceUrl
+    }).done(function (data) {
+        data.forEach(function (val) {
+            callback(val)
+        });
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        $(&apos;#value1&apos;).text(jqXHR.responseText || textStatus);
+    });
+}
+function callback(val) {
+    //  $(&quot;#manufacturers&quot;).replaceWith(&quot;&lt;span id=&apos;value1&apos;&gt;(Result)&lt;/span&gt;&quot;);
+    $(&quot;#value1&quot;).replaceWith(&quot;&lt;ul id=&apos;coupons&apos; /&gt;&quot;);
+    var couponID = val.CouponID;
+    $(&apos;&lt;div id=&quot;cup&apos;+couponID+&apos;&quot; /&gt;&apos;).appendTo($(&apos;#coupons&apos;));
+    var str = &quot;Title3: &lt;br&gt;&quot; + val.Title + &quot;&lt;/br&gt; Description: &quot; + val.Description + &quot; Discount Percentage: &quot; + val.DiscountPercentage + &quot; Start Date: &quot; + val.StartDate + &quot; Ending Date: &quot; + val.EndingDate;
+    var Title=val.Title;
+    var Description=val.Description;
+    var discount=val.DiscountPercentage;
+    var initialDate = val.StartDate;
+    var i = new Date(initialDate);
+    var begintring = &quot;Starting Date: &quot;+ i.getDate() + &quot;-&quot; + (i.getMonth() + 1) + &quot;-&quot; + i.getFullYear();
+    var expireDate = val.EndingDate;
+    var d = new Date(expireDate);
+    var datestring = &quot;Ending Date: &quot; + d.getDate() + &quot;-&quot; + (d.getMonth() + 1) + &quot;-&quot; + d.getFullYear();
+    $(&apos;&lt;b /&gt;&apos;, { text: Title }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    $(&apos;&lt;p /&gt;&apos;, { text: Description }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    $(&apos;&lt;p /&gt;&apos;, { text: begintring }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    $(&apos;&lt;p /&gt;&apos;, { text: datestring }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    $(&apos;&lt;hr /&gt;&apos;).appendTo($(&apos;#coupons&apos;));
+}
+        </code>
+      </pre>
+    </section>
+    <section>
+        <h2>Update Coupon</h2>
+        <pre>
+        <code>
+function update() {
+    jQuery.support.cors = true;
+    var coupon = {
+            CouponID: $(&apos;#txtUp_CouponID&apos;).val(),
+            Title: $(&apos;#txtUp_Title&apos;).val(),
+            Description: $(&apos;#txtUp_Description&apos;).val(),
+            DiscountPercentage: $(&apos;#txtUp_DiscountPercentage&apos;).val(),
+            RetailID: $(&apos;#txtUp_RetailID&apos;).val(),
+            StartDate: $(&apos;#txtUp_StartDate&apos;).val(),
+            EndingDate: $(&apos;#txtUp_EndingDate&apos;).val()
+    };
+    var cr = JSON.stringify(coupon);
+    $.ajax({
+        url: serviceUrl + &quot;/&quot; + $(&apos;#txtUp_CouponID&apos;).val(),
+        type: &apos;PUT&apos;,
+        data: JSON.stringify(coupon),
+        contentType: &quot;application/json;charset=utf-8&quot;,
+        success: function (data) {
+            $(&apos;#couponUpdate&apos;)
+            .text(&apos;The update was successful.&apos;);
+            updateList();
+        },
+        error: function (_httpRequest, _status, _httpError) {
+            $(&apos;#coupUpdate&apos;)
+            .text(&apos;Error while updating coupon.  XMLHttpRequest:&apos;
+            + _httpRequest + &apos;  Status: &apos; + _status + &apos;  Http Error: &apos;
+            + _httpError);
+        }
+    });
+}
+        </code>
+        </pre>
+    </section>
+    <section>
+        <h2>Delete Coupon</h2>
+        <pre>
+        <code>
+function del() {
+    var id = $(&apos;#txtDelete_CouponID&apos;).val();
+    $.ajax({
+        url: serviceUrl + &quot;/&quot; + id,
+        type: &apos;DELETE&apos;,
+        dataType: &apos;json&apos;,
+        success: function (data) {
+            $(&apos;#couponDelete&apos;).text(&apos;Delete successful.&apos;);
+            updateList();
+        }
+    }).fail(
+        function (jqueryHeaderRequest, textStatus, err) {
+            $(&apos;#couponDelete&apos;).text(&apos;Delete error: &apos; + err);
+        });
+}
+        </code>
+        </pre>
+    </section>
+
+
+</main>

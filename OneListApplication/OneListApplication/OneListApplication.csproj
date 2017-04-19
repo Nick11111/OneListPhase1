@@ -190,7 +190,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Master SQL\MasterSQLOneListCA.sql" />
-    <Content Include="App_Data\Select SQL\Select.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -414,15 +413,12 @@
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\ChangePassword.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Item\old\CreateItemGroup.cshtml" />
-    <Content Include="Views\Item\old\ItemGroupManagement.cshtml" />
     <Content Include="Views\Item\ItemManagement.cshtml" />
     <Content Include="Views\List\CreateList.cshtml" />
     <Content Include="Views\List\ShowCompleteList.cshtml" />
     <Content Include="Views\List\ShowListDetails.cshtml" />
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
-    <Content Include="Views\Item\old\ItemGroupDetail.cshtml" />
     <Content Include="Views\List\EditList.cshtml" />
     <Content Include="Views\Admin\_SidebarAdmin.cshtml" />
     <EntityDeploy Include="Model1.edmx">
@@ -454,7 +450,6 @@
     <Content Include="Views\Home\AddRole.cshtml" />
     <Content Include="Views\Home\AddUserToRole.cshtml" />
     <Content Include="Views\Item\CreateItem.cshtml" />
-    <Content Include="Views\Item\old\EditItem.cshtml" />
     <Content Include="Views\Item\EditItem.cshtml" />
     <Content Include="Views\Item\_ItemPageTopNav.cshtml" />
     <Content Include="Views\List\_ListSideBar.cshtml" />
@@ -473,6 +468,7 @@
     <Content Include="Views\Home\UnbanUser.cshtml" />
     <Content Include="Views\Item\EditItemCategory.cshtml" />
     <Content Include="Views\Item\ItemCategoryDetail.cshtml" />
+    <Content Include="Views\Home\APIDocument.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

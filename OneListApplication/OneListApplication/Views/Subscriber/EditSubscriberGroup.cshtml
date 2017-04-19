@@ -39,6 +39,7 @@
             <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.SubscriberGroupID)
+                @Html.HiddenFor(model => model.SubscriberGroupName)
                 <div class="form-group">
                     <label class="control-label col-md-2">Add Users to Group</label>
                     <div class="col-md-10">
