@@ -68,6 +68,10 @@ input {
     color:orangered;
 }
 
+.form-horizontal h3 {
+    margin-bottom: 20px;
+}
+
 /*  footer */
 footer {
     margin-top: 30px;
@@ -97,6 +101,14 @@ footer {
     color: slategray;
     padding: 15px;
     border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.coupon-form {
+    display:block;
+    border-radius: 15px !important;
+    outline: 1px solid grey;
+    padding:15px;
     margin-bottom: 15px;
 }
 
