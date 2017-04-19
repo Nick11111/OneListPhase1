@@ -43,6 +43,28 @@ namespace OneListApplication.Repositories
          
             return true;
         }
+        public bool updateItemList(string userID,int itemId, int id, bool solved, decimal cost, string notes)
+        {
+            try
+            {
+                //items, users and then list
+                OneListEntitiesCore db = new OneListEntitiesCore();
+                //1.- first delete items.
+                ListItem l = db.ListItems.Where(d => d.ItemID == itemId && d.ListID == id).Select(g => g).First();
+                l.ListItemSolved = solved;
+                l.ListItemCost = cost;
+                l.ListItemNotes = notes;
+                l.ListItemSolver = userID;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
         public IEnumerable<ListViewVM> GetLists(string UserID)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
@@ -276,7 +298,23 @@ namespace OneListApplication.Repositories
 
             return ListReturn;
         }
+        public bool deleteItemList(int itemID, int listID)
+        {
+            try
+            {
+                OneListEntitiesCore db = new OneListEntitiesCore();
+                ListItem l = db.ListItems.Where(p => p.ItemID == itemID && p.ListID == listID).Select(r => r).First();
+                db.ListItems.Remove(l);
+                db.SaveChanges();
+                return true;
 
+            }
+            catch 
+            {
+                return false;
+            }
+           
+        }
         public bool CreateList(ListVM list)
         {
             try

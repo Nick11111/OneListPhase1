@@ -6,14 +6,15 @@
 }
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
 
-<h2>Create List</h2>
-<p class="text-danger">
-    @Html.Raw(ViewBag.ErrorMsg)
-</p>
-<p class="text-info">
-    @Html.Raw(ViewBag.ActionMsg)
-</p>
-<div class="col-md-10">
+
+<div class="col-md-8">
+    <h2>Create List</h2>
+    <p class="text-danger">
+        @Html.Raw(ViewBag.ErrorMsg)
+    </p>
+    <p class="text-info">
+        @Html.Raw(ViewBag.ActionMsg)
+    </p>
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -68,10 +69,6 @@
             </div>
         </div>
     }
-
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
 </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>

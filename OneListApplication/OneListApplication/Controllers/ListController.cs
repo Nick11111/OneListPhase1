@@ -83,7 +83,52 @@ namespace OneListApplication.Controllers
             ListVM cleanList = repw.CreateList(userID);
             return View(cleanList);
         }
+        [HttpPost]
+        public ActionResult EditList(ListViewVM formCollection)
+        {
+            return View();
+        }
 
+        public ActionResult UpdateItemList(int itemId, int id, string solved, string notes, string cost)
+        {
+            string userID = FindUserID();
+            ListRepo repw = new ListRepo();
+            bool solveoption = false;
+            decimal valueCost = 0;
+            if (solved == "true")
+            {
+                solveoption = true;
+            }
+            try
+            {
+               valueCost  = decimal.Parse(cost);
+            }
+            catch
+            {
+                valueCost = 0;
+            }
+
+            if (repw.updateItemList(userID,itemId, id, solveoption, valueCost, notes))
+            {
+                ViewBag.ActionMsg = "Task  Deleted from List Successfully.";
+            }
+            else
+            {
+                ViewBag.DeleteMsg = "Error deleting Task from List";
+            }
+
+            return RedirectToAction("EditList", new { id = id });
+        }
+        public ActionResult DeleteItemList(int itemId, int id)
+        {
+            ListRepo repw = new ListRepo();
+            if (repw.deleteItemList(itemId, id))
+            {
+                ViewBag.ActionMsg = "Task  Deleted from List Successfully.";
+            }
+
+            return RedirectToAction("EditList", new { id = id });
+        }
         public ActionResult EditList(int id)
         {
             //send the information to get the list and the user type
