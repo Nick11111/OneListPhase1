@@ -273,15 +273,25 @@ namespace OneListApplication.Controllers
         [Authorize(Roles = "Administrator")]
         public ActionResult AddUserToRole(UserRoleVM userRoleVM)
         {
+            var userStore = new UserStore<IdentityUser>();
+            UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
             if (ModelState.IsValid)
             {
                 OneListCAEntities context = new OneListCAEntities();
                 AspNetUser user = context.AspNetUsers
                                     .Where(u => u.Email == userRoleVM.Email).FirstOrDefault();
-                AspNetRole role = context.AspNetRoles
-                                    .Where(r => r.Name == userRoleVM.RoleName).FirstOrDefault();
+                if (userRoleVM.RoleName == "Administrator")
+                {
+                    manager.RemoveFromRole(user.Id, "User");
+                    manager.AddToRole(user.Id, userRoleVM.RoleName);
+                }
+                else if (userRoleVM.RoleName == "User")
+                {
+                    manager.RemoveFromRole(user.Id, "Administrator");
+                    manager.AddToRole(user.Id, userRoleVM.RoleName);
+                }
 
-                user.AspNetRoles.Add(role);
+                //user.AspNetRoles.Add(role);
                 context.SaveChanges();
             }
             return View();
@@ -397,14 +407,6 @@ namespace OneListApplication.Controllers
             }
             return View();
         }
-
-        //[Authorize(Roles = "Administrator")]
-        // To allow more than one role access use syntax like the following:
-        // [Authorize(Roles="Admin, Staff")]
-        //public ActionResult AdminOnly()
-        //{
-        //    return View();
-        //}
 
         public ActionResult Logout()
         {

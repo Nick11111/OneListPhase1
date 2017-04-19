@@ -5,35 +5,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<main>
+    @using (Html.BeginForm("BanUser", "Home", new { ReturnUrl = ViewBag.ReturnUrl },
+                                                        FormMethod.Post, new { @class = "col-lg-4 col-lg-offset-4" }))
+    {
+        @Html.AntiForgeryToken()
 
-@using (Html.BeginForm("BanUser", "Home", new { ReturnUrl = ViewBag.ReturnUrl },
-                                                FormMethod.Post, new { @class = "col-lg-4 col-lg-offset-4" }))
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal text-center form-signin">
-        <h3>Ban User</h3>
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "User Email" } })
-            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary" type="submit">Ban</button><br />
-            @{
-                if (ViewBag.Fail != null)
-                {
-                    <div class="text-danger">
-                        @Html.Raw(ViewBag.Fail)
-                    </div>
+        <div class="form-horizontal text-center form-signin">
+            <h3>Ban User</h3>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "User Email" } })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                <button class="btn btn-bk btn-full-size" type="submit">Ban</button><br />
+                @{
+                    if (ViewBag.Fail != null)
+                    {
+                        <div class="text-danger">
+                            @Html.Raw(ViewBag.Fail)
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-success">
+                            @Html.Raw(ViewBag.Success)
+                        </div>
+                    }
                 }
-                else
-                {
-                    <div class="text-success">
-                        @Html.Raw(ViewBag.Success)
-                    </div>
-                }
-            }
+            </div>
         </div>
-    </div>
-   }
+                    }
+</main>

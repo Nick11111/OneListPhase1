@@ -57,9 +57,9 @@ namespace OneListApplication.Controllers
 
                 NewList.CreatorID = FindUserID();
                 NewList.CreationDate = DateTime.Now;
-                if (NewList.ListName.Length < 2)
+                if (NewList.ListName.Length < 1)
                 {
-                    ViewBag.InputErrorMsg = "List name must be at least 2 characters.";
+                    ViewBag.InputErrorMsg = "List name is required.";
                 }
                 else {
                     bool resp = rep.CreateList(NewList);
