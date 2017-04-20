@@ -74,7 +74,7 @@ namespace OneListApplication.Controllers
 
                 NewList.CreatorID = userID;
                 NewList.CreationDate = DateTime.Now;
-                if (NewList.ListName.Length < 1)
+                if (NewList.ListName.Trim().Length < 1)
                 {
                     ViewBag.InputErrorMsg = "List name is required.";
                     return View(rep.CreateList(userID));

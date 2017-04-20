@@ -17,17 +17,17 @@ namespace OneListApplication.Service
             MailMessage mailMsg = new MailMessage();
 
             // To
-            mailMsg.To.Add(new MailAddress(userInfo.Email, "Hi " + userInfo.UserName));
+            mailMsg.To.Add(new MailAddress(userInfo.Email));
 
             // From
-            mailMsg.From = new MailAddress("rainl@sfu.ca", "Nick");
+            mailMsg.From = new MailAddress("support@OneList.com", "noreply");
 
             // Subject and multipart/alternative Body
             mailMsg.Subject = "Email Confirmation";
             string text = "A message from OneList";
             //string html = @"<p>Please confirm your account by clicking this link: < a href =\""
             //                      + comfirmLink + "\">Confirm Registration</a></p>";
-            string body = "<p>Please confirm your account by clicking this link: < a href =\""
+            string body = "<p>Thank you for using OneList! Please confirm your account by clicking this link: < a href ="
                               + confirmLink + "\"></a></p>";
             mailMsg.AlternateViews.Add(
                     AlternateView.CreateAlternateViewFromString(text,
