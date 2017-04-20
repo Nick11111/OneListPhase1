@@ -47,10 +47,11 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult CreateList(FormCollection formCollection)
         {
+            string userID = FindUserID();
+            ListRepo rep = new ListRepo();
+            ListVM NewList = new ListVM();
             if (ModelState.IsValid)
             {
-                ListRepo rep = new ListRepo();
-                ListVM NewList = new ListVM();
                 foreach (string key in formCollection.AllKeys)
                 {
                     switch (key)
@@ -71,11 +72,12 @@ namespace OneListApplication.Controllers
 
                 }
 
-                NewList.CreatorID = FindUserID();
+                NewList.CreatorID = userID;
                 NewList.CreationDate = DateTime.Now;
                 if (NewList.ListName.Length < 1)
                 {
                     ViewBag.InputErrorMsg = "List name is required.";
+                    return View(rep.CreateList(userID));
                 }
                 else {
                     bool resp = rep.CreateList(NewList);
@@ -84,11 +86,13 @@ namespace OneListApplication.Controllers
                     {
                         TempData["ErrorMsg"] = "Cannot add List.";
                         ViewBag.ErrorMsg = "Cannot add List.";
+                        return View(rep.CreateList(userID));
                     }
                     else
                     {
                         TempData["ActionMsg"] = "List Added Successfully";
                         ViewBag.ActionMsg = "List Added Successfully.";
+                        return RedirectToAction("ListManagement", "Home");
                     }
                 }
             }
@@ -96,8 +100,8 @@ namespace OneListApplication.Controllers
             {
                 TempData["ErrorMsg"] = "Cannot add List.";
                 ViewBag.ErrorMsg = "Cannot add List.";
+                return View(rep.CreateList(userID));
             }
-            return RedirectToAction("ListManagement", "Home");
         }
         [HttpPost]
         public ActionResult EditList(ListViewVM formCollection)
