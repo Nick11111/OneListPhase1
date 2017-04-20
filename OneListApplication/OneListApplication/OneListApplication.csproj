@@ -265,10 +265,8 @@
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
     <Compile Include="Business Logic\CookieHelper.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CouponsController.cs" />
     <Compile Include="Controllers\DeveloperController.cs" />
-    <Compile Include="Controllers\FeedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\ListController.cs" />
@@ -412,7 +410,6 @@
     <Content Include="Views\Home\Sidebar.cshtml" />
     <Content Include="Views\Profile\Index.cshtml" />
     <Content Include="Views\Profile\ChangePassword.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Item\ItemManagement.cshtml" />
     <Content Include="Views\List\CreateList.cshtml" />
     <Content Include="Views\List\ShowCompleteList.cshtml" />
@@ -420,7 +417,6 @@
     <Content Include="Views\List\ShowSubscribedList.cshtml" />
     <Content Include="Views\Item\ItemDetail.cshtml" />
     <Content Include="Views\List\EditList.cshtml" />
-    <Content Include="Views\Admin\_SidebarAdmin.cshtml" />
     <EntityDeploy Include="Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model1.Designer.cs</LastGenOutput>
