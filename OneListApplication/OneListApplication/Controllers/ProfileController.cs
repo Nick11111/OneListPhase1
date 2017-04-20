@@ -20,29 +20,43 @@ namespace OneListApplication.Controllers
         // GET: Profile
         public ActionResult Index()
         {
-            var username = User.Identity.Name;
-            OneListEntitiesCore db = new OneListEntitiesCore();
-            User user = db.Users.Where(a => a.UserName == username).FirstOrDefault();
-            UserVM userForView = new UserVM();
-            userForView.FirstName = user.FirstName;
-            userForView.LastName = user.LastName;
-            userForView.UserName = user.UserName;
-            userForView.Email = user.Email;
-            return View(userForView);
+            if (Request.IsAuthenticated)
+            {
+                var username = User.Identity.Name;
+                OneListEntitiesCore db = new OneListEntitiesCore();
+                User user = db.Users.Where(a => a.UserName == username).FirstOrDefault();
+                UserVM userForView = new UserVM();
+                userForView.FirstName = user.FirstName;
+                userForView.LastName = user.LastName;
+                userForView.UserName = user.UserName;
+                userForView.Email = user.Email;
+                return View(userForView);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            var userStore = new UserStore<IdentityUser>();
-            UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
-            var user = manager.FindByName(User.Identity.Name);
-            CreateTokenProvider(manager, PASSWORD_RESET);
+            if (Request.IsAuthenticated)
+            {
+                var userStore = new UserStore<IdentityUser>();
+                UserManager<IdentityUser> manager = new UserManager<IdentityUser>(userStore);
+                var user = manager.FindByName(User.Identity.Name);
+                CreateTokenProvider(manager, PASSWORD_RESET);
 
-            var code = manager.GeneratePasswordResetToken(user.Id);
-            ViewBag.PasswordToken = code;
-            ViewBag.UserID = user.Id;
-            return View();
+                var code = manager.GeneratePasswordResetToken(user.Id);
+                ViewBag.PasswordToken = code;
+                ViewBag.UserID = user.Id;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpPost]
         public ActionResult ChangePassword(string currentPassword, string password, string passwordConfirm,

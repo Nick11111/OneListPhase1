@@ -87,20 +87,20 @@ namespace OneListApplication.Controllers
                     return View(rep.CreateList(userID));
                 }
                 else {
-                    bool resp = rep.CreateList(NewList);
+                    rep.CreateList(NewList);
 
-                    if (resp == false)
-                    {
-                        TempData["ErrorMsg"] = "Cannot add List.";
-                        ViewBag.ErrorMsg = "Cannot add List.";
-                        return View(rep.CreateList(userID));
-                    }
-                    else
-                    {
-                        TempData["ActionMsg"] = "List Added Successfully";
-                        ViewBag.ActionMsg = "List Added Successfully.";
-                        return RedirectToAction("ListManagement", "Home");
-                    }
+                    //if (resp == false)
+                    //{
+                    //    TempData["ErrorMsg"] = "Cannot add List.";
+                    //    ViewBag.ErrorMsg = "Cannot add List.";
+                    //    return View(rep.CreateList(userID));
+                    //}
+                    //else
+                    //{
+                    //    TempData["ActionMsg"] = "List Added Successfully";
+                    //    ViewBag.ActionMsg = "List Added Successfully.";
+                    return RedirectToAction("ListManagement", "Home");
+                    //}
                 }
             }
             else
