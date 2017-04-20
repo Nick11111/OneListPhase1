@@ -20,15 +20,15 @@ namespace OneListApplication.Service
             mailMsg.To.Add(new MailAddress(userInfo.Email, "Hi " + userInfo.UserName));
 
             // From
-            mailMsg.From = new MailAddress("rainl@sfu.ca", "Nick");
+            mailMsg.From = new MailAddress("noreply@onelist.ca", "OneList Task Management");
 
             // Subject and multipart/alternative Body
-            mailMsg.Subject = "Email Confirmation";
+            mailMsg.Subject = "Registration Email Confirmation";
             string text = "A message from OneList";
             //string html = @"<p>Please confirm your account by clicking this link: < a href =\""
             //                      + comfirmLink + "\">Confirm Registration</a></p>";
-            string body = "<p>Please confirm your account by clicking this link: < a href =\""
-                              + confirmLink + "\"></a></p>";
+            string body = "<p>Please confirm your account by clicking: <a href=\""
+                              + confirmLink + "\">here</a></p>";
             mailMsg.AlternateViews.Add(
                     AlternateView.CreateAlternateViewFromString(text,
                     null, MediaTypeNames.Text.Plain));
@@ -55,15 +55,15 @@ namespace OneListApplication.Service
             mailMsg.To.Add(new MailAddress(email, "Hi " + userName));
 
             // From
-            mailMsg.From = new MailAddress("rainl@sfu.ca", "Nick");
+            mailMsg.From = new MailAddress("noreply@onelist.ca", "OneList Task Management");
 
             // Subject and multipart/alternative Body
-            mailMsg.Subject = "Email Confirmation";
+            mailMsg.Subject = "Reset Password";
             string text = "A message from OneList";
             //string html = @"<p>Please confirm your account by clicking this link: < a href =\""
             //                      + comfirmLink + "\">Confirm Registration</a></p>";
-            string body = "<p>Please reset your account password by clicking this link: < a href =\""
-                              + confirmLink + "\"></a></p>";
+            string body = "<p>Please reset your account password by clicking: <a href=\""
+                              + confirmLink + "\">here</a></p>";
             mailMsg.AlternateViews.Add(
                     AlternateView.CreateAlternateViewFromString(text,
                     null, MediaTypeNames.Text.Plain));

@@ -31,7 +31,6 @@
             </td>
             <td>
                 @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
-                <a class="btn btn-danger" href="@Url.Action("DeleteList","List",  new { id = item.ListID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
             </td>
         </tr>
     </tbody>
