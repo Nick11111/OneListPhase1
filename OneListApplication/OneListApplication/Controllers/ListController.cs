@@ -65,7 +65,7 @@ namespace OneListApplication.Controllers
                             NewList.ItemCategoryID = int.Parse(formCollection[key]);
                             break;
                         case "SuscriberGroup":
-                            NewList.SuscribergroupID = int.Parse(formCollection[key]);
+                            NewList.SuscribergroupID = formCollection[key];
                             break;
                     }
 
@@ -82,22 +82,22 @@ namespace OneListApplication.Controllers
 
                     if (resp == false)
                     {
+                        TempData["ErrorMsg"] = "Cannot add List.";
                         ViewBag.ErrorMsg = "Cannot add List.";
                     }
                     else
                     {
+                        TempData["ActionMsg"] = "List Added Successfully";
                         ViewBag.ActionMsg = "List Added Successfully.";
                     }
                 }
             }
             else
             {
+                TempData["ErrorMsg"] = "Cannot add List.";
                 ViewBag.ErrorMsg = "Cannot add List.";
             }
-            ListRepo repw = new ListRepo();
-            string userID = FindUserID();
-            ListVM cleanList = repw.CreateList(userID);
-            return View(cleanList);
+            return RedirectToAction("ListManagement", "Home");
         }
         [HttpPost]
         public ActionResult EditList(ListViewVM formCollection)
@@ -206,7 +206,11 @@ namespace OneListApplication.Controllers
 
         public ActionResult ShowCompleteList()
         {
-            return View();
+            string UserID = FindUserID();
+            ListRepo r = new ListRepo();
+            IEnumerable<ListViewVM> listsummary = r.GetCompletedLists(UserID);
+
+            return View(listsummary);
         }
         public ActionResult ShowAllList()
         {

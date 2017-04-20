@@ -1,44 +1,67 @@
-﻿
+﻿@model IEnumerable<OneListApplication.ViewModels.ListViewVM>
+
 @{
-    ViewBag.Title = "ShowCompleteList";
+    ViewBag.Title = "Completed Lists";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
 <div class="col-md-8 col-sm-12">
     <h2>Completed Lists</h2>
-    <table class="table">
-        <thead class="thead-inverse">
+    <p class="text-danger">
+        @Html.Raw(ViewBag.ErrorMsg)
+    </p>
+    <p class="text-info">
+        @Html.Raw(ViewBag.ActionMsg)
+    </p>
+    <table class="table table-collapse">
+        <thead>
             <tr>
-                <th>#</th>
-                <th>Completed Lists</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SuscriberGroup)
+                </th>
+
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>St.Patrick's Day Party Supply</td>
-                <td>
-                    <a class="btn btn-warning"><em class="fa fa-eye"></em></a>
-                    <a class="btn btn-primary">Open</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>BCIT SSD Program Registration</td>
-                <td>
-                    <a class="btn btn-warning"><em class="fa fa-eye"></em></a>
-                    <a class="btn btn-primary">Open</a>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Set up personal website</td>
-                <td>
-                    <a class="btn btn-warning"><em class="fa fa-eye"></em></a>
-                </td>
-            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td data-title="Name">
+                        @Html.DisplayFor(modelItem => item.ListName)
+                    </td>
+                    <td data-title="Date">
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td data-title="Type">
+                        @Html.DisplayFor(modelItem => item.ListType)
+                    </td>
+                    <td data-title="Suscribers">
+                        <ul id="suscribers">
+                            @foreach (var groups in item.SuscriberGroup)
+                            {
+                                <li>@groups.SuscriberGroupName</li>
+                            }
+                        </ul>
+                    </td>
+
+                    <td data-title="Actions">
+                        @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
+                    </td>
+                </tr>
+            }
         </tbody>
+
     </table>
-    @Html.ActionLink("Back to Lists", "ListManagement", "Home", new { @class = "btn btn-bk" }, null)
 </div>
