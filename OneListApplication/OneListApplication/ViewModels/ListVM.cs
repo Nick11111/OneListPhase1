@@ -35,6 +35,6 @@ namespace OneListApplication.ViewModels
         [HiddenInput(DisplayValue = false)]
         public int ItemCategoryID { get; set; }
         [HiddenInput(DisplayValue = false)]
-        public int SuscribergroupID { get; set; }
+        public string SuscribergroupID { get; set; }
     }
 }

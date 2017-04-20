@@ -118,6 +118,38 @@ namespace OneListApplication.Repositories
 
             return ListReturn;
         }
+        public IEnumerable<ListViewVM> GetCompletedLists(string UserID)
+        {
+            OneListEntitiesCore db = new OneListEntitiesCore();
+            IEnumerable<List> lists = db.Lists.Where(l => l.CreatorID == UserID && l.ListStatusID == COMPLETED).Select(list => list);
+
+            IEnumerable<ListViewVM> ListReturn;
+            var r = new List<ListViewVM>();
+            foreach (List single in lists)
+            {
+                ListViewVM oneList = new ListViewVM();
+                oneList.CreatorID = UserID;
+                oneList.ListStatusID = single.ListStatusID;
+                oneList.ListTypeID = single.ListTypeID;
+                oneList.ListID = single.ListID;
+                oneList.CreationDate = single.CreationDate.ToShortDateString();
+                oneList.ListName = single.ListName;
+                oneList.SuscriberGroup = from groups in db.SuscriberGroups
+                                         join ListUser l in db.ListUsers
+                                             on groups.SuscriberGroupID equals l.SuscriberGroupID
+                                         join List li in db.Lists
+                                             on l.ListID equals li.ListID
+                                         where li.CreatorID == UserID
+                                         where li.ListID == oneList.ListID
+                                         select groups;
+
+                oneList.ListType = db.ListTypes.Where(lt => lt.ListTypeID == single.ListTypeID).Select(p => p).FirstOrDefault().TypeName;
+                r.Add(oneList);
+            }
+            ListReturn = (IEnumerable<ListViewVM>)r;
+
+            return ListReturn;
+        }
         public ListViewVM getList(int id, string UserID)
         {
             ListViewVM resultList = new ListViewVM();
@@ -355,13 +387,19 @@ namespace OneListApplication.Repositories
                 //then create list items and users 
                 db.SaveChanges();
                 //list users
-                ListUser Luser = new ListUser();
-                Luser.ListID = createdList.ListID;
-                Luser.SuscriberGroupID = list.SuscribergroupID;
-                Luser.SuscriptionDate = list.CreationDate.ToShortDateString();
+                string[] groups = list.SuscribergroupID.Split(',');
+                foreach (string group in groups)
+                {
+                    ListUser Luser = new ListUser();
+                    Luser.ListID = createdList.ListID;
+                    Luser.SuscriberGroupID = int.Parse(group);
+                    Luser.SuscriptionDate = list.CreationDate.ToShortDateString();
 
-                ListUser createdLuser = db.ListUsers.Add(Luser);
-                db.SaveChanges();
+                    ListUser createdLuser = db.ListUsers.Add(Luser);
+                    db.SaveChanges();
+
+                }
+
 
                 //listitems
                 IEnumerable<Item> selectedItems = db.Items

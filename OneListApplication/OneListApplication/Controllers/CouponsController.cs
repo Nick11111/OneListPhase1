@@ -23,7 +23,7 @@ namespace OneListApplication.Controllers
         public IQueryable<Coupon> GetCoupons()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return db.Coupons;
+            return db.Coupons.Where(p => p.EndingDate>= DateTime.Today).Select(p=>p);
         }
 
         // GET: api/Coupons/5
