@@ -15,28 +15,6 @@
 
     }
 </script>
-@*<script>
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-
-        var data = google.visualization.arrayToDataTable([
-          ['List Catagory', 'Number'],
-          ['Work', 11],
-          ['Family', 8],
-          ['Social', 4],
-          ['Others', 4]
-        ]);
-
-        var options = {
-            title: 'My List Status'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-
-        chart.draw(data, options);
-    }
-</script>*@
 <main>
 <div class="col-md-12">
     <div id="page-wrapper">
@@ -58,84 +36,28 @@
                         {
                             @Html.Partial("~/Views/List/ShowAllList.cshtml", Model)
                         }
+                        else {
+                            <h3>You have no lists right now</h3>
+                            @Html.ActionLink("Create new List", "CreateList", "List")
+                        }
                         <h4>To Do</h4>
                         <p>*Please get the lastest build</p>
                         <p>Xavier</p>
                         <ul>
-                            <li><a href="#">List-Edit: Should be able to edit list name</a></li>
-                            <li><a href="#">List-Edit: Should be able to edit list type</a></li>
-                            <li><a href="#">List-Edit: Should be able to edit subscriber groups</a></li>
                             <li><a href="#">API: Show Retailer on API(X)</a></li>
                             <li><a href="#">Handin: Make sure SQL document is up-to-date</a></li>
-                            <li><a href="#">Handin: Update ERD for SQL, it's been modified</a></li>
                         </ul>
                         <p>Nick</p>
                         <ul>
                             <li><a href="#">General: protect all pages when user not logged in</a></li>
                             <li><a href="#">List Validation: add validation messages for list functions</a></li>
-                            <li><a href="#">Handin: Check user functions, admin functions</a></li>
-                            <li><a href="#">Handin: Check API functions</a></li>
-                            <li><a href="#">Handin: Clean Home.cshtml</a></li>
-                            <li><a href="#">Handin: Test installation for client with documentation shared</a></li>
                         </ul>
                         <p>Max</p>
                         <ul>
-                            <li><a href="#">Handin: Formatting</a></li>
-                            <li><a href="#">Handin: Packaging</a></li>
-                            <li><a href="#">Handin: Clean Dummy data</a></li>
-                            <li><a href="#">Github: Add ReadMe on Github/Packaging guide</a></li>
+                            <li><a href="#">Handin: Documentation</a></li>
                         </ul>
                     </div>
                 </div>
-                <!-- /.row -->
-                @*<div class="row">
-                        <div class="col-lg-6">
-                            <div id="piechart" style="width: 550px; height: 500px;"></div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Activity History</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="list-group">
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">just now</span>
-                                            List status updated
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">4 minutes ago</span>
-                                            Complete a list item
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">23 minutes ago</span>
-                                            Invite people to a list
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">46 minutes ago</span>
-                                            Assign a collaborator of a list
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">1 hour ago</span>
-                                            Subscribe a new list
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">2 hours ago</span>
-                                            Become a collaborator of a list
-                                        </a>
-                                        <a href="#" class="list-group-item">
-                                            <span class="badge">yesterday</span>
-                                            Complete a list
-                                        </a>
-                                    </div>
-                                    <div class="text-right">
-                                        <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
-                <!-- /.container-fluid -->
             </div>
 
             <div id="coupon" class="col-lg-4 pre-scrollable">
