@@ -27,6 +27,22 @@ namespace OneListApplication.Controllers
             ListVM cleanList = rep.CreateList(userID);
             return View(cleanList);
         }
+        public ActionResult CompleteList(int id)
+        {
+            ListRepo rep = new ListRepo();
+            string userID = FindUserID();
+            bool cleanList = rep.CompleteList(id, userID);
+
+            if (cleanList == true)
+            {
+                ViewBag.ActionMsg = "List Added Successfully.";
+            }
+            else
+            {
+                ViewBag.ErrorMsg = "Cannot complete List.";
+            }
+            return RedirectToAction("ListManagement", "Home");
+        }
 
         [HttpPost]
         public ActionResult CreateList(FormCollection formCollection)

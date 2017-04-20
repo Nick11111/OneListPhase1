@@ -9,6 +9,8 @@ namespace OneListApplication.Repositories
 {
     public class ListRepo
     {
+        const int COMPLETED = 3;
+        const int PROCESS = 1;
         public ListVM CreateList(string UserID)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
@@ -17,6 +19,25 @@ namespace OneListApplication.Repositories
             cleanList.ItemCategory = db.ItemCategories.Where(cat => cat.UserID==UserID).Select(s => s);
             cleanList.SuscriberGroup = db.SuscriberGroups.Where( group => group.UserID==UserID).Select(s => s);
             return cleanList;
+        }
+        public bool CompleteList(int id,string userID)
+        {
+            try
+            {
+                //items, users and then list
+                OneListEntitiesCore db = new OneListEntitiesCore();
+                //1.- complete list.
+                List l = db.Lists.Where(p => p.ListID == id).Select(r => r).First();
+                //change status to complete
+                l.ListStatusID = COMPLETED;//completed
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
         public bool DeleteList(int List)
         {
@@ -68,7 +89,7 @@ namespace OneListApplication.Repositories
         public IEnumerable<ListViewVM> GetLists(string UserID)
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
-            IEnumerable<List> lists = db.Lists.Where(l => l.CreatorID == UserID).Select(list => list);
+            IEnumerable<List> lists = db.Lists.Where(l => l.CreatorID == UserID && l.ListStatusID==PROCESS).Select(list => list);
 
             IEnumerable<ListViewVM> ListReturn;
             var r = new List<ListViewVM>();
