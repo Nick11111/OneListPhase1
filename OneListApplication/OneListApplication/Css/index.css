@@ -72,6 +72,10 @@ pre {
     padding: 10px 20px !important;
 }
 
+.message-align-center {
+    text-align: center;
+}
+
 /*  footer */
 footer {
     margin-top: 30px;
