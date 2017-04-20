@@ -207,6 +207,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\ad.png" />
+    <Content Include="images\FinalERDOneList.jpg" />
     <Content Include="images\geometry2.png" />
     <Content Include="images\logo.png" />
     <Content Include="images\paul_mills.jpg" />
