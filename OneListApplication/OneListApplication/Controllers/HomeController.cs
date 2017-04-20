@@ -485,7 +485,7 @@ namespace OneListApplication.Controllers
                     }
                     else
                     {
-                        ViewBag.Result = "The password has not been reset.";
+                        ViewBag.Result = "Failed, password has to be at least 6 characters!";
                     }
                 }
 
