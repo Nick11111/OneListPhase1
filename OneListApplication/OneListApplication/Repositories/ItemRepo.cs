@@ -149,14 +149,24 @@ namespace OneListApplication.Repositories
         {
             OneListEntitiesCore db = new OneListEntitiesCore();
             Item itemToBeDeleted = db.Items.Where(a => a.ItemID == itemId).FirstOrDefault();
-            if(itemToBeDeleted != null)
+            var itemWithList = db.ListItems
+                 .Where(l => l.ItemID == itemId)
+                 .FirstOrDefault();
+            if (itemWithList != null)
             {
-                db.Items.Remove(itemToBeDeleted);
-                db.SaveChanges();
-                errMsg = "Item Deleted";
-            }else
-            {
-                errMsg = "Item could not be deleted.";
+                errMsg = "Item used in list, cannot be deleted";
+            }
+            else {
+                if (itemToBeDeleted != null)
+                {
+                    db.Items.Remove(itemToBeDeleted);
+                    db.SaveChanges();
+                    errMsg = "Item Deleted";
+                }
+                else
+                {
+                    errMsg = "Item could not be deleted.";
+                }
             }
         }
 
@@ -168,23 +178,32 @@ namespace OneListApplication.Repositories
             Item firstItemInCategory = db.Items
                                        .Where(a => a.ItemCategory == categoryID)
                                        .FirstOrDefault();
-        
-            if (itemCategoryToBeDeleted != null)
+            var itemCategoryWithList = db.ListItems
+                                 .Where(l => l.Item.ItemCategory== categoryID)
+                                 .FirstOrDefault();
+            if (itemCategoryWithList != null)
             {
-                // check if there are items in this category
-                if (firstItemInCategory != null)
-                {
-                    errMsg = "Item Category has items associated, cannot be deleted";
-                }
-                else {
-                    db.ItemCategories.Remove(itemCategoryToBeDeleted);
-                    db.SaveChanges();
-                    errMsg = "Item Category Deleted";
-                }
+                errMsg = "Item category used in list, cannot be deleted";
             }
-            else
-            {
-                errMsg = "Item Category could not be deleted.";
+            else {
+                if (itemCategoryToBeDeleted != null)
+                {
+                    // check if there are items in this category
+                    if (firstItemInCategory != null)
+                    {
+                        errMsg = "Item Category has items associated, cannot be deleted";
+                    }
+                    else
+                    {
+                        db.ItemCategories.Remove(itemCategoryToBeDeleted);
+                        db.SaveChanges();
+                        errMsg = "Item Category Deleted";
+                    }
+                }
+                else
+                {
+                    errMsg = "Item Category could not be deleted.";
+                }
             }
         }
     }

@@ -49,6 +49,7 @@ namespace OneListApplication.Controllers
             }
             return RedirectToAction("ListManagement", "Home");
         }
+     
 
         [HttpPost]
         public ActionResult CreateList(FormCollection formCollection)
@@ -110,9 +111,24 @@ namespace OneListApplication.Controllers
             }
         }
         [HttpPost]
-        public ActionResult EditList(ListViewVM formCollection)
+        public ActionResult EditList(ListViewVM view)
         {
-            return View();
+            string userID = FindUserID();
+            ListRepo rep = new ListRepo();
+            bool result = rep.UpdateListData(view.ListID, view.ListName, view.ListTypeID, view.SuscribergroupID);
+
+            if (result == true)
+            {
+                TempData["ActionMsg"] = "List Updated Successfully.";
+            }
+            else
+            {
+                TempData["ErrorMsg"] = "Couldn't udpate list.";
+
+            }
+
+
+            return RedirectToAction("EditList", new { id = view.ListID });
         }
 
         public ActionResult UpdateItemList(int itemId, int id, string solved, string notes, string cost)

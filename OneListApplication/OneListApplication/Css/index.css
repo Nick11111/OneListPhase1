@@ -31,7 +31,7 @@ img {
 .fa-refresh {
     font-size: 1.2em;
     animation-name: rotate;
-    animation-duration: 2s;
+    animation-duration: 1s;
 }
 
 @keyframes rotate {
