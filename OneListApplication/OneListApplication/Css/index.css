@@ -433,3 +433,9 @@ td .btn {
     height: 32px !important;
     padding-left: 10px;
 }
+
+/* --- list ---- */
+.col-md-12.form-group {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
