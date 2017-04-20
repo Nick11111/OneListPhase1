@@ -200,8 +200,8 @@ namespace OneListApplication.Controllers
                                                             new { userId = identityUser.Id, code = code },
                                                                 protocol: Request.Url.Scheme);
 
-                            string email = "Please confirm your account by clicking this link: <a href=\""
-                                            + callbackUrl + "\">Confirm Registration</a>";
+                            //string email = "Please confirm your account by clicking this link: <a href=\""
+                            //                + callbackUrl + "\">Confirm Registration</a>";
                             SendGrid.sendEmail(newUser, callbackUrl);
                             ViewBag.Result = "Please check your email to activate your account!";
                         }
@@ -439,10 +439,10 @@ namespace OneListApplication.Controllers
                 var callbackUrl = Url.Action("ResetPassword", "Home",
                                              new { userId = user.Id, code = code },
                                              protocol: Request.Url.Scheme);
-                ViewBag.FakeEmailMessage = "Please reset your password by clicking <a href=\""
-                                         + callbackUrl + "\">here</a>";
+                ViewBag.FakeEmailMessage = "Please reset your password by clicking <a href=\'"
+                                         + callbackUrl + "\'>here</a>";
                 SendGrid.sendResetEmail(user.Email, user.UserName, callbackUrl);
-                ViewBag.Success = "Please check your email to complete!";
+                ViewBag.Success = "Please check your email to reset password!";
             }
             else {
                 ViewBag.Fail = "Email not found!";
@@ -485,7 +485,7 @@ namespace OneListApplication.Controllers
                     }
                     else
                     {
-                        ViewBag.Result = "The password has not been reset.";
+                        ViewBag.Result = "Failed, password has to be at least 6 characters!";
                     }
                 }
 
@@ -510,6 +510,10 @@ namespace OneListApplication.Controllers
             OneListCAEntities context = new OneListCAEntities();
             AspNetUser user = context.AspNetUsers
                     .Where(u => u.UserName == name).FirstOrDefault();
+            if(user == null)
+            {
+                RedirectToAction("Home", "Index");
+            }
             string userId = user.Id;
             return userId;
         }

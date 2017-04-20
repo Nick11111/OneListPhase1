@@ -125,17 +125,21 @@ namespace OneListApplication.Controllers
         [HttpPost]
         public ActionResult EditSubscriberGroup(SubscriberGroupVM group)
         {
-            string errMsg = "";
-            ViewBag.EditMsg = TempData["EditMsg"];
             SubscriberRepo subscriberRepo = new SubscriberRepo();
+            SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(group.SubscriberGroupID);
             if (ModelState.IsValid)
             {
-                subscriberRepo.UpdateGroup(group, out errMsg);
-                return RedirectToAction("EditSubscriberGroup", new { id = group.SubscriberGroupID });
+                if (subscriberRepo.UpdateGroup(group))
+                {
+                    ViewBag.success = "Updated successfully!";
+                }
+                else {
+                    ViewBag.fail = "Cannot update!";
+                }
+                return View(subscriberGroup);
 
             }
             else {
-                SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(group.SubscriberGroupID);
                 return View(subscriberGroup);
             }
 

@@ -24,8 +24,10 @@
                     @Html.LabelFor(model => model.SubscriberGroupName, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.SubscriberGroupName, new { htmlAttributes = new { @class = "subscriber-input" } })
-                        @Html.ValidationMessageFor(model => model.SubscriberGroupName, "", new { @class = "text-danger" })
                         <input type="submit" value="Update" class="btn btn-default" />
+                        @Html.ValidationMessageFor(model => model.SubscriberGroupName, "", new { @class = "text-danger" })
+                        <span class="text-success">@Html.Raw(ViewBag.success)</span>
+                        <span class="text-danger">@Html.Raw(ViewBag.fail)</span>
                     </div>
                 </div>
             </div>

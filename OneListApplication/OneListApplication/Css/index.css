@@ -95,6 +95,9 @@ footer {
 }
 
 /* coupons */
+.pre-scrollable{
+    max-height: 600px !important;
+}
 #coupon > ul > div {
 
     border:1px solid slategray;

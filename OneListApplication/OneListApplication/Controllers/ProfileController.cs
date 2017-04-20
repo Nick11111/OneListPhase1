@@ -66,11 +66,11 @@ namespace OneListApplication.Controllers
                 IdentityResult result = manager.ResetPassword(userID, passwordToken, password);
                 if (result.Succeeded)
                 {
-                    ViewBag.Success = "The password has been reset.";
+                    ViewBag.Success = "The password has been reset!";
                 }
                 else
                 {
-                    ViewBag.Fail = "The password has not been reset.";
+                    ViewBag.Fail = "Failed, password has to be at least 6 characters!"; 
                 }
             }
 
