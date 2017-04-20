@@ -43,8 +43,14 @@ namespace OneListApplication.ViewModels
         [HiddenInput(DisplayValue = false)]
         public int ItemCategoryID { get; set; }
         [HiddenInput(DisplayValue = false)]
-        public int SuscribergroupID { get; set; }
-        [HiddenInput(DisplayValue = false)]
         public int UserType { get; set; }
+        //for combos
+        public IEnumerable<ListType> ListTypeCmb { get; set; }
+        public IEnumerable<SelectListItem> listTypes { get; set; }
+        public IEnumerable<SelectListItem> suscribergroups { get; set; }
+        [DisplayName("Suscriber groups")]
+        public int[] SuscribergroupID { get; set; }
+
+        
     }
 }

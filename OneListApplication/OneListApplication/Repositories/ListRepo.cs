@@ -181,6 +181,48 @@ namespace OneListApplication.Repositories
                                          select groups;
                 resultList.ListType = db.ListTypes.Where(lt => lt.ListTypeID == single.ListTypeID).Select(p => p).FirstOrDefault().TypeName;
                 //TO-DO: provide the list items for that list
+
+                //cmbtypes
+
+                List<SelectListItem> selectedLists = new List<SelectListItem>();
+                IEnumerable<ListType> currentTypes = db.ListTypes.Select(p => p);
+
+                foreach (ListType L in currentTypes)
+                {
+                    SelectListItem lFrom = new SelectListItem();
+                    lFrom.Value = L.ListTypeID.ToString();
+                    lFrom.Text = L.TypeName;
+                    if (L.ListTypeID == resultList.ListTypeID)
+                    {
+                        lFrom.Selected = true;
+                    }
+                    selectedLists.Add(lFrom);
+   
+                }
+
+                resultList.listTypes = (IEnumerable <SelectListItem>) selectedLists;
+                //cmb groups
+
+               
+                List<SelectListItem> selectedGroups = new List<SelectListItem>();
+                IEnumerable<SuscriberGroup> currentGroups = db.SuscriberGroups.Where(r => r.UserID==UserID).Select(p => p);
+
+                foreach (SuscriberGroup M in currentGroups)
+                {
+                    SelectListItem lFrom = new SelectListItem();
+                    lFrom.Value = M.SuscriberGroupID.ToString();
+                    lFrom.Text = M.SuscriberGroupName;
+                    SuscriberGroup gro = resultList.SuscriberGroup.Where(p => p.SuscriberGroupID == M.SuscriberGroupID).Select(g => g).FirstOrDefault();
+                    if (gro!=null)
+                    {
+                        lFrom.Selected = true;
+                    }
+                    selectedGroups.Add(lFrom);
+
+                }
+
+                resultList.suscribergroups = (IEnumerable<SelectListItem>)selectedGroups;
+
                 IEnumerable<ListItem> itemsList = db.ListItems.Where(l => l.ListID == id).Select(p => p);
                 var itemListFinal= new List<ListItemVM>();
 
@@ -367,6 +409,52 @@ namespace OneListApplication.Repositories
                 return false;
             }
            
+        }
+        public bool UpdateListData(int id, string name, int listType, int[] groups)
+        {
+            //update lists 
+            try
+            {
+                OneListEntitiesCore db = new OneListEntitiesCore();
+                //first, select List
+
+                List newList = db.Lists.Where(p => p.ListID == id).Select(r => r).FirstOrDefault();
+                //change name
+                newList.ListName = name;
+                //change type
+                newList.ListTypeID = listType;
+
+                //last part,delete groups first, add them again
+
+                IEnumerable<ListUser> currentGroups = db.ListUsers.Where(p => p.ListID==id).Select(r => r);
+                db.ListUsers.RemoveRange(currentGroups);
+                db.SaveChanges();
+                foreach (int group in groups)
+                {
+                    ListUser Luser = new ListUser();
+                    Luser.ListID = id;
+                    Luser.SuscriberGroupID = group;
+                    Luser.SuscriptionDate = DateTime.Today.ToShortDateString();
+
+                    db.ListUsers.Add(Luser);
+                    db.SaveChanges();
+
+                }
+
+
+
+
+                db.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+
+            return true;
         }
         public bool CreateList(ListVM list)
         {
