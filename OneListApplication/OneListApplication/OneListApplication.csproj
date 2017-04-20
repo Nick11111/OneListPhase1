@@ -373,6 +373,7 @@
     <Compile Include="UserType.cs">
       <DependentUpon>OneListCA.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CouponsVM.cs" />
     <Compile Include="ViewModels\ItemCategoryList.cs" />
     <Compile Include="ViewModels\ItemCategoryVM.cs" />
     <Compile Include="ViewModels\ItemVM.cs" />

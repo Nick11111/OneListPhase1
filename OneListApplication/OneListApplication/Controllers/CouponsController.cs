@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using OneListApplication;
 using System.Web.Http.Cors;
+using OneListApplication.ViewModels;
 
 namespace OneListApplication.Controllers
 {
@@ -20,10 +21,25 @@ namespace OneListApplication.Controllers
 
         // GET: api/Coupons
         
-        public IQueryable<Coupon> GetCoupons()
+        public IQueryable<CouponsVM> GetCoupons()
         {
             db.Configuration.ProxyCreationEnabled = false;
-            return db.Coupons.Where(p => p.EndingDate>= DateTime.Today).Select(p=>p);
+            IEnumerable<Coupon> coupons =  db.Coupons.Where(p => p.EndingDate>= DateTime.Today).Select(p=>p);
+            List<CouponsVM> couponsFinal = new List<CouponsVM>();
+            foreach (Coupon coupon in coupons)
+            {
+                CouponsVM singleCoupon = new CouponsVM();
+                singleCoupon.CouponID = coupon.CouponID;
+                singleCoupon.Description = coupon.Description;
+                singleCoupon.DiscountPercentage = coupon.DiscountPercentage;
+                singleCoupon.EndingDate = coupon.EndingDate;
+                singleCoupon.RetailID = coupon.RetailID;
+                singleCoupon.StartDate = coupon.StartDate;
+                singleCoupon.Title = coupon.Title;
+                singleCoupon.RetailName = db.Retails.Where(p => p.RetailID == singleCoupon.RetailID).Select(p => p).FirstOrDefault().Name;
+                couponsFinal.Add(singleCoupon);
+            }
+            return couponsFinal.AsQueryable();
         }
 
         // GET: api/Coupons/5
