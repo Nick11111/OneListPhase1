@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<OneListApplication.ViewModels.ListViewVM>
 
-<p>
-    @Html.ActionLink("Create New List", "CreateList","List")
-</p>
 <table class="table table-collapse table-striped">
     <thead>
         <tr>
@@ -39,5 +36,7 @@
         </tr>
     </tbody>
 }
-
 </table>
+<p>
+    @Html.ActionLink("Create New List", "CreateList", "List")
+</p>
