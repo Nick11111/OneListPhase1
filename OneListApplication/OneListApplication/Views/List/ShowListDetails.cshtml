@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("~/Views/List/_ListSideBar.cshtml")
-<div class="col-md-10">
+<div class="col-md-8 col-sm-12">
     <h2>List Details</h2>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -64,6 +64,6 @@
             </tr>
         </tbody>
     </table>
-    @Html.ActionLink("Back to Lists", "ListManagement", "Home", null, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Back to Lists", "ListManagement", "Home", null, new { @class = "btn btn-bk"})
 
 </div>

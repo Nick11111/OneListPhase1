@@ -22,7 +22,7 @@ namespace OneListApplication.ViewModels
         public IEnumerable<ListType> ListType { get; set; }
         [DisplayName("Item Category")]
         public IEnumerable<ItemCategory> ItemCategory { get; set; }
-        [DisplayName("Suscriber Group(hold shift to select more than one)")]
+        [DisplayName("Suscriber Group")]
         public IEnumerable<SuscriberGroup> SuscriberGroup { get; set; }
         [DisplayName("List Tasks")]
         public IEnumerable<ListItem> items { get; set; }
