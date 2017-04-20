@@ -5,61 +5,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("~/Views/List/_ListSideBar.cshtml")
-<div class="col-md-8 col-sm-12">
-    <h2>List Management</h2>
-    <p class="text-danger">
-        @Html.Raw(ViewBag.ErrorMsg)
-    </p>
-    <p class="text-info">
-        @Html.Raw(ViewBag.ActionMsg)
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ListName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.suscriberRole)
-            </th>
-
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+<main>
+    @Html.Partial("~/Views/List/_ListSideBar.cshtml")
+    <div class="col-md-8 col-sm-12">
+        <h2>List Management</h2>
+        <p class="text-danger">
+            @Html.Raw(ViewBag.ErrorMsg)
+        </p>
+        <p class="text-info">
+            @Html.Raw(ViewBag.ActionMsg)
+        </p>
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ListName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreationDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ListType)
-                </td>
-                <td>
-                    <ul id="suscribers">
-                        @Html.DisplayFor(modelItem => item.suscriberRole)
-                    </ul>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ListType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.suscriberRole)
+                </th>
 
-                <td>
-                    @if (item.UserType != 3)
-                    {
-                        @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
-                    }
-                    
-                    <a class="btn btn-warning" href="@Url.Action("EditList","List",  new { id = item.ListID})"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                </td>
+                <th></th>
             </tr>
-        }
 
-    </table>
-</div>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ListType)
+                    </td>
+                    <td>
+                        <ul id="suscribers">
+                            @Html.DisplayFor(modelItem => item.suscriberRole)
+                        </ul>
+                    </td>
+
+                    <td>
+                        @if (item.UserType != 3)
+                        {
+                            @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
+                        }
+
+                        <a class="btn btn-warning" href="@Url.Action("EditList","List",  new { id = item.ListID})"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</main>

@@ -32,6 +32,49 @@ var serviceUrl = &quot;http://takethisapart.com/onelist/api/coupons&quot;;
         </pre>
     </section>
     <section>
+        <h2>Get All Coupons</h2>
+        <p>Display all coupons</p>
+        <pre>
+<code>
+        function getCoupons() {
+    $(&quot;#coupons&quot;).replaceWith(&quot;&lt;span id=&apos;value1&apos;&gt;&lt;/span&gt;&quot;);
+    var method = $(&apos;#method&apos;).val();
+    $.ajax({
+        type: method,
+        url: serviceUrl
+    }).done(function (data) {
+        data.forEach(function (val) {
+            callback(val)
+        });
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        $(&apos;#value1&apos;).text(jqXHR.responseText || textStatus);
+    });
+}
+function callback(val) {
+    //  $(&quot;#manufacturers&quot;).replaceWith(&quot;&lt;span id=&apos;value1&apos;&gt;(Result)&lt;/span&gt;&quot;);
+    $(&quot;#value1&quot;).replaceWith(&quot;&lt;ul id=&apos;coupons&apos; /&gt;&quot;);
+    var couponID = val.CouponID;
+    $(&apos;&lt;div id=&quot;cup&apos;+couponID+&apos;&quot; /&gt;&apos;).appendTo($(&apos;#coupons&apos;));
+    var str = &quot;Title3: &lt;br&gt;&quot; + val.Title + &quot;&lt;/br&gt; Description: &quot; + val.Description + &quot; Discount Percentage: &quot; + val.DiscountPercentage + &quot; Start Date: &quot; + val.StartDate + &quot; Ending Date: &quot; + val.EndingDate;
+    var Title=val.Title;
+    var Description=val.Description;
+    var discount=val.DiscountPercentage;
+    var initialDate = val.StartDate;
+    var i = new Date(initialDate);
+    var begintring = &quot;Starting Date: &quot;+ i.getDate() + &quot;-&quot; + (i.getMonth() + 1) + &quot;-&quot; + i.getFullYear();
+    var expireDate = val.EndingDate;
+    var d = new Date(expireDate);
+    var datestring = &quot;Ending Date: &quot; + d.getDate() + &quot;-&quot; + (d.getMonth() + 1) + &quot;-&quot; + d.getFullYear();
+    $(&apos;&lt;b /&gt;&apos;, { text: Title }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    $(&apos;&lt;p /&gt;&apos;, { text: Description }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    $(&apos;&lt;p /&gt;&apos;, { text: begintring }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    $(&apos;&lt;p /&gt;&apos;, { text: datestring }).appendTo($(&apos;#cup&apos; + couponID + &apos;&apos;));
+    //$(&apos;&lt;hr /&gt;&apos;).appendTo($(&apos;#coupons&apos;));
+}
+</code>
+</pre>
+    </section>
+    <section>
         <h2>Add Coupon</h2>
         <p>Add coupons easily with a click calling the following method</p>
         <pre>

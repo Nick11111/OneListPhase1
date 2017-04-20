@@ -45,7 +45,7 @@
             <div class="col-lg-8">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2 class="page-header">
+                        <h2>
                             Hey, @Html.Raw(User.Identity.Name)
                         </h2>
                     </div>
@@ -60,32 +60,29 @@
                         }
                         <h4>To Do</h4>
                         <p>*Please get the lastest build</p>
-                        <p>*Will be on slack tonight for any fixes needed</p>
                         <ul>
-                            <li><a href="#">List-Sidebar: Complete Lists tab unused?(X)DONE!</a></li>
-                            <li><a href="#">List-Create: Error when adding multiple group(X)DONE</a></li>
-                            <li><a href="#">List-Create: Redirect after succesfully adding list(X)DONE</a></li>
-                            <li><a href="#">List-Edit: Make List Role not input, should not edi(X)DONEt</a></li>
-                            <li><a href="#">List-Edit: Cannot edit list name(X)DONE</a></li>
-                            <li><a href="#">List-Edit: Cannot edit list type(X)DONE</a></li>
-                            <li><a href="#">List-Edit: Feature to add a list item only for one list(X)</a></li>
-                            <li><a href="#">List-Edit: Cannot edit list subscriber groups(X)(DONE)</a></li>
-                            <li><a href="#">List-Edit: Blue 'check' button not working(X)(DONE)</a></li>
-                            <li><a href="#">List-Edit: Cannot complete list(X)DONE</a></li>
+                            <li><a href="#">List-Sidebar: Complete Lists tab unused?(X)</a></li>
+                            <li><a href="#">List-Create: Error when adding multiple group(X)</a></li>
+                            <li><a href="#">List-Create: Redirect after succesfully adding list(X)</a></li>
+                            <li><a href="#">List-Edit: Make List Role not input, should not edit</a></li>
+                            <li><a href="#">List-Edit: Cannot edit list name(X)</a></li>
+                            <li><a href="#">List-Edit: Cannot edit list type(X)</a></li>
+                            <li><a href="#">List-Edit: Cannot edit list subscriber groups(X)</a></li>
+                            <li><a href="#">List-Edit: Blue 'check' button not working(X)</a></li>
+                            <li><a href="#">List-Edit: Cannot complete list(X)</a></li>
                             <li><a href="#">API: Show Retailer on API(X)</a></li>
-                            <li><a href="#">API: Only show valid coupons(X)(DONE)</a></li>
-                            <li><a href="#">API: Add scroll(X)(DONE)</a></li>
-                            <li><a href="#">API: Add loading button(X)(DONE)</a></li>
-                            <li><a href="#">CSS: mobile responsive(M)</a></li>
+                            <li><a href="#">API: Only show valid coupons(X)</a></li>
+                            <li><a href="#">API: Add scroll(X)</a></li>
                             <li><a href="#">Validation: Add Validation/Error message for all(N)</a></li>
                             <li><a href="#">Validation: User Profile Edit no server side validation(N)</a></li>
+                            <li><a href="#">Handin: Clean Dummy data(M)</a></li>
                             <li><a href="#">Handin: Make sure SQL document is up-to-date(X)</a></li>
+                            <li><a href="#">Handin: Update ERD for SQL, it's been modified(X)</a></li>
                             <li><a href="#">Handin: Documentation on how to install this project(M)</a></li>
-                            <li><a href="#">Handin: Modify functional requirement docs on design document(M)</a></li>
-                            <li><a href="#">Handin: Review functional checklist</a></li>
+                            <li><a href="#">Handin: Review functional checklist(X+M+N)</a></li>
                             <li><a href="#">Handin: Formatting(M)</a></li>
-                            <li><a href="#">Handin: Packaging</a></li>
-                            <li><a href="#">Handin: Change user/admin name and password(M)</a></li>
+                            <li><a href="#">Handin: Packaging(M)</a></li>
+                            <li><a href="#">Handin: Change user/admin name and password(N)</a></li>
                             <li><a href="#">Add ReadMe on Github/Packaging guide(M)</a></li>
                         </ul>
                     </div>
@@ -141,10 +138,10 @@
                 <!-- /.container-fluid -->
             </div>
 
-            <div id="coupon" class="col-lg-4 pre-scrollable" >
+            <div id="coupon" class="col-lg-4">
                 <h3>Our Specials</h3>
-                <span id='value1'><br />
-                    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                <span id='value1'>
+                   <i class="fa fa-refresh" aria-hidden="true"></i>Loading coupons 
                 </span>
             </div>
             <!-- /#page-wrapper -->

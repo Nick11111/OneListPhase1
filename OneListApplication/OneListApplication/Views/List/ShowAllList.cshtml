@@ -1,9 +1,6 @@
 ﻿@model IEnumerable<OneListApplication.ViewModels.ListViewVM>
 
-<p>
-    @Html.ActionLink("Create New List", "CreateList","List")
-</p>
-<table class="table table-collapse">
+<table class="table table-collapse table-striped">
     <thead>
         <tr>
             <th>
@@ -14,9 +11,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ListStatusID)
             </th>
             <th></th>
         </tr>
@@ -35,9 +29,6 @@
             <td data-title="Creation Date">
                 @Html.DisplayFor(modelItem => item.CreationDate)
             </td>
-            <td data-title="List Status">
-                @Html.DisplayFor(modelItem => item.ListStatusID)
-            </td>
             <td>
                 @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
                 <a class="btn btn-danger" href="@Url.Action("DeleteList","List",  new { id = item.ListID})"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
@@ -45,5 +36,7 @@
         </tr>
     </tbody>
 }
-
 </table>
+<p>
+    @Html.ActionLink("Create New List", "CreateList", "List")
+</p>
