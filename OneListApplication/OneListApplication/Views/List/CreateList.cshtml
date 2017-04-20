@@ -5,73 +5,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Html.Partial("~/Views/List/_ListSideBar.cshtml")
+<main>
+    @Html.Partial("~/Views/List/_ListSideBar.cshtml")
 
-<div class="col-md-8 col-sm-12">
-    <h2>Create List</h2>
-    <p class="text-danger">
-        @Html.Raw(ViewBag.ErrorMsg)
-    </p>
-    <p class="text-info">
-        @Html.Raw(ViewBag.ActionMsg)
-    </p>
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <div class="form-horizontal">
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(model => model.ListName, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ListName, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ListName, "", new { @class = "text-danger" })
-                    <p class="text-danger">@Html.Raw(ViewBag.InputErrorMsg)</p>
+    <div class="col-md-8 col-sm-12">
+        <h2>Create List</h2>
+        <p class="text-danger">
+            @Html.Raw(ViewBag.ErrorMsg)
+        </p>
+        <p class="text-info">
+            @Html.Raw(ViewBag.ActionMsg)
+        </p>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ListName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ListName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ListName, "", new { @class = "text-danger" })
+                        <p class="text-danger">@Html.Raw(ViewBag.InputErrorMsg)</p>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ListType, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <select name="ListType">
-                        @foreach (var item in Model.ListType)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ListType, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select name="ListType">
+                            @foreach (var item in Model.ListType)
                 {
-                            <option value="@item.ListTypeID">@item.TypeName</option>
-                        }
-                    </select>
+                                <option value="@item.ListTypeID">@item.TypeName</option>
+                            }
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <select name="ItemCategory">
-                        @foreach (var item in Model.ItemCategory)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ItemCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <select name="ItemCategory">
+                            @foreach (var item in Model.ItemCategory)
                 {
-                            <option value="@item.ItemCategoryID">@item.ItemCategoryName</option>
-                        }
-                    </select>
+                                <option value="@item.ItemCategoryID">@item.ItemCategoryName</option>
+                            }
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.SuscriberGroup, htmlAttributes: new { @class = "control-label col-md-2" })
-                <p class="col-md-10">Hold Shift to select multiple</p>
-                <div class="col-md-10">
-                    <select multiple id="Groups" name="SuscriberGroup">
-                        @foreach (var item in Model.SuscriberGroup)
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SuscriberGroup, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <p class="col-md-10">Hold Shift to select multiple</p>
+                    <div class="col-md-10">
+                        <select multiple id="Groups" name="SuscriberGroup">
+                            @foreach (var item in Model.SuscriberGroup)
                 {
-                            <option value="@item.SuscriberGroupID">@item.SuscriberGroupName</option>
-                        }
-                    </select>
+                                <option value="@item.SuscriberGroupID">@item.SuscriberGroupName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-bk" />
+                    </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-bk" />
-                </div>
-            </div>
-        </div>
-    }
-</div>
-
+        }
+    </div>
+</main>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

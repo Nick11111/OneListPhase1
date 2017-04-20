@@ -27,6 +27,17 @@ img {
 #listType h4{
     clear:both;
 }
+
+.fa-refresh {
+    font-size: 1.2em;
+    animation-name: rotate;
+    animation-duration: 2s;
+}
+
+@keyframes rotate {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
 /*  form select tag styles */
 select {
     height: 40px;
@@ -324,18 +335,18 @@ footer {
     margin-bottom: 20px;
 }
 
-.project-description table {
-    max-width: 500px;
+.table-striped {
+
     border: 2px solid slategrey;
 }
 
-.project-description .table > thead > tr >th {
+.table-striped > thead > tr >th {
     background-color: slategrey;
     color:white;
     border-bottom: 2px solid slategrey !important;
 }
 
-.project-description table td {
+.table-striped td {
     color:slategrey;
 }
 
