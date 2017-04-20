@@ -433,10 +433,13 @@
     <Content Include="OneListCA.edmx.diagram">
       <DependentUpon>OneListCA.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Data\InstallationGuide.pdf" />
     <None Include="Properties\PublishProfiles\OneList.pubxml" />
     <None Include="Properties\PublishProfiles\takethisapart.com - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\takethisapart.com - Web Deploy.pubxml" />
     <Content Include="Views\Home\GetDesignDocument.cshtml" />
+    <None Include="Properties\PublishProfiles\xaviermercado.me - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\xaviermercado.me - Web Deploy.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
