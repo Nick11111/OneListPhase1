@@ -113,7 +113,7 @@ namespace OneListApplication.Controllers
             string errMsg = "";
             ItemRepo itemRepo = new ItemRepo();
             itemRepo.DeleteItem(id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
+            TempData["ItemActionMsg"] = errMsg;
             return RedirectToAction("ItemManagement");
         }
         //---------------Actions for Item Categories, group == category----------------//
