@@ -26,7 +26,14 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult AddSubscriberGroup()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpPost]
         public ActionResult AddSubscriberGroup(SubscriberGroupVM subscriberGroup)
@@ -54,72 +61,121 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult SubscriberGroupManagement()
         {
-            string publisherID = FindUserID();
-            ViewBag.ActionMsg = TempData["ActionMsg"];
-            SubscriberRepo subscriberRepo = new SubscriberRepo();
-            IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups(publisherID);
-            return View(subscriberGroups);
+            if (Request.IsAuthenticated)
+            {
+                string publisherID = FindUserID();
+                ViewBag.ActionMsg = TempData["ActionMsg"];
+                SubscriberRepo subscriberRepo = new SubscriberRepo();
+                IEnumerable<SubscriberGroupVM> subscriberGroups = subscriberRepo.GetSubscriberGroups(publisherID);
+                return View(subscriberGroups);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpGet]
         public ActionResult DeleteSubscriberGroup(int id)
         {
-            string errMsg = "";
-            string publisherID = FindUserID();
-            SubscriberRepo subscriberRepo = new SubscriberRepo();
-            subscriberRepo.DeleteGroup(publisherID, id, out errMsg);
-            TempData["ActionMsg"] = errMsg;
-            return RedirectToAction("SubscriberGroupManagement");
-        }
-        [HttpPost]
-        public ActionResult AddSubscriberToGroup(SubscriberGroupVM subGroup) {
-            
-            string errMsg = "";
-            SubscriberRepo subscriberRepo = new SubscriberRepo();
-            if (ModelState.IsValid)
-            { 
-                subscriberRepo.AddUserToGroup(subGroup,out errMsg);
-                TempData["EditMsg"] = errMsg;
+            if (Request.IsAuthenticated)
+            {
+                string errMsg = "";
+                string publisherID = FindUserID();
+                SubscriberRepo subscriberRepo = new SubscriberRepo();
+                subscriberRepo.DeleteGroup(publisherID, id, out errMsg);
+                TempData["ActionMsg"] = errMsg;
+                return RedirectToAction("SubscriberGroupManagement");
             }
             else
             {
-                TempData["EditMsg"] = "Cannot add user to group.";
+                return RedirectToAction("Login", "Home");
             }
-            SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(subGroup.SubscriberGroupID);
-            return RedirectToAction("EditSubscriberGroup", new { id = subGroup.SubscriberGroupID });
+        }
+        [HttpPost]
+        public ActionResult AddSubscriberToGroup(SubscriberGroupVM subGroup) {
+
+            if (Request.IsAuthenticated)
+            {
+                string errMsg = "";
+                SubscriberRepo subscriberRepo = new SubscriberRepo();
+                if (ModelState.IsValid)
+                {
+                    subscriberRepo.AddUserToGroup(subGroup, out errMsg);
+                    TempData["EditMsg"] = errMsg;
+                }
+                else
+                {
+                    TempData["EditMsg"] = "Cannot add user to group.";
+                }
+                SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(subGroup.SubscriberGroupID);
+                return RedirectToAction("EditSubscriberGroup", new { id = subGroup.SubscriberGroupID });
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         public ActionResult DeleteSubscriber(string userId, int id) {
-            string errMsg = "";
-            SubscriberRepo subscriberRepo = new SubscriberRepo();
-            subscriberRepo.DeleteSubscriber(userId, id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
-            return RedirectToAction("EditSubscriberGroup", new { id = id});
+            if (Request.IsAuthenticated)
+            {
+                string errMsg = "";
+                SubscriberRepo subscriberRepo = new SubscriberRepo();
+                subscriberRepo.DeleteSubscriber(userId, id, out errMsg);
+                ViewBag.ErrorMsg = errMsg;
+                return RedirectToAction("EditSubscriberGroup", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         public ActionResult ChangeSubscriberType(string userId, int id)
         {
-            string errMsg = "";
-            SubscriberRepo subscriberRepo = new SubscriberRepo();
-            subscriberRepo.ChangeSubscriberType(userId, id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
-            return RedirectToAction("EditSubscriberGroup", new { id = id });
+            if (Request.IsAuthenticated)
+            {
+                string errMsg = "";
+                SubscriberRepo subscriberRepo = new SubscriberRepo();
+                subscriberRepo.ChangeSubscriberType(userId, id, out errMsg);
+                ViewBag.ErrorMsg = errMsg;
+                return RedirectToAction("EditSubscriberGroup", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpGet]
         public ActionResult ChangeSubscriberStatus(string userId, int id)
         {
-            string errMsg = "";
-            SubscriberRepo subscriberRepo = new SubscriberRepo();
-            subscriberRepo.ChangeSubscriberStatus(userId, id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
-            return RedirectToAction("EditSubscriberGroup", new { id = id });
+            if (Request.IsAuthenticated)
+            {
+                string errMsg = "";
+                SubscriberRepo subscriberRepo = new SubscriberRepo();
+                subscriberRepo.ChangeSubscriberStatus(userId, id, out errMsg);
+                ViewBag.ErrorMsg = errMsg;
+                return RedirectToAction("EditSubscriberGroup", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpGet]
         public ActionResult EditSubscriberGroup(int id)
         {
-            SubscriberRepo subscriberRepo = new SubscriberRepo();
-            SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(id);
-            return View(subscriberGroup);
+            if (Request.IsAuthenticated)
+            {
+                SubscriberRepo subscriberRepo = new SubscriberRepo();
+                SubscriberGroupVM subscriberGroup = subscriberRepo.GetGroupDetails(id);
+                return View(subscriberGroup);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpPost]

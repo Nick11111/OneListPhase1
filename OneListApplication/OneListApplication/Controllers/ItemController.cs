@@ -22,20 +22,34 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemManagement()
         {
-            ViewBag.ItemActionMsg = TempData["ItemActionMsg"];
-            string userId = FindUserID();
-            ItemRepo itemRepo = new ItemRepo();
-            IEnumerable<ItemVM> items = itemRepo.GetAll(userId);
-            return View(items);
+
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.ItemActionMsg = TempData["ItemActionMsg"];
+                string userId = FindUserID();
+                ItemRepo itemRepo = new ItemRepo();
+                IEnumerable<ItemVM> items = itemRepo.GetAll(userId);
+                return View(items);
+            }
+            else {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpGet]
         public ActionResult CreateItem()
         {
-            var model = new ItemVM
+            if (Request.IsAuthenticated)
             {
-                ItemCategoryList = GetCategories()
-            };
-            return View(model);
+                var model = new ItemVM
+                {
+                    ItemCategoryList = GetCategories()
+                };
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         private IEnumerable<SelectListItem> GetCategories()
@@ -71,18 +85,32 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemDetail(int id)
         {
-            ItemRepo itemRepo = new ItemRepo();
-            return View(itemRepo.GetDetails(id));
+            if (Request.IsAuthenticated)
+            {
+                ItemRepo itemRepo = new ItemRepo();
+                return View(itemRepo.GetDetails(id));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpGet]
         public ActionResult EditItem(int id)
         {
-            ItemRepo itemRepo = new ItemRepo();
-            ItemVM item = itemRepo.GetDetails(id);
-            ViewBag.Categories = new SelectList(GetCategories(), "Value",
-                             "Text", id);
-            return View(item);
+            if (Request.IsAuthenticated)
+            {
+                ItemRepo itemRepo = new ItemRepo();
+                ItemVM item = itemRepo.GetDetails(id);
+                ViewBag.Categories = new SelectList(GetCategories(), "Value",
+                                 "Text", id);
+                return View(item);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpPost]
         public ActionResult EditItem(ItemVM item)
@@ -110,26 +138,46 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult DeleteItem(int id)
         {
-            string errMsg = "";
-            ItemRepo itemRepo = new ItemRepo();
-            itemRepo.DeleteItem(id, out errMsg);
-            ViewBag.ErrorMsg = errMsg;
-            return RedirectToAction("ItemManagement");
+            if (Request.IsAuthenticated)
+            {
+                string errMsg = "";
+                ItemRepo itemRepo = new ItemRepo();
+                itemRepo.DeleteItem(id, out errMsg);
+                ViewBag.ErrorMsg = errMsg;
+                return RedirectToAction("ItemManagement");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         //---------------Actions for Item Categories, group == category----------------//
         [HttpGet]
         public ActionResult ItemCategoryManagement()
         {
-            ViewBag.ItemCategoryActionMsg = TempData["ItemCategoryActionMsg"];
-            string userId = FindUserID();
-            ItemRepo itemRepo = new ItemRepo();
-            IEnumerable<ItemCategoryVM> items = itemRepo.GetItemCategories(userId);
-            return View(items);
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.ItemCategoryActionMsg = TempData["ItemCategoryActionMsg"];
+                string userId = FindUserID();
+                ItemRepo itemRepo = new ItemRepo();
+                IEnumerable<ItemCategoryVM> items = itemRepo.GetItemCategories(userId);
+                return View(items);
+            }
+            else {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpGet]
         public ActionResult CreateItemCategory()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
         [HttpPost]
         public ActionResult CreateItemCategory(ItemCategoryVM itemCategory)
@@ -151,16 +199,30 @@ namespace OneListApplication.Controllers
         [HttpGet]
         public ActionResult ItemCategoryDetail(int id)
         {
-            ItemRepo itemRepo = new ItemRepo();
-            return View(itemRepo.GetCategoryDetails(id));
+            if (Request.IsAuthenticated)
+            {
+                ItemRepo itemRepo = new ItemRepo();
+                return View(itemRepo.GetCategoryDetails(id));
+            }
+
+            else{
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpGet]
         public ActionResult EditItemCategory(int id)
         {
-            ItemRepo itemRepo = new ItemRepo();
-            ItemCategoryVM itemCategory = itemRepo.GetCategoryDetails(id);
-            return View(itemCategory);
+            if (Request.IsAuthenticated)
+            {
+                ItemRepo itemRepo = new ItemRepo();
+                ItemCategoryVM itemCategory = itemRepo.GetCategoryDetails(id);
+                return View(itemCategory);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         [HttpPost]
@@ -185,11 +247,18 @@ namespace OneListApplication.Controllers
 
         [HttpGet]
         public ActionResult DeleteItemCategory(int id) {
-            string errMsg = "";
-            ItemRepo itemRepo = new ItemRepo();
-            itemRepo.DeleteItemCategory(id, out errMsg);
-            TempData["ItemCategoryActionMsg"] = errMsg;
-            return RedirectToAction("ItemCategoryManagement");
+            if (Request.IsAuthenticated)
+            {
+                string errMsg = "";
+                ItemRepo itemRepo = new ItemRepo();
+                itemRepo.DeleteItemCategory(id, out errMsg);
+                TempData["ItemCategoryActionMsg"] = errMsg;
+                return RedirectToAction("ItemCategoryManagement");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
     }
 }
