@@ -22,10 +22,16 @@ namespace OneListApplication.Controllers
         }
         public ActionResult CreateList()
         {
-            ListRepo rep = new ListRepo();
-            string userID = FindUserID();
-            ListVM cleanList = rep.CreateList(userID);
-            return View(cleanList);
+            if (Request.IsAuthenticated)
+            {
+                ListRepo rep = new ListRepo();
+                string userID = FindUserID();
+                ListVM cleanList = rep.CreateList(userID);
+                return View(cleanList);
+            }
+            else {
+                return RedirectToAction("Login", "Home");
+            }
         }
         public ActionResult CompleteList(int id)
         {
@@ -152,22 +158,23 @@ namespace OneListApplication.Controllers
         public ActionResult EditList(int id)
         {
             //send the information to get the list and the user type
-            string userID = FindUserID();
-            ListRepo repw = new ListRepo();
-            ListViewVM list = repw.getList(id, userID);
-            if (list.ListID == 0)
+
+            if (!Request.IsAuthenticated)
             {
+
                 //that list doesnt exist or he has no rights for that list, return to list management
-                ViewBag.ErrorMsg = "The selected list  doesn't exist or you have no acces to it.";
-                return RedirectToAction("ListManagement", "Home");
+                return RedirectToAction("Login", "Home");
 
             }
             else
             {
+                string userID = FindUserID();
+                ListRepo repw = new ListRepo();
+                ListViewVM list = repw.getList(id, userID);
                 //show list 
                 return View(list);
             }
-            
+
         }
 
         public ActionResult DeleteList(int id)
@@ -201,20 +208,33 @@ namespace OneListApplication.Controllers
 
         public ActionResult ShowSubscribedList()
         {
-            string UserID = FindUserID();
-            ListRepo r = new ListRepo();
-            IEnumerable<ListViewVM> listsummary = r.GetSuscribedLists(UserID);
+            if (Request.IsAuthenticated)
+            {
+                string UserID = FindUserID();
+                ListRepo r = new ListRepo();
+                IEnumerable<ListViewVM> listsummary = r.GetSuscribedLists(UserID);
 
-            return View(listsummary);
+                return View(listsummary);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         public ActionResult ShowCompleteList()
         {
-            string UserID = FindUserID();
-            ListRepo r = new ListRepo();
-            IEnumerable<ListViewVM> listsummary = r.GetCompletedLists(UserID);
+            if (Request.IsAuthenticated)
+            {
 
-            return View(listsummary);
+                string UserID = FindUserID();
+                ListRepo r = new ListRepo();
+                IEnumerable<ListViewVM> listsummary = r.GetCompletedLists(UserID);
+                return View(listsummary);
+            }
+            else {
+                return RedirectToAction("Login", "Home");
+            }
         }
         public ActionResult ShowAllList()
         {

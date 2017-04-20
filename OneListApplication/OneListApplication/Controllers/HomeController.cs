@@ -498,11 +498,16 @@ namespace OneListApplication.Controllers
 
     public ActionResult Home()
         {
-            ViewBag.UserName = User.Identity.Name;
-            ListRepo r = new ListRepo();
-            IEnumerable<ListViewVM> listsummary = r.GetLists(FindUserID());
-
-            return View(listsummary);
+            if (Request.IsAuthenticated)
+            {
+                ViewBag.UserName = User.Identity.Name;
+                ListRepo r = new ListRepo();
+                IEnumerable<ListViewVM> listsummary = r.GetLists(FindUserID());
+                return View(listsummary);
+            }
+            else {
+                return RedirectToAction("Login", "Home");
+            }
         }
         public string FindUserID()
         {
@@ -510,21 +515,23 @@ namespace OneListApplication.Controllers
             OneListCAEntities context = new OneListCAEntities();
             AspNetUser user = context.AspNetUsers
                     .Where(u => u.UserName == name).FirstOrDefault();
-            if(user == null)
-            {
-                RedirectToAction("Home", "Index");
-            }
-            string userId = user.Id;
+            string userId = user.Id; 
             return userId;
         }
         public ActionResult ListManagement()
         {
             //bring List per user
-            string UserID = FindUserID();
-            ListRepo r = new ListRepo();
-            IEnumerable<ListViewVM> listsummary = r.GetLists(UserID);
-            
-           return View(listsummary);
+            if (Request.IsAuthenticated)
+            {
+                string UserID = FindUserID();
+                ListRepo r = new ListRepo();
+                IEnumerable<ListViewVM> listsummary = r.GetLists(UserID);
+
+                return View(listsummary);
+            }
+            else {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         public ActionResult SubscriberManagement()
