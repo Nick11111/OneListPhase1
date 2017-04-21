@@ -229,8 +229,15 @@ namespace OneListApplication.Controllers
                 string UserID = FindUserID();
                 ListRepo r = new ListRepo();
                 IEnumerable<ListViewVM> listsummary = r.GetSuscribedLists(UserID);
-
-                return View(listsummary);
+                if (listsummary != null)
+                {
+                    return View(listsummary);
+                }
+                else
+                {
+                    return RedirectToAction("ListManagement", "Home");
+                }
+               
             }
             else
             {
