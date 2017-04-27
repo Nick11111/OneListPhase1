@@ -248,7 +248,7 @@ namespace OneListApplication.Repositories
                         addItem.ListItemCost = 0;
                     }
                     
-                    addItem.listItemName = db.Items.Where(i => i.ItemID == l.ItemID).Select(p => p).First().ItemDescription;
+                    addItem.listItemName = db.Items.Where(i => i.ItemID == l.ItemID).Select(p => p).First().ItemName;
                     //finally adding the itemlist to the  vm
                     itemListFinal.Add(addItem);
                 }
@@ -354,7 +354,7 @@ namespace OneListApplication.Repositories
                                               on list.ListID equals luser.ListID
                                           join SuscriberGroupUser sg in db.SuscriberGroupUsers
                                               on luser.SuscriberGroupID equals sg.SuscriberGroupID
-                                          where sg.UserID == UserID
+                                          where sg.UserID == UserID && sg.UserTypeID != 1
                                           select list;
 
                 IEnumerable<SuscriberGroupUser> user = from list in db.Lists
@@ -362,7 +362,7 @@ namespace OneListApplication.Repositories
                                                            on list.ListID equals luser.ListID
                                                        join SuscriberGroupUser sg in db.SuscriberGroupUsers
                                                            on luser.SuscriberGroupID equals sg.SuscriberGroupID
-                                                       where sg.UserID == UserID
+                                                       where sg.UserID == UserID && sg.UserTypeID != 1
                                                        select sg;
                 SuscriberGroupUser userFinal = user.First();
 

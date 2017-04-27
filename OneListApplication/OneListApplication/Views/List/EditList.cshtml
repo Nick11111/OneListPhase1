@@ -15,7 +15,15 @@
         @Html.Raw(ViewBag.ActionMsg)
         @Html.Raw(TempData["ActionMsg"])
     </p>
-    <h2>Edit List</h2>
+    @if (Model.ListStatusID != 3)
+    {
+        <h2>Edit List</h2>
+    }
+    else
+    {
+        <h2>List Detail</h2>
+    }
+    
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -123,13 +131,45 @@
                                             <td>@item.listItemName</td>
                                             @if (Model.ListTypeID == 2)
                                             {
-                                                <td><input id="cost" @item.ItemID type="text" value="@item.ListItemCost" /></td>
+                                                if (Model.ListStatusID != 3)
+                                                {
+                                                    if (Model.suscriberRole == "List Subscriber")
+                                                    {
+                                                        <td><input disabled="disabled" id="cost" @item.ItemID type="text" value="@item.ListItemCost" /></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><input id="cost" @item.ItemID type="text" value="@item.ListItemCost" /></td>
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <td><input disabled="disabled" id="cost" @item.ItemID type="text" value="@item.ListItemCost" /></td>
+                                                }
+
                                             }
                                             else
                                             {
                                                 <td hidden="hidden"><input id="cost" @item.ItemID type="text" value="@item.ListItemCost" /></td>
                                             }
-                                            <td><input id="notes" @item.ItemID type="text" value="@item.ListItemNotes" /></td>
+                                            @if (Model.ListStatusID != 3)
+                                            {
+                                                if (Model.suscriberRole == "List Subscriber")
+                                                {
+                                                    <td><input id="notes" disabled="disabled" type="text" value="@item.ListItemNotes" /></td>
+                                                }
+                                                else
+                                                {
+                                                    <td><input id="notes" @item.ItemID type="text" value="@item.ListItemNotes" /></td>
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <td><input id="notes" disabled="disabled" type="text" value="@item.ListItemNotes" /></td>
+                                            }
+                                            
                                             <td>@item.ListItemSolverName</td>
                                             <td>
                                                 @if (Model.UserType == 0 && Model.ListStatusID != 3 || Model.UserType == 2 && Model.ListStatusID != 3)

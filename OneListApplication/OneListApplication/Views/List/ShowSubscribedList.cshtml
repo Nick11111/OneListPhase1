@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<OneListApplication.ViewModels.ListViewVM>
 
 @{
-    ViewBag.Title = "Suscribed Lists";
+    ViewBag.Title = "Subscribed Lists";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -54,10 +54,15 @@
                     <td>
                         @if (item.UserType != 3)
                         {
-                            @Html.ActionLink("Edit List", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
+                            if (item.ListStatusID == 3)
+                            {
+                                <a class="btn btn-default" href="@Url.Action("EditList","List",  new { id = item.ListID})">Completed</a>
+                            }
+                            else
+                            {
+                                @Html.ActionLink("View", "EditList", "List", new { id = item.ListID }, new { @class = "btn btn-bk" })
+                            }
                         }
-
-                        <a class="btn btn-warning" href="@Url.Action("EditList","List",  new { id = item.ListID})"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     </td>
                 </tr>
             }
